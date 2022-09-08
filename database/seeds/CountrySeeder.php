@@ -13,7 +13,7 @@ class CountrySeeder extends Seeder
     public function run()
     {
 
-        DB::table('country')->delete();
+        DB::table('countries')->delete();
 
         $countries = array(
             array('id' => '1','iso' => 'AF','name' => 'AFGHANISTAN','nicename' => 'Afghanistan','iso3' => 'AFG','numcode' => '4','phonecode' => '93'),
@@ -271,7 +271,7 @@ class CountrySeeder extends Seeder
             array('id' => '253','iso' => 'SS','name' => 'SOUTH SUDAN','nicename' => 'South Sudan','iso3' => 'SSD','numcode' => '728','phonecode' => '211')
         );
 
-        DB::table('country')->insert($countries);
+        DB::table('countries')->insert($countries);
 
     }
 }

@@ -53,6 +53,15 @@
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Select Country:</label>
+                            <select class="form-select">
+                                @foreach ($countries as $country)
+                                    <option value="{{$country->id}}">{{$country->name}} - {{$country->code}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
