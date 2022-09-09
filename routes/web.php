@@ -14,7 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/conferences', function () {
+    return view('conferences');
+});
+Route::get('/create', function () {
+    return view('create');
+});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/conferences', 'HomeController@index')->name('conferences');
