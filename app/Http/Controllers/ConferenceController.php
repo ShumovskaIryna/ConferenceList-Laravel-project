@@ -15,9 +15,12 @@ class ConferenceController extends Controller
        $conferences =new Conference();
        $conferences->name = $request->input('name');
        $conferences->date = $request->input('date');
-
        $conferences->save();
-       return redirect()->route('conferences')->with('success', 'Conference was created');
 
+       return redirect()->route('conferences_all')->with('success', 'Conference was created');
+
+    }
+    public function allData(){
+        return view('messages', ['data' => Conference::all()]);
     }
 }

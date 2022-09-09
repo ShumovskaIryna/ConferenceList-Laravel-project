@@ -6,19 +6,12 @@
             <div class="title m-b-md">
                 My Conference
             </div>
-            @if (session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
+            @foreach($data as $el)
+                <div class="alert alert-success">
+                    <h3>{{ $el->name }}</h3>
                 </div>
-            @endif
-
-{{--            @foreach($data as $el)--}}
-{{--                <div class="alert alert-success" role="alert">--}}
-{{--                    <h3>{{ $el->name }}</h3>--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
+            @endforeach
         </div>
-
         @if (Route::has('login'))
             <div class="top-right links">
                 @auth

@@ -23,6 +23,9 @@ Route::get('/create', function () {
     return view('create');
 })->name('conferences');
 
+Route::get('/conferences/all', 'ConferenceController@allData')
+    ->name('conferences_all');
+
 Route::post('/conferences', 'ConferenceController@create')
     ->name('conferences');
 
