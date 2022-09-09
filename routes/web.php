@@ -13,14 +13,20 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
 Route::get('/conferences', function () {
     return view('conferences');
-});
+})->name('conferences');
+
 Route::get('/create', function () {
     return view('create');
-});
+})->name('conferences');
+
+Route::post('/conferences', 'ConferenceController@create')
+    ->name('conferences');
 
 Auth::routes();
 
-Route::get('/conferences', 'HomeController@index')->name('conferences');
+Route::get('/conferences', 'HomeController@index')
+    ->name('conferences');

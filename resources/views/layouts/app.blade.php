@@ -17,7 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <style>
         html, body {
             background-color: #fff;
@@ -33,7 +34,7 @@
         }
 
         .flex-center {
-            align-items: center;
+            /*align-items: center;*/
             display: flex;
             justify-content: center;
         }
@@ -53,7 +54,7 @@
         }
 
         .title {
-            font-size: 84px;
+            font-size: 54px;
         }
 
         .links > a {

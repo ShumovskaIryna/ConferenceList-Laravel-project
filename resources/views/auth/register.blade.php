@@ -90,15 +90,15 @@
                         </div>
                         {{--Role--}}
                         <div class="form-group row">
-                            <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Register as') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Register as') }}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control @error('role_id') is-invalid @enderror" name="role_id" id="role_id" required>
-                                    <option value="1">Listener</option>
-                                    <option value="2">Announcer</option>
+                                <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required>
+                                    <option value="LISTENER">Listener</option>
+                                    <option value="ANNOUNCER">Announcer</option>
                                 </select>
 
-                                @error('role_id')
+                                @error('role')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

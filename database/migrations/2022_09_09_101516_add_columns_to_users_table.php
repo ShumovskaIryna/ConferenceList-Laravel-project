@@ -14,8 +14,8 @@ class AddColumnsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-//            $table->enum('role', ['LISTENER', 'ANNOUNCER', 'GUEST', 'ADMIN'])->default('GUEST');
-            $table->unsignedBigInteger('role_id')->nullable();
+            $table->enum('role', ['LISTENER', 'ANNOUNCER', 'GUEST', 'ADMIN'])->default('LISTENER');
+//          $table->unsignedBigInteger('role_id')->nullable();
             $table->string('birthdate')->nullable();
             $table->string('countries')->nullable();
             $table->string('phone')->nullable();
