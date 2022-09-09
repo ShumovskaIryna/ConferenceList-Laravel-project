@@ -53,20 +53,30 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Select Country:</label>
-                            <select class="form-select">
-                                @foreach ($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->name}} - {{$country->code}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                            <div class="col-md-6">
+                                    <select class="form-control @error('country') is-invalid @enderror" name="country" id="country" required style="max-width: 170px; float: left;">
+                                        <option value="" selected disabled>Select Country</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->nicename}} + {{$country->phonecode}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="" value="{{ old('phone') }}" required autocomplete="phone" autofocus style="width: 150px; float: left;">
+
+                                @error('country')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

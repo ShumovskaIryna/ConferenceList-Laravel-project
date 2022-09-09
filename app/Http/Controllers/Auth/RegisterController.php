@@ -79,7 +79,6 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $countries = Country::all();
-//        $states = State::all();
 
         return view('auth.register', compact('countries'));
     }
