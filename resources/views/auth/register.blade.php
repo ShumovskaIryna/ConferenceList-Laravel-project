@@ -10,21 +10,49 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
+                        {{--First Name--}}
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
 
-                                @error('name')
+                                @error('first_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
+                        {{--Last Name--}}
+                        <div class="form-group row">
+                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
+
+                                @error('last_name')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        {{--Birthdate--}}
+                        <div class="form-group row">
+                            <label for="birthdate" class="col-md-4 col-form-label text-md-right">{{ __('Birthdate') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="datetime-local" id="birthdate" name="birthdate" value="birthdate" max={new Date().toISOString().substring(0, 16),}/>
+
+                                @error('birthdate')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        {{--E-Mail Address--}}
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -38,7 +66,7 @@
                                 @enderror
                             </div>
                         </div>
-
+                        {{--Password--}}
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -52,7 +80,7 @@
                                 @enderror
                             </div>
                         </div>
-
+                        {{--Confirm Password--}}
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -60,11 +88,28 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
+                        {{--Role--}}
                         <div class="form-group row">
-                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                            <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Register as') }}</label>
+
                             <div class="col-md-6">
-                                    <select class="form-control @error('country') is-invalid @enderror" name="country" id="country" required style="max-width: 170px; float: left;">
+                                <select class="form-control @error('role_id') is-invalid @enderror" name="role_id" id="role_id" required>
+                                    <option value="1">Listener</option>
+                                    <option value="2">Announcer</option>
+                                </select>
+
+                                @error('role_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        {{--Country & Phone--}}
+                        <div class="form-group row">
+                            <label for="countries" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+                            <div class="col-md-6">
+                                    <select class="form-control @error('countries') is-invalid @enderror" name="countries" id="countries" required style="max-width: 170px; float: left;">
                                         <option value="" selected disabled>Select Country</option>
                                         @foreach ($countries as $country)
                                             <option value="{{$country->id}}">{{$country->nicename}} + {{$country->phonecode}}</option>
@@ -73,6 +118,11 @@
                                     <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="" value="{{ old('phone') }}" required autocomplete="phone" autofocus style="width: 150px; float: left;">
 
                                 @error('country')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
