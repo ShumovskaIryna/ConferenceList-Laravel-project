@@ -70,6 +70,10 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+        .form-label{
+            justify-content: start;
+        }
+
     </style>
 </head>
 <body>

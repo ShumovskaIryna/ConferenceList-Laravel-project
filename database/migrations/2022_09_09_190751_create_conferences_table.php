@@ -17,6 +17,9 @@ class CreateConferencesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('date')->nullable();
+            $table->float('lat')->nullable();
+            $table->float('lng')->nullable();
+            $table->string('countries')->nullable();
             $table->timestamps();
         });
     }

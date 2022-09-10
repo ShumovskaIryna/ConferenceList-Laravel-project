@@ -19,15 +19,17 @@ Route::get('/conferences', function () {
     return view('conferences');
 })->name('conferences');
 
-Route::get('/create', function () {
-    return view('create');
-})->name('conferences');
+//Route::get('/create', function () {
+//    return view('create');
+//})->name('conferences');
 
-Route::get('/conferences/all', 'ConferenceController@allData')
+Route::get('/create', 'ConferenceController@index')->name('conferences');
+
+Route::get('/conferences/all', 'ConfListController@allData')
     ->name('conferences_all');
 
-Route::post('/conferences', 'ConferenceController@create')
-    ->name('conferences');
+Route::post('conferences/all', 'ConferenceController@create')
+    ->name('conferences_all');
 
 Auth::routes();
 

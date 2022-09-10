@@ -11,12 +11,6 @@
                     {{ session('success') }}
                 </div>
             @endif
-
-{{--            @foreach($data as $el)--}}
-{{--                <div class="alert alert-success" role="alert">--}}
-{{--                    <h3>{{ $el->name }}</h3>--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
         </div>
 
         @if (Route::has('login'))

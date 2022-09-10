@@ -5,7 +5,7 @@
         @if (Route::has('login'))
             <div class="top-right links">
                 @auth
-                    <a href="{{ url('/conferences') }}">CONFERENCE LIST</a>
+                    <a href="{{ route('conferences_all') }}">CONFERENCE LIST</a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
 
@@ -30,7 +30,8 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('conferences')}}" method="post">
+
+            <form action="{{route('conferences_all')}}" method="post">
                 @csrf
                 {{--Title--}}
                 <div class="mb-3">
@@ -43,11 +44,31 @@
                 <div class="mb-3">
                     <label for="date" class="form-label">
                     Date
-                    <input id="date" name="date" type="datetime-local"/>
+                    <input id="date" name="date" type="datetime-local" class="form-control"/>
                     </label>
                 </div>
                 {{--Address--}}
-
+                <div class="mb-3">
+                    <label for="address" class="form-label">
+                        Address
+                        <input id="address" name="lat" type="number" class="form-control" placeholder="Lattitude"/>
+                        <input id="address" name="lng" type="number" class="form-control" placeholder="Longitude"/>
+                    </label>
+                </div>
+                {{--Country--}}
+                <div class="mb-3">
+                    <label for="countries" class="form-label">
+                        Country
+                        <div class="mb-3">
+                        <select  name="countries" id="countries" type="string" class="form-control">
+                            <option value="" selected disabled>Select Country</option>
+                            @foreach ($countries as $country)
+                                <option value="{{$country->id}}">{{$country->nicename}} + {{$country->phonecode}}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                    </label>
+                </div>
                 <button type="submit" class="btr btn-success">Create</button>
             </form>
         </div>
