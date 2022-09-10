@@ -15,20 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/conferences', function () {
-    return view('conferences');
-})->name('conferences');
-
 //Route::get('/create', function () {
 //    return view('create');
 //})->name('conferences');
 
-Route::get('/create', 'ConferenceController@index')->name('conferences');
+Route::get('/create', 'CreateFormController@index')->name('create');
 
 Route::get('/conferences/all', 'ConfListController@allData')
     ->name('conferences_all');
 
-Route::post('conferences/all', 'ConferenceController@create')
+Route::post('/conferences/all', 'CreateFormController@create')
     ->name('conferences_all');
 
 Auth::routes();
