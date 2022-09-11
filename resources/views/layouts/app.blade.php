@@ -67,6 +67,15 @@
             text-transform: uppercase;
         }
 
+        .list > a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: .1rem;
+            text-decoration: none;
+        }
+
         .m-b-md {
             margin-bottom: 30px;
         }
@@ -80,9 +89,6 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

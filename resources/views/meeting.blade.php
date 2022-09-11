@@ -4,7 +4,7 @@
     <div class="flex-center position-ref full-height">
         <div class="content">
             <div class="title m-b-md">
-                My Conference
+                All Conference
             </div>
             <table class="table">
                 <thead>
@@ -16,12 +16,13 @@
                     </tr>
                 </thead>
                 @foreach($data as $el)
-                <tbody>
                     <tr>
                         <th scope="row">{{ $el->id }}</th>
-                        <td>{{ $el->name }}</td>
-                        <td>{{ $el->date }}</td>
-                        <td>Edit</td>
+                        <td class="list"><a href="{{ route('detail', $el->id) }}">{{ $el->name }}</a></td>
+                        <td class="list"><a href="{{ route('detail', $el->id) }}">{{ $el->date }}</a></td>
+                        <td>
+{{--                            <a href="{{ route('edit_form') }}"><button class="btn btn-warning">Edit</button></a>--}}
+                        </td>
                     </tr>
                 </tbody>
                 @endforeach

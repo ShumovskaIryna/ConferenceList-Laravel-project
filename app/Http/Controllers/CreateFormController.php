@@ -32,8 +32,6 @@ class CreateFormController extends Controller
     public function index()
     {
         $countries = Country::all();
-
         return view('create', compact('countries'));
-
     }
 }

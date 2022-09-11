@@ -59,14 +59,12 @@
                 <div class="mb-3">
                     <label for="countries" class="form-label">
                         Country
-                        <div class="mb-3">
-                        <select  name="countries" id="countries" type="string" class="form-control">
+                        <select  name="countries" id="countries" class="form-control" style="width:200px;">
                             <option value="" selected disabled>Select Country</option>
                             @foreach ($countries as $country)
                                 <option value="{{$country->id}}">{{$country->nicename}} + {{$country->phonecode}}</option>
                             @endforeach
                         </select>
-                        </div>
                     </label>
                 </div>
                 <button type="submit" class="btr btn-success">Create</button>

@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-//Route::get('/create', function () {
-//    return view('create');
-//})->name('conferences');
+Route::get('/conferences/all/{id}', 'ConfByIdController@showConferenceById')->name('detail');
 
 Route::get('/create', 'CreateFormController@index')->name('create');
 

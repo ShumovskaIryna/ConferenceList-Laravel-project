@@ -3,9 +3,6 @@
 @section('content')
     <div class="flex-center position-ref full-height">
         <div class="content">
-            <div class="title m-b-md">
-                My Conference
-            </div>
             @if (session('success'))
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
@@ -17,6 +14,7 @@
             <div class="top-right links">
                 @auth
                     <a href="{{ url('/create') }}">+ New</a>
+                    <a href="{{ url('/conferences/all') }}">All conferences</a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
 
