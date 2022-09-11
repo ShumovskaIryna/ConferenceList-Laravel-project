@@ -52,7 +52,9 @@
                             </select>
                     </label>
                 </div>
-                    <button class="btn btn-warning">Edit</button>
+            <a href="{{ route('edit_form', $data->id) }}">
+                    <button class="btn btn-primary">Edit</button>
+            </a>
         </div>
     </div>
 @endsection

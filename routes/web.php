@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::get('/conferences/all/{id}', 'ConfByIdController@showConferenceById')->name('detail');
 
+Route::get('/conferences/all/{id}/edit', 'EditByIdController@editConferenceById')->name('edit_form');
+
 Route::get('/create', 'CreateFormController@index')->name('create');
 
 Route::get('/conferences/all', 'ConfListController@allData')
