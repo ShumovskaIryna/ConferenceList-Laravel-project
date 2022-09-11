@@ -20,6 +20,11 @@
             <div class="title m-b-md">
                 Detail about "{{$data->name}}"
             </div>
+            @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
                 @csrf
                 {{--Title--}}
                 <div class="mb-3">
@@ -54,6 +59,9 @@
                 </div>
             <a href="{{ route('edit_form', $data->id) }}">
                     <button class="btn btn-primary">Edit</button>
+            </a>
+            <a href="{{ route('conference_delete', $data->id) }}">
+                <button class="btn btn-danger">Delete</button>
             </a>
         </div>
     </div>

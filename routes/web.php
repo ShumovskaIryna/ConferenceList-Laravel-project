@@ -21,6 +21,9 @@ Route::get('/conferences/all/{id}', 'ConfByIdController@showConferenceById')
 // when we click on "Edit" conference & see Edit Page
 Route::get('/conferences/all/{id}/edit', 'EditByIdController@editConferenceById')
     ->name('edit_form');
+// when we click on "Delete" conference &
+Route::get('/conferences/all/{id}/delete', 'DeleteByIdController@deleteConferenceById')
+    ->name('conference_delete');
 // when we click on "Save" conference (in the edit form) & see edited conference
 Route::post('/conferences/all/{id}/edit', 'EditByIdController@editConferenceByIdSave')
     ->name('edit_form_save');
