@@ -5,7 +5,7 @@
         @if (Route::has('login'))
             <div class="top-right links">
                 @auth
-                    <a href="{{ route('conferences_all') }}">CONFERENCE LIST</a>
+                    <a href="{{ route('detail',  $data->id) }}">BACK -></a>
                 @else
                     <a href="{{ route('login') }}">Login</a>
 
