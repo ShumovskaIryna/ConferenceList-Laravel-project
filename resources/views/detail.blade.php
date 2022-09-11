@@ -57,6 +57,12 @@
                         </select>
                     </label>
                 </div>
+                <div class="mb-3">
+                    <label>
+                        <input class="checkbox" type="checkbox">
+                        <span class="check"></span>
+                    </label>
+                </div>
             <a href="{{ route('edit_form', $data->id) }}">
                     <button class="btn btn-primary">Edit</button>
             </a>
