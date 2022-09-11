@@ -18,16 +18,16 @@
 
         <div class="content">
             <div class="title m-b-md">
-                {{$data->name}}
+                Detail about "{{$data->name}}"
             </div>
                 @csrf
                 {{--Title--}}
-{{--                <div class="mb-3">--}}
-{{--                    <label for="name" class="form-label">--}}
-{{--                        Title--}}
-{{--                        <input id="name" name="name" type="text" class="form-control" placeholder="Conference title" value="{{$data->name}}" disabled/>--}}
-{{--                    </label>--}}
-{{--                </div>--}}
+                <div class="mb-3">
+                    <label for="name" class="form-label">
+                        Title
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Conference title" value="{{$data->name}}" disabled/>
+                    </label>
+                </div>
                 {{--Date--}}
                 <div class="mb-3">
                     <label for="date" class="form-label">
@@ -47,9 +47,9 @@
                 <div class="mb-3">
                     <label for="countries" class="form-label">
                         Country
-                            <select  name="countries" id="countries" type="string" class="form-control">
-                                    <option value="{{$data->countries}}" disabled></option>
-                            </select>
+                        <select  name="countries" id="countries" class="form-control" style="width:200px;">
+                            <option selected>{{$data->countries}}</option>
+                        </select>
                     </label>
                 </div>
             <a href="{{ route('edit_form', $data->id) }}">

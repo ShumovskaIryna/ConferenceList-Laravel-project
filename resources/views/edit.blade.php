@@ -31,7 +31,7 @@
                 </div>
             @endif
 
-            <form action="{{route('conferences_all')}}" method="post">
+            <form action="{{route('edit_form_save', $data->id)}}" method="post">
                 @csrf
                 {{--Title--}}
                 <div class="mb-3">
@@ -60,10 +60,10 @@
                     <label for="countries" class="form-label">
                         Country
                         <select  name="countries" id="countries" class="form-control" style="width:200px;">
-                            <option value="" selected disabled>Select Country</option>
-{{--                            @foreach ($countries as $country)--}}
-{{--                                <option value="{{$country->id}}">{{$country->nicename}} + {{$country->phonecode}}</option>--}}
-{{--                            @endforeach--}}
+                            <option selected>{{$data->countries}}</option>
+                        @foreach ($countries as $country)
+                                <option value="{{$country->nicename}}">{{$country->nicename}}</option>
+                            @endforeach
                         </select>
                     </label>
                 </div>

@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::get('/conferences/all/{id}', 'ConfByIdController@showConferenceById')->name('detail');
 
 Route::get('/conferences/all/{id}/edit', 'EditByIdController@editConferenceById')->name('edit_form');
+Route::get('/conferences/all/{id}/edit', 'EditByIdController@index')->name('edit_form');
+Route::post('/conferences/all/{id}/edit', 'EditByIdController@editConferenceByIdSave')->name('edit_form_save');
 
 Route::get('/create', 'CreateFormController@index')->name('create');
 

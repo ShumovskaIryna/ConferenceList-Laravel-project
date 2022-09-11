@@ -46,11 +46,12 @@
         .top-right {
             position: absolute;
             right: 10px;
-            top: 18px;
+            top: 5px;
         }
 
         .content {
             text-align: center;
+            padding: 50px;
         }
 
         .title {
