@@ -24,7 +24,7 @@
                 @foreach($data as $el)
                     <tr>
                         <th scope="row">{{ $el->id }}</th>
-                        <td class="list"><a href="{{ route('detail', $el->id) }}">{{ $el->name }}</a></td>
+                        <td class="list" style="max-width:400px"><a href="{{ route('detail', $el->id) }}">{{ $el->name }}</a></td>
                         <td class="list"><a href="{{ route('detail', $el->id) }}">{{ $el->date }}</a></td>
                         <td>
                            <a href="{{ route('detail', $el->id) }}"><button class="btn btn-outline-info">Detail</button></a>
