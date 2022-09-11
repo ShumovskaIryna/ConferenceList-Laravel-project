@@ -18,6 +18,7 @@
                         <th scope="col">Title</th>
                         <th scope="col">Date</th>
                         <th scope="col"> </th>
+                        <th scope="col"> </th>
                     </tr>
                 </thead>
                 @foreach($data as $el)
@@ -26,7 +27,13 @@
                         <td class="list"><a href="{{ route('detail', $el->id) }}">{{ $el->name }}</a></td>
                         <td class="list"><a href="{{ route('detail', $el->id) }}">{{ $el->date }}</a></td>
                         <td>
-{{--                            <a href="{{ route('edit_form') }}"><button class="btn btn-warning">Edit</button></a>--}}
+                           <a href="{{ route('detail', $el->id) }}"><button class="btn btn-outline-info">Detail</button></a>
+                        </td>
+                        <td>
+                            <label>
+                            <input class="checkbox" type="checkbox">
+                                <span class="check"></span>
+                            </label>
                         </td>
                     </tr>
                 </tbody>
