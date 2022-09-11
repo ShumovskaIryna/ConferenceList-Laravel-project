@@ -15,17 +15,25 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/conferences/all/{id}', 'ConfByIdController@showConferenceById')->name('detail');
-
-Route::get('/conferences/all/{id}/edit', 'EditByIdController@editConferenceById')->name('edit_form');
-Route::get('/conferences/all/{id}/edit', 'EditByIdController@index')->name('edit_form');
-Route::post('/conferences/all/{id}/edit', 'EditByIdController@editConferenceByIdSave')->name('edit_form_save');
-
-Route::get('/create', 'CreateFormController@index')->name('create');
-
+// when we click on some conference & see "Details"
+Route::get('/conferences/all/{id}', 'ConfByIdController@showConferenceById')
+    ->name('detail');
+// when we click on "Edit" conference & see Edit Page
+Route::get('/conferences/all/{id}/edit', 'EditByIdController@editConferenceById')
+    ->name('edit_form');
+// when we click on "Save" conference (in the edit form) & see edited conference
+Route::post('/conferences/all/{id}/edit', 'EditByIdController@editConferenceByIdSave')
+    ->name('edit_form_save');
+// we get all Countries from DB & see dropdown on Create page
+Route::get('/create', 'CreateFormController@index')
+    ->name('create');
+// we get all Countries from DB & see dropdown on Edit page
+Route::get('/conferences/all/{id}/edit', 'EditByIdController@index')
+    ->name('edit_form');
+// we get all Data from DB & see table of Conference List
 Route::get('/conferences/all', 'ConfListController@allData')
     ->name('conferences_all');
-
+// we post conference which we created & see it in table of Conference List
 Route::post('/conferences/all', 'CreateFormController@create')
     ->name('conferences_all');
 
