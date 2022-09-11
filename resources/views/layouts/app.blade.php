@@ -84,6 +84,12 @@
             justify-content: start;
         }
 
+        .pagination{
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
     </style>
 </head>
 <body>

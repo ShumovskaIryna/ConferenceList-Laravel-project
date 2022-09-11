@@ -32,6 +32,9 @@
                 </tbody>
                 @endforeach
             </table>
+            <div class="pagination">
+                {{$data->links()}}
+            </div>
         </div>
 
         @if (Route::has('login'))
