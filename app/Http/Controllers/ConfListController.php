@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Conference;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ConfListController extends Controller
 {
     public function allData(){
+        $userId = Auth::id();
         $conferences = new Conference;
-        return view('meeting', ['data' => $conferences->paginate(15)]);
+        $data = $conferences->getPaginateConf($userId);
+        return view('meeting', ['data' => $data]);
     }
 }

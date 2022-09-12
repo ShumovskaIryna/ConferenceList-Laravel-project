@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'conferences_map_users');
+    }
 }

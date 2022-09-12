@@ -20,6 +20,7 @@ class CreateConferencesTable extends Migration
             $table->float('lat')->nullable();
             $table->float('lng')->nullable();
             $table->string('countries')->nullable();
+            $table->bigInteger('created_by');
             $table->timestamps();
         });
     }

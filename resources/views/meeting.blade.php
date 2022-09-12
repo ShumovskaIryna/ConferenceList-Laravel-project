@@ -19,6 +19,7 @@
                         <th scope="col">Date</th>
                         <th scope="col"> </th>
                         <th scope="col"> </th>
+                        <th scope="col"> </th>
                     </tr>
                 </thead>
                 @foreach($data as $el)
@@ -30,10 +31,17 @@
                            <a href="{{ route('detail', $el->id) }}"><button class="btn btn-outline-info">Detail</button></a>
                         </td>
                         <td>
-                            <label>
-                            <input class="checkbox" type="checkbox">
-                                <span class="check"></span>
-                            </label>
+                            @if($el->isOwn)<button class="btn btn-outline-success">IT IS MINE</button>
+                            @else <button class="btn btn-outline-success">Join</button>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="hide">
+                                <ul>
+                                    <li class="button">{!! $contents=\Share::page(null, $el->content)->facebook(); !!}</li>
+                                    <li class="button">{!! $contents=\Share::page(null, $el->content)->twitter(); !!}</li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -49,10 +57,8 @@
                 @auth
                     <a href="{{ url('/create') }}">+ New</a>
                 @else
-                    <a href="{{ route('login') }}">Login</a>
-
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('register') }}">+ New</a>
                     @endif
                 @endauth
             </div>

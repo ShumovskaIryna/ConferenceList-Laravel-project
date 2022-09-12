@@ -1,31 +1,7 @@
-.checkbox {
-    -webkit-appearance: none;
-    visibility: hidden;
-    display: none;
+li{
+    list-style: none;
 }
-.check{
+.hide{
     position: relative;
-    display: block;
-    width: 80px;
-    height: 40px;
-    line-height: 40px;
-    background: #28a745;
-    cursor: pointer;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: ease-in 0.5s;
-    z-index: 1000;
-}
-.checkbox:checked ~ .check {
-    background: #FFFFFF;
-}
-.check:before{
-    content:'Join';
-    color: #FFFFFF;
-}
-.check:after{
-    content:'X️';
-    color: #28a745;
-    font-size: 20px;
-    font-weight: 700;
+    right: 50px;
 }
