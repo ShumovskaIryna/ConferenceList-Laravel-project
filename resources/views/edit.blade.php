@@ -67,8 +67,13 @@
                         </select>
                     </label>
                 </div>
-                <button type="submit" class="btr btn-success">Save</button>
+                <button type="submit" class="btn btn-success">Save</button>
             </form>
+            <div class="mt-3">
+                <a href="{{ route('conference_delete', $data->id) }}">
+                    <button class="btn btn-danger">Delete</button>
+                </a>
+            </div>
         </div>
     </div>
 @endsection
