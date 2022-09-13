@@ -34,7 +34,7 @@ class Conference extends Model
             $isOwn = $conf->created_by === $userId;
             $conf->isOwn = $isOwn;
 
-            $confMapUsers = $conf->conferences_map_users;
+            $confMapUsers = $conf->conferencesMapUsers;;
 
 
             if(empty($confMapUsers)) {
