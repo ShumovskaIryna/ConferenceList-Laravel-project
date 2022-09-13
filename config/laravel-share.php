@@ -19,7 +19,7 @@ return [
         ],
         'twitter' => [
             'uri' => 'https://twitter.com/intent/tweet',
-            'text' => 'Default share text',
+            'text' => 'Check out this Meetup with SoCal AngularJS!',
         ],
         'linkedin' => [
             'uri' => 'http://www.linkedin.com/shareArticle',

@@ -40,6 +40,8 @@ Route::get('/conferences/all', 'ConfListController@allData')
 Route::post('/conferences/all', 'CreateFormController@create')
     ->name('conferences_all');
 
+Route::post('/conferences/join', 'ConferenceJoin@joinConf')->name('join');
+
 Auth::routes();
 
 Route::get('/conferences', 'HomeController@index')

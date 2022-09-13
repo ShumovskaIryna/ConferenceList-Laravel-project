@@ -31,8 +31,15 @@
                            <a href="{{ route('detail', $el->id) }}"><button class="btn btn-outline-info">Detail</button></a>
                         </td>
                         <td>
-                            @if($el->isOwn)<button class="btn btn-outline-success">IT IS MINE</button>
-                            @else <button class="btn btn-outline-success">Join</button>
+                            @if($el->isAlreadyJoined || $el->isOwn)<button class="btn btn-outline-success">IT IS MINE</button>
+                            @else
+                                <form action="{{ route('join', $el->id) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="conf_id" value="{{ $el->id }}"/>
+                                    <button type="submit" class="btn btn-outline-success">
+                                        Join
+                                    </button>
+                                </form>
                             @endif
                         </td>
                         <td>

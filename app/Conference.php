@@ -15,16 +15,42 @@ class Conference extends Model
     }
 
     /**
+     * to pivote
+     */
+    public function conferencesMapUsers() {
+        return $this->hasMany(ConferencesMapUsers::class, 'conference_id', 'id');
+    }
+    /**
      *
      */
-    public function getPaginateConf($ownerId) {
-        $conferences = $this->paginate(15);
+    public function getPaginateConf($userId) {
+        $conferences = $this->with('conferencesMapUsers')->paginate(15);
+        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+
 
         foreach($conferences as $conf) {
-            $isOwn = $conf->created_by === $ownerId;
-            $conf->isOwn = $isOwn;
-        }
+            fwrite(STDOUT, $conf);
 
+            $isOwn = $conf->created_by === $userId;
+            $conf->isOwn = $isOwn;
+
+            $confMapUsers = $conf->conferences_map_users;
+
+
+            if(empty($confMapUsers)) {
+                continue;
+            }
+
+            foreach($confMapUsers as $additionalData) {
+                $isAlreadyJoined = $additionalData->user_id === $userId
+                    && $additionalData->joined_at
+                    && $additionalData->conference_id === $conf->id;
+
+                $conf->isAlreadyJoined = $isAlreadyJoined;
+            }
+
+
+        }
         return $conferences;
     }
 }
