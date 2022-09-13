@@ -14,6 +14,8 @@
     <script src="https://kit.fontawesome.com/6424f618d7.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/share.js') }}"></script>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyA69OWMQ-Hpg2G4Cwx5rvnDfAnJRxTKpTQ"
+            type="text/javascript"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
