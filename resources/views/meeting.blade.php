@@ -32,13 +32,18 @@
                         </td>
                         <td>
                             @if($el->isOwn)<td><button class="btn btn-outline-success">IT IS MINE</button></td> <td></td>
-                                @else @if($el->isAlreadyJoined)<td><button class="btn btn-outline-danger">Сancel participation</button></td>
-                                    <td><div class="hide">
-                                        <ul>
-                                            <li class="button">{!! $contents=\Share::page(null, $el->content)->facebook(); !!}</li>
-                                            <li class="button">{!! $contents=\Share::page(null, $el->content)->twitter(); !!}</li>
-                                        </ul>
-                                    </div></td>
+                                @else @if($el->isAlreadyJoined)<td><form action="{{ route('unjoin', $el->id) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="conf_id" value="{{ $el->id }}"/>
+                                    <button type="submit" class="btn btn-outline-danger">
+                                        Сancel participation
+                                    </button></form>
+                            <td><div class="hide">
+                                    <ul>
+                                        <li class="button">{!! $contents=\Share::page(null, $el->content)->facebook(); !!}</li>
+                                        <li class="button">{!! $contents=\Share::page(null, $el->content)->twitter(); !!}</li>
+                                    </ul>
+                                </div></td>
                                      @else  <td><form action="{{ route('join', $el->id) }}" method="post">
                                         @csrf
                                     <input type="hidden" name="conf_id" value="{{ $el->id }}"/>

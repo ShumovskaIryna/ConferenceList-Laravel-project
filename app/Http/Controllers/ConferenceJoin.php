@@ -16,6 +16,16 @@ class ConferenceJoin extends Controller
 
         $conferences->join($confId,$userId);
 
-        return redirect()->route('conferences_all')->with('success', 'Conference was edited');
+        return redirect()->route('conferences_all')->with('success', 'You are join to conference 🥳');
+    }
+    public function unjoinConf(Request $request) {
+        $userId = Auth::id();
+
+        $conferences = new ConferencesMapUsers();
+        $confId = $request->input('conf_id');
+
+        $conferences->unjoin($confId,$userId);
+
+        return redirect()->route('conferences_all')->with('success', 'You canceled join to conference 😱');
     }
 }

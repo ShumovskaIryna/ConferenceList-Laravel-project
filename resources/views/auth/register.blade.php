@@ -115,7 +115,7 @@
                                             <option value="{{$country->id}}">{{$country->nicename}} + {{$country->phonecode}}</option>
                                         @endforeach
                                     </select>
-                                    <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="" value="{{ old('phone') }}" required autocomplete="phone" autofocus style="width: 150px; float: left;">
+                                    <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="Phone number" value="{{ old('phone') }}" required autocomplete="phone" autofocus style="width: 150px; float: left;">
 
                                 @error('country')
                                 <span class="invalid-feedback" role="alert">

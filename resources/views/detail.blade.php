@@ -83,25 +83,6 @@
             <a href="{{ route('conference_delete', $data->id) }}">
                 <button class="btn btn-danger">Delete</button>
             </a>
-            <div class="mt-3">
-                @if($data->isOwn)<td><button class="btn btn-outline-success">IT IS MINE</button>
-                    @else @if($data->isAlreadyJoined)<button class="btn btn-outline-danger">Сancel participation</button></td>
-                        <div class="hide">
-                            <ul>
-                                <li class="button">{!! $contents=\Share::page(null, $data->content)->facebook(); !!}</li>
-                                <li class="button">{!! $contents=\Share::page(null, $data->content)->twitter(); !!}</li>
-                            </ul>
-                        </div>
-                    @else  <form action="{{ route('join', $data->id) }}" method="post">
-                        @csrf
-                            <input type="hidden" name="conf_id" value="{{ $data->id }}"/>
-                             <button type="submit" class="btn btn-outline-success">
-                                    Join
-                             </button>
-                    </form>
-                  @endif
-                @endif
-            <div>
         </div>
     </div>
 @endsection

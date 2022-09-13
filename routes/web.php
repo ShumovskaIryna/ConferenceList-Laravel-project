@@ -41,6 +41,7 @@ Route::post('/conferences/all', 'CreateFormController@create')
     ->name('conferences_all');
 
 Route::post('/conferences/join', 'ConferenceJoin@joinConf')->name('join');
+Route::post('/conferences/unjoin', 'ConferenceJoin@unjoinConf')->name('unjoin');
 
 Auth::routes();
 

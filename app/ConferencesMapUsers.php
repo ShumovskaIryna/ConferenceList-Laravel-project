@@ -18,4 +18,13 @@ class ConferencesMapUsers extends Model
 
         $confMapUser->save();
     }
+    public function unjoin($conferenceId, $userId) {
+        $confMapUser = new ConferencesMapUsers();
+
+        $confMapUser->user_id = $userId;
+        $confMapUser->conference_id = $conferenceId;
+        $confMapUser->joined_at = null;
+
+        $confMapUser->save();
+    }
 }
