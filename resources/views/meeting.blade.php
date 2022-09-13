@@ -31,24 +31,23 @@
                            <a href="{{ route('detail', $el->id) }}"><button class="btn btn-outline-info">Detail</button></a>
                         </td>
                         <td>
-                            @if($el->isAlreadyJoined || $el->isOwn)<button class="btn btn-outline-success">IT IS MINE</button>
-                            @else
-                                <form action="{{ route('join', $el->id) }}" method="post">
-                                    @csrf
+                            @if($el->isOwn)<td><button class="btn btn-outline-success">IT IS MINE</button></td> <td></td>
+                                @else @if($el->isAlreadyJoined)<td><button class="btn btn-outline-danger">Сancel participation</button></td>
+                                    <td><div class="hide">
+                                        <ul>
+                                            <li class="button">{!! $contents=\Share::page(null, $el->content)->facebook(); !!}</li>
+                                            <li class="button">{!! $contents=\Share::page(null, $el->content)->twitter(); !!}</li>
+                                        </ul>
+                                    </div></td>
+                                     @else  <td><form action="{{ route('join', $el->id) }}" method="post">
+                                        @csrf
                                     <input type="hidden" name="conf_id" value="{{ $el->id }}"/>
-                                    <button type="submit" class="btn btn-outline-success">
-                                        Join
-                                    </button>
-                                </form>
+                                            <button type="submit" class="btn btn-outline-success">
+                                                Join
+                                            </button>
+                                    </form><td><td></td>
+                                @endif
                             @endif
-                        </td>
-                        <td>
-                            <div class="hide">
-                                <ul>
-                                    <li class="button">{!! $contents=\Share::page(null, $el->content)->facebook(); !!}</li>
-                                    <li class="button">{!! $contents=\Share::page(null, $el->content)->twitter(); !!}</li>
-                                </ul>
-                            </div>
                         </td>
                     </tr>
                 </tbody>
