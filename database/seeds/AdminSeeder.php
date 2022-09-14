@@ -11,11 +11,9 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')->delete();
+        DB::table('admin')->delete();
 
-        $admins = array(
-            array('email' => 'admin@groupbwt.com','password' => '12345678'),
-        );
-        DB::table('admins')->insert($admins);
+        $admin = array('first_name' => 'Iryna', 'last_name' => 'Shumovska','email' => 'admin@groupbwt.com','password' => '$2y$10$N/5UrPVKndZ47IiOZsSlE..iuXp8DWIYGLG4ms6ujI8p/OmFUJHbK', 'role' => 'ADMIN', 'birthdate' => '1997-05-31T12:00', 'countries' => '223', 'phone'=>'676617881');
+        DB::table('admin')->insert($admin);
     }
 }
