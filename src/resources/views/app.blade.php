@@ -5,16 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel 9 Vite 3 With Tailwind CSS</title>
+    <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+
+        <!-- Scripts -->
+        @routes
     @vite('resources/js/app.js')
-    @vite('resources/css/app.css')
+    @inertiaHead
 </head>
 
-<body class="antialiased">
-<div id="app"></div>
-<div class="flex justify-center items-center h-screen">
-    <h1 class="text-3xl text-purple-600 font-bold">Laravel 9 Vite with Tailwind CSS</h1>
-</div>
+<body class="font-sans antialiased">
+        @inertia
 </body>
 </html>
