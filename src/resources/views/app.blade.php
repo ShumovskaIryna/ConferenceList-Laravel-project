@@ -8,12 +8,13 @@
     <title>Laravel 9 Vite 3 With Tailwind CSS</title>
 
     @vite('resources/js/app.js')
+    @vite('resources/css/app.css')
 </head>
 
 <body class="antialiased">
+<div id="app"></div>
 <div class="flex justify-center items-center h-screen">
     <h1 class="text-3xl text-purple-600 font-bold">Laravel 9 Vite with Tailwind CSS</h1>
 </div>
 </body>
-
 </html>
