@@ -25,8 +25,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/Conferences', function () {
+    return Inertia::render('Conferences');
+})->middleware(['auth', 'verified'])->name('Conferences');
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
+
+Route::get('/Create', function () {
+    return Inertia::render('Create');
+})->middleware(['auth', 'verified'])->name('Create');
