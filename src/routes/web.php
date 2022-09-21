@@ -34,3 +34,6 @@ require __DIR__.'/auth.php';
 Route::get('/Create', function () {
     return Inertia::render('Create');
 })->middleware(['auth', 'verified'])->name('Create');
+
+Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
+    'getCountries']);

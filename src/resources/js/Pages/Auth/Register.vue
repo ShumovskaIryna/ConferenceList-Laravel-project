@@ -6,6 +6,19 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
+const props = defineProps({
+    countries: {
+        type: Array,
+        default: [],
+    },
+});
+
+axios.get('/get-countries').then(response => {
+    props.countries = response.data;
+}).catch(error => {
+    console.error(error);
+});
+
 const form = useForm({
     first_name: '',
     last_name: '',
@@ -76,8 +89,8 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
-                    <option>Canada</option>
-                    <option selected>Ukraine</option>
+                    <option class="form-control">Select Country</option>
+                    <option v-for="country in props.countries" value="{{ country.nicename }}" class="form-control">{{ country.nicename }}</option>
                 </select>
                 <InputError class="mt-2" :message="form.errors.countries" />
             </div>
