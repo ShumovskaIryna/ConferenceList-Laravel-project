@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ConferenceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,15 +26,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/Conferences', function () {
+Route::get('/conferences', function () {
     return Inertia::render('Conferences');
 })->middleware(['auth', 'verified'])->name('Conferences');
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
-Route::get('/Create', function () {
-    return Inertia::render('Create');
-})->middleware(['auth', 'verified'])->name('Create');
+Route::get('/create', function () {
+    return Inertia::render('Create');})
+    ->name('Create');
 
 Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
     'getCountries']);
+
+Route::post('/conferences', [ConferenceController::class, 'create'])->name('conferences');
+

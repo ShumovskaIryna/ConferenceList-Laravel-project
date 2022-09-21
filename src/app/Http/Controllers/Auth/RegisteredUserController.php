@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'birthdate' => 'required|max:today',
+            'birthdate' => 'required|date|before:today',
             'countries'=>'required',
             'phone' => 'required|string|max:15',
             'role' => 'required',
