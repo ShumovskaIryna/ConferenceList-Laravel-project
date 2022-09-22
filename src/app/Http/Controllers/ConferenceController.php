@@ -31,4 +31,8 @@ class ConferenceController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+    public function getConferences(){
+        $conferences = Conference::all();
+        return response()->json($conferences);
+    }
 }
