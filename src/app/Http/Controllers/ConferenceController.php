@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class ConferenceController extends Controller
 {
@@ -34,5 +35,12 @@ class ConferenceController extends Controller
     public function getConferences(){
         $conferences = Conference::all();
         return response()->json($conferences);
+    }
+
+    public function detailConference($id)
+    {
+        return Inertia::render('Details', [
+            'conference' => Conference::findOrFail($id)
+        ]);
     }
 }

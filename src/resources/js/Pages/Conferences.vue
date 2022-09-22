@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -40,9 +40,9 @@ axios.get('/get-conferences').then(response => {
                         <tbody v-for="conference in props.conferences">
                         <tr>
                             <th scope="row">{{ conference.id }}</th>
-                            <td>{{ conference.title }}</td>
+                            <td style="max-width:400px">{{ conference.title }}</td>
                             <td>{{ conference.date }}</td>
-                            <td>Details</td>
+                            <td><Link :href="route('Details', conference.id )" class="text-sm text-gray-700 dark:text-gray-500 underline">Details</Link></td>
                             <td>Join</td>
                         </tr>
                         </tbody>

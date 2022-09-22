@@ -36,6 +36,9 @@ Route::get('/create', function () {
     return Inertia::render('Create');})
     ->name('Create');
 
+Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
+    ->name('Details');
+
 Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
     'getCountries']);
 
