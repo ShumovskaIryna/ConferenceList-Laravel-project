@@ -44,14 +44,14 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
-            <div>
+            <div class="mt-4">
                 <InputLabel for="first_name" value="First Name" />
                 <TextInput id="first_name" type="text" class="mt-1 block w-full"
                            v-model="form.first_name" required autofocus autocomplete="first_name" />
                 <InputError class="mt-2" :message="form.errors.first_name" />
             </div>
 
-            <div>
+            <div class="mt-4">
                 <InputLabel for="last_name" value="Last Name" />
                 <TextInput id="last_name" type="text" class="mt-1 block w-full"
                            v-model="form.last_name" required autofocus autocomplete="last_name" />
@@ -89,8 +89,8 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
-                    <option class="form-control">Select Country</option>
-                    <option v-for="country in props.countries" value="{{ country.nicename }}" class="form-control">{{ country.nicename }}</option>
+                    <option class="form-control" disabled selected>Select Country</option>
+                    <option v-for="country in props.countries" :value="country.nicename" class="form-control">{{ country.nicename }} + {{ country.phonecode }}</option>
                 </select>
                 <InputError class="mt-2" :message="form.errors.countries" />
             </div>

@@ -48,7 +48,7 @@ const submit = () => {
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <Head title="Create" />
         <form @submit.prevent="submit">
-            <div>
+            <div class="mt-4">
                 <InputLabel for="title" value="Title" />
                 <TextInput id="title" type="text" class="mt-1 block w-full"
                            v-model="form.title" required autofocus autocomplete="title" />
@@ -79,8 +79,8 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
-                    <option class="form-control">Select Country</option>
-                    <option v-for="country in props.countries" value="{{ country.nicename }}" class="form-control">{{ country.nicename }}</option>
+                    <option class="form-control" disabled selected>Select Country</option>
+                    <option v-for="country in props.countries" :value="country.nicename" class="form-control">{{ country.nicename }}</option>
                 </select>
                 <InputError class="mt-2" :message="form.errors.countries" />
             </div>
