@@ -43,11 +43,17 @@ Route::middleware('auth')->group(function () {
                 ->middleware(['signed', 'throttle:6,1'])
                 ->name('verification.verify');
 
-    Route::post('conferences', [ConferenceController::class, 'create'])->name('conferences');
+    Route::post('conferences', [ConferenceController::class, 'create'])
+        ->name('conferences');
 
-    Route::get('/conferences/{id}', [\App\Http\Controllers\ConferenceController::class, 'detailConference'])
+    Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
         ->name('Details');
 
+    Route::get('/conferences/{id}/edit', [ConferenceController::class, 'editConference'])
+        ->name('Edit');
+
+    Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveConference'])
+        ->name('edit_save');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')

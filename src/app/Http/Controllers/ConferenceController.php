@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conference;
-use App\Models\Country;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class ConferenceController extends Controller
@@ -39,6 +34,32 @@ class ConferenceController extends Controller
 
     public function detailConference($id)
     {
+        return Inertia::render('Details', [
+            'conference' => Conference::findOrFail($id)
+        ]);
+    }
+    public function editConference($id)
+    {
+        return Inertia::render('Edit', [
+            'conference' => Conference::findOrFail($id)
+        ]);
+    }
+    public function editSaveConference( $id, Request $request){
+        $validation = $request->validate([
+            'title'=> 'required|min:2|max:255',
+            'date'=> 'required|date|after:today',
+            'lat'=> 'required|max:25',
+            'lng'=> 'required|max:25',
+            'countries'=> 'required'
+        ]);
+        $conferences = Conference::find($id);
+        $conferences->title = $request->input('title');
+        $conferences->date = $request->input('date');
+        $conferences->lat = $request->input('lat');
+        $conferences->lng = $request->input('lng');
+        $conferences->countries = $request->input('countries');
+        $conferences->save();
+
         return Inertia::render('Details', [
             'conference' => Conference::findOrFail($id)
         ]);

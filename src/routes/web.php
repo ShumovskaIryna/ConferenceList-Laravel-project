@@ -39,6 +39,12 @@ Route::get('/create', function () {
 Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
     ->name('Details');
 
+Route::get('/conferences/{id}/edit', [ConferenceController::class, 'editConference'])
+    ->name('Edit');
+
+Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveConference'])
+    ->name('edit_save');
+
 Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
     'getCountries']);
 
