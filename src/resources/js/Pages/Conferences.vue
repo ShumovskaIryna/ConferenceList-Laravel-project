@@ -42,7 +42,8 @@ axios.get('/get-conferences').then(response => {
                             <th scope="row">{{ conference.id }}</th>
                             <td style="max-width:400px">{{ conference.title }}</td>
                             <td>{{ conference.date }}</td>
-                            <td><Link :href="route('Details', conference.id )" class="text-sm text-gray-700 dark:text-gray-500 underline">Details</Link></td>
+                            <td><Link :href="route('Details', conference.id )"
+                                      class="text-sm text-gray-700 dark:text-gray-500 underline">Details</Link></td>
                             <td>Join</td>
                         </tr>
                         </tbody>

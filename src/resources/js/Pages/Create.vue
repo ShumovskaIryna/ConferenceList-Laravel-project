@@ -57,7 +57,7 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="date" value="Date" />
-                <TextInput id="date" type="date" class="mt-1 block w-full"
+                <TextInput id="date" type="datetime-local" class="mt-1 block w-full"
                            v-model="form.date" required autocomplete="date" />
                 <InputError class="mt-2" :message="form.errors.date" />
             </div>
@@ -80,7 +80,8 @@ const submit = () => {
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
                     <option class="form-control" disabled selected>Select Country</option>
-                    <option v-for="country in props.countries" :value="country.nicename" class="form-control">{{ country.nicename }}</option>
+                    <option v-for="country in props.countries" :value="country.nicename"
+                            class="form-control">{{ country.nicename }}</option>
                 </select>
                 <InputError class="mt-2" :message="form.errors.countries" />
             </div>

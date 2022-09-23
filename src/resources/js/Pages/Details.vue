@@ -52,8 +52,10 @@ const props = defineProps({
                               class="text-sm text-gray-700 dark:text-gray-500 underline mr-4">Edit</Link>
                         <Link :href="route('Conferences')"
                               class="text-sm text-gray-700 dark:text-gray-500 underline">Back</Link>
-<!--                        <Link :href="route('Delete', conference.id )" class="text-sm text-gray-700 dark:text-gray-500 underline">Delete</Link>-->
-<!--                        <Link :href="route('Join', conference.id )" class="text-sm text-gray-700 dark:text-gray-500 underline">Join</Link>-->
+<!--                        <Link :href="route('Delete', conference.id )"-->
+<!--                              class="text-sm text-gray-700 dark:text-gray-500 underline">Delete</Link>-->
+<!--                        <Link :href="route('Join', conference.id )"-->
+<!--                              class="text-sm text-gray-700 dark:text-gray-500 underline">Join</Link>-->
                     </div>
             </div>
         </div>

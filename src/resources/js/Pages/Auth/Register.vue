@@ -90,7 +90,8 @@ const submit = () => {
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
                     <option class="form-control" disabled selected>Select Country</option>
-                    <option v-for="country in props.countries" :value="country.nicename" class="form-control">{{ country.nicename }} + {{ country.phonecode }}</option>
+                    <option v-for="country in props.countries" :value="country.nicename"
+                            class="form-control">{{ country.nicename }} + {{ country.phonecode }}</option>
                 </select>
                 <InputError class="mt-2" :message="form.errors.countries" />
             </div>

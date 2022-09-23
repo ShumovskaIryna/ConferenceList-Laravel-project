@@ -53,7 +53,7 @@ form.post(route('edit_save', props.conference.id));
 
                     <div class="mt-4">
                         <InputLabel for="date" value="Date" />
-                        <TextInput id="date" type="date" class="mt-1 block w-full"
+                        <TextInput id="date" type="datetime-local" class="mt-1 block w-full"
                                    v-model="form.date" required autocomplete="date" />
                         <InputError class="mt-2" :message="form.errors.date" />
                     </div>
