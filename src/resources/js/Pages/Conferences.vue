@@ -35,16 +35,18 @@ axios.get('/get-conferences').then(response => {
                             <th scope="col">Date</th>
                             <th scope="col"> </th>
                             <th scope="col"> </th>
+                            <th scope="col"> </th>
                         </tr>
                         </thead>
                         <tbody v-for="conference in props.conferences">
                         <tr>
                             <th scope="row">{{ conference.id }}</th>
-                            <td style="max-width:400px">{{ conference.title }}</td>
+                            <td class="max-w-xs">{{ conference.title }}</td>
                             <td>{{ conference.date }}</td>
-                            <td><Link :href="route('Details', conference.id )"
-                                      class="text-sm text-gray-700 dark:text-gray-500 underline">Details</Link></td>
+                            <td><Link :href="route('Details', conference.id )">
+                                <button class="btn btn-outline-info">Details</button></Link></td>
                             <td>Join</td>
+                            <td>Share</td>
                         </tr>
                         </tbody>
                     </b-table>

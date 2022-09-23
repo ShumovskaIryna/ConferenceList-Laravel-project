@@ -48,14 +48,13 @@ const props = defineProps({
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <Link :href="route('Edit', conference.id )"
-                              class="text-sm text-gray-700 dark:text-gray-500 underline mr-4">Edit</Link>
-                        <Link :href="route('Conferences')"
-                              class="text-sm text-gray-700 dark:text-gray-500 underline mr-4">Back</Link>
-                        <Link :href="route('Delete', conference.id )"
-                              class="text-sm text-gray-700 dark:text-gray-500 underline">Delete</Link>
-<!--                        <Link :href="route('Join', conference.id )"-->
-<!--                              class="text-sm text-gray-700 dark:text-gray-500 underline">Join</Link>-->
+                        <Link :href="route('Edit', conference.id )">
+                            <button class="btn btn-outline-warning mr-4">Edit</button></Link>
+                        <Link :href="route('Conferences')">
+                            <button class="btn btn-outline-dark mr-4">Back</button></Link>
+                        <Link :href="route('Delete', conference.id )">
+                            <button class="btn btn-outline-danger">Delete</button></Link>
+<!--                        <Link :href="route('Join', conference.id )">Join</Link>-->
                     </div>
             </div>
         </div>

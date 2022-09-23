@@ -1,7 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head, useForm} from '@inertiajs/inertia-vue3';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -94,6 +93,8 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+                <Link :href="route('Conferences')">
+                <button class="btn btn-outline-dark">Back</button></Link>
             </div>
         </div>
     </AuthenticatedLayout>

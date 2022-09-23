@@ -27,12 +27,14 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('Conferences')" :active="route().current('Conferences')">
+                                <NavLink :href="route('Conferences')" :active="route().current('Conferences')"
+                                         class="font-bold text-lg text-sky-700 no-underline">
                                     Conferences
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('Create')" :active="route().current('Create')">
+                                <NavLink :href="route('Create')" :active="route().current('Create')"
+                                         class="font-bold text-lg text-sky-700 no-underline">
                                     +New
                                 </NavLink>
                             </div>
@@ -46,10 +48,11 @@ const showingNavigationDropdown = ref(false);
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
                                                     class="inline-flex items-center px-3 py-2 border
-                                                    border-transparent text-sm leading-4 font-medium
-                                                    rounded-md text-gray-500 bg-white hover:text-gray-700
+                                                    border-transparent text-sm leading-4 font-bold
+                                                    rounded-md text-sky-600 bg-slate-200 hover:text-sky-800
                                                     focus:outline-none transition ease-in-out duration-150">
-                                                {{ $page.props.auth.user.first_name }}
+                                                <span
+                                                    class="font-bold text-lg text-sky-600">{{ $page.props.auth.user.first_name }}</span>
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                      viewBox="0 0 20 20" fill="currentColor">

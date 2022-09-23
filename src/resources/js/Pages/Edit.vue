@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head, useForm} from '@inertiajs/inertia-vue3';
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -86,10 +86,14 @@ form.post(route('edit_save', props.conference.id));
                         <PrimaryButton class="ml-4"
                                        :class="{ 'opacity-25': form.processing }"
                                        :disabled="form.processing">
-                            Edit
+                            Save
                         </PrimaryButton>
                     </div>
                 </form>
+                <Link :href="route('Details', conference.id)">
+                    <button class="btn btn-outline-dark mr-4">Back</button></Link>
+                <Link :href="route('Delete', conference.id )">
+                    <button class="btn btn-outline-danger">Delete</button></Link>
             </div>
         </div>
     </AuthenticatedLayout>
