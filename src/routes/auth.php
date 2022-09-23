@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveConference'])
         ->name('edit_save');
 
+    Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConference'])
+        ->name('Delete');
+
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')
                 ->name('verification.send');

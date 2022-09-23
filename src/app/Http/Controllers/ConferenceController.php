@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conference;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ConferenceController extends Controller
@@ -63,5 +64,10 @@ class ConferenceController extends Controller
         return Inertia::render('Details', [
             'conference' => Conference::findOrFail($id)
         ]);
+    }
+    public function deleteConference($id)
+    {
+        Conference::find($id)->delete();
+        return Redirect::route('Conferences');
     }
 }
