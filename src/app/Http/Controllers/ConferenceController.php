@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conference;
+use App\Models\ConferencesUsers;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -18,13 +21,21 @@ class ConferenceController extends Controller
             'lng'=> 'required|max:25',
             'countries'=> 'required'
         ]);
+        $userId = Auth::id();
+
         $conferences = new Conference();
         $conferences->title = $request->input('title');
         $conferences->date = $request->input('date');
         $conferences->lat = $request->input('lat');
         $conferences->lng = $request->input('lng');
         $conferences->countries = $request->input('countries');
+        $conferences->created_by = $userId;
         $conferences->save();
+
+        $users = User::find($userId);
+        $conferences->users()->attach($users, [
+            'joined_at' => date('d-m-y h:i:s'),
+        ]);
 
         return redirect(RouteServiceProvider::HOME);
     }
@@ -68,6 +79,15 @@ class ConferenceController extends Controller
     public function deleteConference($id)
     {
         Conference::find($id)->delete();
+        return Redirect::route('Conferences');
+    }
+    public function joinConference(Request $request) {
+        $userId = Auth::id();
+
+        $conferences = new ConferencesUsers();
+        $confId = $request->input('conf_id');
+
+        $conferences->join($confId,$userId);
         return Redirect::route('Conferences');
     }
 }

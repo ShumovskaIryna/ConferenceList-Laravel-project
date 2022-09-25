@@ -48,6 +48,9 @@ Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveCon
 Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConference'])
     ->name('Delete');
 
+Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
+    ->name('join');
+
 Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
     'getCountries']);
 

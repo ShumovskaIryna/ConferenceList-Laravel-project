@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -16,6 +18,13 @@ axios.get('/get-conferences').then(response => {
 }).catch(error => {
     console.error(error);
 });
+
+const form = useForm({});
+
+const submit = (id) => {
+    form.post(route('join', id));
+};
+
 </script>
 
 <template>
@@ -45,7 +54,19 @@ axios.get('/get-conferences').then(response => {
                             <td>{{ conference.date }}</td>
                             <td><Link :href="route('Details', conference.id )">
                                 <button class="btn btn-outline-info">Details</button></Link></td>
-                            <td>Join</td>
+                            <td>
+                                <button v-if="conference.isAlreadyJoined || conference.isOwn"
+                                        class="btn btn-outline-success">IT IS MINE</button>
+                                <template v-else>
+                                        <input type="hidden" name="conf_id" :value="conference.id"/>
+                                    <Link :href="route('join', conference.id )" :method="POST">
+                                        <button class="btn btn-outline-success">
+                                            Join
+                                        </button>
+                                    </Link>
+                                    <button name="foo" value="upvote">Upvote</button>
+                                </template>
+                            </td>
                             <td>Share</td>
                         </tr>
                         </tbody>

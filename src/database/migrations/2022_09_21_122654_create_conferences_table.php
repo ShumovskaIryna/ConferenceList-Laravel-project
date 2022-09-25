@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->string('countries')->nullable();
+            $table->bigInteger('created_by');
             $table->timestamps();
         });
     }
