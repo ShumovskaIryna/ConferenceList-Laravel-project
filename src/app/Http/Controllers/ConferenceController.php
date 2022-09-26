@@ -94,10 +94,14 @@ class ConferenceController extends Controller
         $userId = Auth::id();
 
         $conferences = new ConferencesUsers();
-//        $confId = $request->input('id');
-
         $conferences->join($id,$userId);
-        return redirect()->route('Conferences');
-//        return Redirect::route('Conferences');
+        return Redirect::route('Conferences');
+    }
+    public function unjoinConference($id) {
+        $userId = Auth::id();
+
+        $conferences = new ConferencesUsers();
+        $conferences->unjoin($id,$userId);
+        return Redirect::route('Conferences');
     }
 }

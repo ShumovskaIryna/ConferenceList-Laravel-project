@@ -16,12 +16,12 @@ const props = defineProps({
 function join(id) {
     Inertia.post(route("join", id));
 }
-
+function unjoin(id) {
+    Inertia.post(route("unjoin", id));
+}
 </script>
 
 <template>
-<!--    <Head title="Conferences" />-->
-
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -52,25 +52,25 @@ function join(id) {
                                 </Link>
                             </td>
                             <td>
-                                <button v-if="conference.isOwn"
-                                        class="btn btn-outline-success">IT IS MINE</button>
-                                <div v-else>
-                                <button v-if="conference.isAlreadyJoined" class="btn btn-outline-danger">Cancel participation</button>
-                                </div>
-                                        <button v-else class="btn btn-outline-success"
-                                                @click="join(conference.id)"
-                                        >
-                                            Join
-                                        </button>
-                            </td>
-                            <td>
+                            <button v-if="conference.isOwn" class="btn btn-outline-success">
+                                IT IS MINE
+                            </button>
+                            <div v-else-if="conference.isAlreadyJoined" >
+                                <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
+                                    Cancel participation
+                                </button>
                                 <div class="hide">
                                 <ul>
-                                    <li>fb</li>
-                                    <li>tw</li>
+                                    <li class="button">fb</li>
+                                    <li class="button">tw</li>
                                 </ul>
                                 </div>
+                            </div>
+                            <button v-else class="btn btn-outline-success" @click="join(conference.id)">
+                                Join
+                            </button>
                             </td>
+
                         </tr>
                         </tbody>
                     </b-table>

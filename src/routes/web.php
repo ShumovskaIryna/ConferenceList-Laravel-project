@@ -50,6 +50,9 @@ Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConf
 Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
     ->name('join');
 
+Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
+    ->name('unjoin');
+
 Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
     'getCountries']);
 
