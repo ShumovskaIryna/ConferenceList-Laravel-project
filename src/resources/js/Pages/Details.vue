@@ -19,40 +19,40 @@ const props = defineProps({
                     <div class="mt-4">
                         Title
                         <div class="mt-4">
-                            <i>{{conference.title}}</i>
+                            <i>{{props.conference.title}}</i>
                         </div>
                     </div>
 
                     <div class="mt-4">
                         Date
                         <div class="mt-4">
-                            <i>{{conference.date}}</i>
+                            <i>{{props.conference.date}}</i>
                         </div>
                     </div>
 
                     <div class="mt-4">
                         Address
                         <div class="mt-4">
-                             <i>Lattitude - {{conference.lat}}</i>
+                             <i>Lattitude - {{props.conference.lat}}</i>
                         </div>
                         <div class="mt-4">
-                             <i>Longitude - {{conference.lng}}</i>
+                             <i>Longitude - {{props.conference.lng}}</i>
                         </div>
                     </div>
 
                     <div class="mt-4">
                         Country
                         <div class="mt-4">
-                            <i>{{conference.countries}}</i>
+                            <i>{{props.conference.countries}}</i>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <Link :href="route('Edit', conference.id )">
+                        <Link :href="route('Edit', props.conference.id )">
                             <button class="btn btn-outline-warning mr-4">Edit</button></Link>
                         <Link :href="route('Conferences')">
                             <button class="btn btn-outline-dark mr-4">Back</button></Link>
-                        <Link :href="route('Delete', conference.id )">
+                        <Link :href="route('Delete', props.conference.id )">
                             <button class="btn btn-outline-danger">Delete</button></Link>
 <!--                        <Link :href="route('Join', conference.id )">Join</Link>-->
                     </div>

@@ -26,9 +26,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/conferences', function () {
-    return Inertia::render('Conferences');
-})->middleware(['auth', 'verified'])->name('Conferences');
+Route::get('/conferences', [ConferenceController::class, 'getConferences']
+)->middleware(['auth', 'verified'])->name('Conferences');
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
@@ -53,9 +52,6 @@ Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConfere
 
 Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
     'getCountries']);
-
-Route::get('get-conferences', [\App\Http\Controllers\ConferenceController::class,
-    'getConferences']);
 
 Route::post('/conferences', [ConferenceController::class, 'create'])->name('conferences');
 

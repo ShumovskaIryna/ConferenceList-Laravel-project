@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { Inertia } from "@inertiajs/inertia";
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -13,22 +13,14 @@ const props = defineProps({
     },
 });
 
-axios.get('/get-conferences').then(response => {
-    props.conferences = response.data;
-}).catch(error => {
-    console.error(error);
-});
-
-const form = useForm({});
-
-const submit = (id) => {
-    form.post(route('join', id));
-};
+function join(id) {
+    Inertia.post(route("join", id));
+}
 
 </script>
 
 <template>
-    <Head title="Conferences" />
+<!--    <Head title="Conferences" />-->
 
     <AuthenticatedLayout>
         <div class="py-12">
@@ -47,27 +39,38 @@ const submit = (id) => {
                             <th scope="col"> </th>
                         </tr>
                         </thead>
-                        <tbody v-for="conference in props.conferences">
+                        <tbody v-for="conference in props.conferences.data">
                         <tr>
                             <th scope="row">{{ conference.id }}</th>
                             <td class="max-w-xs">{{ conference.title }}</td>
                             <td>{{ conference.date }}</td>
-                            <td><Link :href="route('Details', conference.id )">
-                                <button class="btn btn-outline-info">Details</button></Link></td>
                             <td>
-                                <button v-if="conference.isAlreadyJoined || conference.isOwn"
+                                <Link :href="route('Details', conference.id )">
+                                    <button class="btn btn-outline-info">
+                                        Details
+                                    </button>
+                                </Link>
+                            </td>
+                            <td>
+                                <button v-if="conference.isOwn"
                                         class="btn btn-outline-success">IT IS MINE</button>
-                                <template v-else>
-                                        <input type="hidden" name="conf_id" :value="conference.id"/>
-                                    <Link :href="route('join', conference.id )" :method="POST">
-                                        <button class="btn btn-outline-success">
+                                <div v-else>
+                                <button v-if="conference.isAlreadyJoined" class="btn btn-outline-danger">Cancel participation</button>
+                                </div>
+                                        <button v-else class="btn btn-outline-success"
+                                                @click="join(conference.id)"
+                                        >
                                             Join
                                         </button>
-                                    </Link>
-                                    <button name="foo" value="upvote">Upvote</button>
-                                </template>
                             </td>
-                            <td>Share</td>
+                            <td>
+                                <div class="hide">
+                                <ul>
+                                    <li>fb</li>
+                                    <li>tw</li>
+                                </ul>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </b-table>

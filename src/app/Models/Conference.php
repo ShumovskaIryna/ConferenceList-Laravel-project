@@ -29,23 +29,30 @@ class Conference extends Model
         $conferences = $this->with('conferencesUsers')->paginate(15);
         if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
 
+        fwrite(STDOUT, 222);
+
         foreach($conferences as $conf) {
             fwrite(STDOUT, $conf);
 
             $isOwn = $conf->created_by === $userId;
             $conf->isOwn = $isOwn;
-        }
-        $confUsers = $conf->conferencesUsers;
 
-//        if(empty($confUsers)) {
-//            continue;
-//        }
-        foreach($confUsers as $additionalData) {
+        $confMapUsers = $conf->conferencesUsers;
+            fwrite(STDOUT, 222);
+
+            fwrite(STDOUT, $confMapUsers);
+
+            if(empty($confMapUsers)) {
+                continue;
+            }
+
+        foreach($confMapUsers as $additionalData) {
             $isAlreadyJoined = $additionalData->user_id === $userId
                 && $additionalData->joined_at
                 && $additionalData->conference_id === $conf->id;
 
             $conf->isAlreadyJoined = $isAlreadyJoined;
+            }
         }
         return $conferences;
     }
