@@ -10,24 +10,6 @@ export default {
                         lng: 6.84212,
                     },
                 },
-                {
-                    position: {
-                        lat: 51.198429,
-                        lng: 6.69529,
-                    },
-                },
-                {
-                    position: {
-                        lat: 51.165218,
-                        lng: 7.067116,
-                    },
-                },
-                {
-                    position: {
-                        lat: 51.09256,
-                        lng: 6.84074,
-                    },
-                },
             ],
         };
     },
@@ -39,9 +21,8 @@ export default {
         :center="center"
         :zoom="10"
         map-type-id="terrain"
-        style="width: 100vw; height: 20rem"
+        style="width: 400px; height: 300px"
     >
-        <GMapCluster :zoomOnClick="true">
             <GMapMarker
                 :key="index"
                 v-for="(m, index) in markers"
@@ -50,6 +31,5 @@ export default {
                 :draggable="true"
                 @click="center = m.position"
             />
-        </GMapCluster>
     </GMapMap>
 </template>

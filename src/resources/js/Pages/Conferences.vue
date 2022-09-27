@@ -2,6 +2,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
+import {Share} from 'vue3-social-share';
+import 'vue3-social-share/lib/index.css'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -36,7 +38,6 @@ function unjoin(id) {
                             <th scope="col">Date</th>
                             <th scope="col"> </th>
                             <th scope="col"> </th>
-                            <th scope="col"> </th>
                         </tr>
                         </thead>
                         <tbody v-for="conference in props.conferences.data">
@@ -55,22 +56,26 @@ function unjoin(id) {
                             <button v-if="conference.isOwn" class="btn btn-outline-success">
                                 IT IS MINE
                             </button>
-                            <div v-else-if="conference.isAlreadyJoined" >
+                            <div v-else-if="conference.isAlreadyJoined" class="relative flex">
                                 <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
                                     Cancel participation
                                 </button>
-                                <div class="hide">
-                                <ul>
-                                    <li class="button">fb</li>
-                                    <li class="button">tw</li>
-                                </ul>
+                                <div class="hide ml-5">
+                                    <Share
+                                        source="modifySource"
+                                        :QQ="false"
+                                        :QZone="false"
+                                        :weibo="false"
+                                        :weChat="false"
+                                        :twitter="true"
+                                        :facebook="true"
+                                    ></Share>
                                 </div>
                             </div>
                             <button v-else class="btn btn-outline-success" @click="join(conference.id)">
                                 Join
                             </button>
                             </td>
-
                         </tr>
                         </tbody>
                     </b-table>

@@ -26,6 +26,7 @@
         "@fawmi/vue-google-maps": "^0.9.79",
         "@protonemedia/inertiajs-tables-laravel-query-builder": "^2.1.0",
         "@vitejs/plugin-vue": "^3.1.0",
-        "vue-loader": "^17.0.0"
+        "vue-loader": "^17.0.0",
+        "vue3-social-share": "^0.1.7"
     }
 }

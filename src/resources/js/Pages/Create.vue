@@ -68,20 +68,19 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="lat" value="Lattitude" />
-                <TextInput id="lat" type="text" class="mt-1 block w-full"
-                           v-model="form.lat" required autofocus autocomplete="lat" />
+                <TextInput id="lat" type="number" class="mt-1 block w-full"
+                           v-model="form.lat" required autofocus autocomplete="lat"/>
                 <InputError class="mt-2" :message="form.errors.lat" />
             </div>
 
             <div class="mt-4">
                 <InputLabel for="lng" value="Longitude" />
-                <TextInput id="lng" type="text" class="mt-1 block w-full"
-                           v-model="form.lng" required autofocus autocomplete="lng" />
+                <TextInput id="lng" type="number" class="mt-1 block w-full"
+                           v-model="form.lng" required autofocus autocomplete="lng"/>
                 <InputError class="mt-2" :message="form.errors.lng" />
             </div>
-
                 <div id="app">
-                    <Map />
+                    <Map/>
                 </div>
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
