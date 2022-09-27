@@ -7,7 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Map from './Map.vue'
-
+const LatLng = { lat: 51.093048, lng: 6.84212 }
 const props = defineProps({
     countries: {
         type: Array,
@@ -16,6 +16,13 @@ const props = defineProps({
     components: {
             Map
     },
+    center: {
+        type: Object,
+    },
+    position: {
+        type: Object,
+    },
+    emits: ['update:lat', 'update:lng'],
 });
 
 axios.get('/get-countries').then(response => {
@@ -70,17 +77,23 @@ const submit = () => {
                 <InputLabel for="lat" value="Lattitude" />
                 <TextInput id="lat" type="number" class="mt-1 block w-full"
                            v-model="form.lat" required autofocus autocomplete="lat"/>
-                <InputError class="mt-2" :message="form.errors.lat" />
+                <InputError class="mt-2" :message="form.errors.lat"
+                            @input="$emit('update:lat', $event.target.value)"/>
             </div>
 
             <div class="mt-4">
                 <InputLabel for="lng" value="Longitude" />
                 <TextInput id="lng" type="number" class="mt-1 block w-full"
-                           v-model="form.lng" required autofocus autocomplete="lng"/>
+                           v-model="form.lng" required autofocus autocomplete="lng"
+                           @input="$emit('update:lng', $event.target.value)"/>
                 <InputError class="mt-2" :message="form.errors.lng" />
             </div>
-                <div id="app">
-                    <Map/>
+            <div class="mt-4" id="app"
+                 v-if="form.lat && form.lng">
+                    <Map
+                        :center="LatLng"
+                        :position="LatLng"
+                    />
                 </div>
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
