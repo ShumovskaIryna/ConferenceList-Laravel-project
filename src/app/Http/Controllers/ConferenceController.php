@@ -42,21 +42,23 @@ class ConferenceController extends Controller
     public function getConferences()
     {
         if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
-//        fwrite(STDOUT, 4444);
+
         $userId = Auth::id();
         $conferences = new Conference;
         $paginatedConferences = $conferences->getPaginateConf($userId);
-//        fwrite(STDOUT, $paginatedConferences);
 
         return Inertia::render('Conferences', [
             'conferences' => $paginatedConferences
         ]);
     }
 
-    public function detailConference($id)
+    public function detailConference($confId)
     {
+        $userId = Auth::id();
+        $conference = new Conference();
+        $idConference = $conference->getConfId($userId, $confId);
         return Inertia::render('Details', [
-            'conference' => Conference::findOrFail($id)
+            'conference' => $idConference
         ]);
     }
     public function editConference($id)
@@ -95,13 +97,11 @@ class ConferenceController extends Controller
 
         $conferences = new ConferencesUsers();
         $conferences->join($id,$userId);
-        return Redirect::route('Conferences');
     }
     public function unjoinConference($id) {
         $userId = Auth::id();
 
         $conferences = new ConferencesUsers();
         $conferences->unjoin($id,$userId);
-        return Redirect::route('Conferences');
     }
 }

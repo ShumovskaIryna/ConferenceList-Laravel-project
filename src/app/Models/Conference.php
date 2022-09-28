@@ -29,18 +29,10 @@ class Conference extends Model
         $conferences = $this->with('conferencesUsers')->paginate(15);
         if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
 
-        fwrite(STDOUT, 222);
-
         foreach($conferences as $conf) {
-            fwrite(STDOUT, $conf);
-
             $isOwn = $conf->created_by === $userId;
             $conf->isOwn = $isOwn;
-
         $confMapUsers = $conf->conferencesUsers;
-            fwrite(STDOUT, 222);
-
-            fwrite(STDOUT, $confMapUsers);
 
             if(empty($confMapUsers)) {
                 continue;
@@ -55,5 +47,24 @@ class Conference extends Model
             }
         }
         return $conferences;
+    }
+    public function getConfId($userId, $confId) {
+        $conference = $this->with('conferencesUsers')->findOrFail($confId);
+
+        $isOwn = $conference->created_by === $userId;
+        $conference->isOwn = $isOwn;
+        $confMapUsers = $conference->conferencesUsers;
+
+            if(empty($confMapUsers)) {
+                return $conference;
+            }
+
+            foreach($confMapUsers as $additionalData) {
+                $isAlreadyJoined = $additionalData->user_id === $userId
+                    && $additionalData->joined_at
+                    && $additionalData->conference_id === $conference->id;
+                $conference->isAlreadyJoined = $isAlreadyJoined;
+        }
+        return $conference;
     }
 }
