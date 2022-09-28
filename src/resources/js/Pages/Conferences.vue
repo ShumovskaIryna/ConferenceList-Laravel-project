@@ -7,6 +7,7 @@ import 'vue3-social-share/lib/index.css'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Pagination from '@/Components/Pagination.vue'
 
 const props = defineProps({
     conferences: {
@@ -79,6 +80,9 @@ function unjoin(id) {
                         </tr>
                         </tbody>
                     </b-table>
+                        <div class="relative flex justify-center">
+                            <Pagination :links="conferences.links" />
+                        </div>
                     </div>
                 </div>
             </div>

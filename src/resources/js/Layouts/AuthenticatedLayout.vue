@@ -52,7 +52,8 @@ const showingNavigationDropdown = ref(false);
                                                     rounded-md text-sky-600 bg-slate-200 hover:text-sky-800
                                                     focus:outline-none transition ease-in-out duration-150">
                                                 <span
-                                                    class="font-bold text-lg text-sky-600">{{ $page.props.auth.user.first_name }}</span>
+                                                    class="font-bold text-lg text-sky-600">
+                                                    {{ $page.props.auth.user.first_name }}</span>
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                      viewBox="0 0 20 20" fill="currentColor">
