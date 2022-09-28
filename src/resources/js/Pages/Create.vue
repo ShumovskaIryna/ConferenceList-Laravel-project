@@ -7,7 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Map from './Map.vue'
-const LatLng = { lat: 51.093048, lng: 6.84212 }
+
 const props = defineProps({
     countries: {
         type: Array,
@@ -19,10 +19,6 @@ const props = defineProps({
     center: {
         type: Object,
     },
-    position: {
-        type: Object,
-    },
-    emits: ['update:lat', 'update:lng'],
 });
 
 axios.get('/get-countries').then(response => {
@@ -34,8 +30,10 @@ axios.get('/get-countries').then(response => {
 const form = useForm({
     title: '',
     date: '',
-    lat: '',
-    lng: '',
+    position: {
+        lat: '',
+        lng: ''
+    },
     countries: '',
     terms: false,
 });
@@ -76,23 +74,21 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="lat" value="Lattitude" />
                 <TextInput id="lat" type="number" class="mt-1 block w-full"
-                           v-model="form.lat" required autofocus autocomplete="lat"/>
-                <InputError class="mt-2" :message="form.errors.lat"
-                            @input="$emit('update:lat', $event.target.value)"/>
+                           v-model="form.position.lat" required autofocus/>
+                <InputError class="mt-2" :message="form.errors.lat"/>
             </div>
 
             <div class="mt-4">
                 <InputLabel for="lng" value="Longitude" />
                 <TextInput id="lng" type="number" class="mt-1 block w-full"
-                           v-model="form.lng" required autofocus autocomplete="lng"
-                           @input="$emit('update:lng', $event.target.value)"/>
+                           v-model="form.position.lng" required autofocus/>
                 <InputError class="mt-2" :message="form.errors.lng" />
             </div>
             <div class="mt-4" id="app"
-                 v-if="form.lat && form.lng">
+                 v-if="form.position.lat && form.position.lng">
                     <Map
-                        :center="LatLng"
-                        :position="LatLng"
+                        :center="form.position"
+                        :position="form.position"
                     />
                 </div>
             <div class="mt-4">

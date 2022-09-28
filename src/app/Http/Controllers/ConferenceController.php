@@ -17,8 +17,8 @@ class ConferenceController extends Controller
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
-            'lat'=> 'required|max:25',
-            'lng'=> 'required|max:25',
+            'position.lat'=> 'required|max:25',
+            'position.lng'=> 'required|max:25',
             'countries'=> 'required'
         ]);
         $userId = Auth::id();
@@ -26,8 +26,8 @@ class ConferenceController extends Controller
         $conferences = new Conference();
         $conferences->title = $request->input('title');
         $conferences->date = $request->input('date');
-        $conferences->lat = $request->input('lat');
-        $conferences->lng = $request->input('lng');
+        $conferences->lat = $request->input('position.lat');
+        $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
         $conferences->created_by = $userId;
         $conferences->save();
@@ -69,15 +69,15 @@ class ConferenceController extends Controller
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
-            'lat'=> 'required|max:25',
-            'lng'=> 'required|max:25',
+            'position.lat'=> 'required|max:25',
+            'position.lng'=> 'required|max:25',
             'countries'=> 'required'
         ]);
         $conferences = Conference::find($id);
         $conferences->title = $request->input('title');
         $conferences->date = $request->input('date');
-        $conferences->lat = $request->input('lat');
-        $conferences->lng = $request->input('lng');
+        $conferences->lat = $request->input('position.lat');
+        $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
         $conferences->save();
 

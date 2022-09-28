@@ -1,11 +1,21 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import Map from './Map.vue'
 
 const props = defineProps({
     conference: {
         type: Array,
         default: [],
+    },
+    components: {
+        Map
+    },
+    center: {
+        type: Object,
+    },
+    position: {
+        type: Object,
     },
 });
 </script>
@@ -38,6 +48,12 @@ const props = defineProps({
                         <div class="mt-4">
                              <i>Longitude - {{props.conference.lng}}</i>
                         </div>
+                    </div>
+                    <div class="mt-4">
+                        <Map
+                            :center="{lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
+                            :position="{ lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
+                        />
                     </div>
 
                     <div class="mt-4">

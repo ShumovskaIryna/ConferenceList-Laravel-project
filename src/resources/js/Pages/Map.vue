@@ -1,11 +1,18 @@
 <script>
 export default {
-    data() {
-        return {
-            center: Object,
-            position: Object,
-        };
-    },
+   props: {
+       center: Object,
+       position: Object,
+   },
+    watch: {
+     'position': {
+        handler:  function () {
+        this.position.lat = parseFloat(this.position.lat);
+        this.position.lng = parseFloat(this.position.lng);
+        },
+       deep: true,
+     }
+   },
 };
 </script>
 
