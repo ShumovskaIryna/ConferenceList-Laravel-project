@@ -18,8 +18,8 @@ class ConferenceController extends Controller
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
-            'position.lat'=> 'required|max:25',
-            'position.lng'=> 'required|max:25',
+            'position.lat'=> 'max:25',
+            'position.lng'=> 'max:25',
             'countries'=> 'required'
         ]);
         $isAnnouncer = Gate::allows('isAnnouncer');
@@ -95,8 +95,8 @@ class ConferenceController extends Controller
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
-            'position.lat'=> 'required|max:25',
-            'position.lng'=> 'required|max:25',
+            'position.lat'=> 'max:25',
+            'position.lng'=> 'max:25',
             'countries'=> 'required'
         ]);
         $conferences = Conference::find($id);
@@ -107,8 +107,14 @@ class ConferenceController extends Controller
         $conferences->countries = $request->input('countries');
         $conferences->save();
 
+        $userId = Auth::id();
+        $conference = Conference::find($id);
+
+        $isOwner = $conference->created_by === $userId;
+        $conference->isOwn = $isOwner;
+
         return Inertia::render('Details', [
-            'conference' => Conference::findOrFail($id)
+            'conference' => $conference,
         ]);
     }
     public function deleteConference($id)

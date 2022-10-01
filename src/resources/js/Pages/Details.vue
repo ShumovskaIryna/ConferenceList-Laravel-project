@@ -51,7 +51,7 @@ function unjoin(id) {
                         </div>
                     </div>
 
-                    <div class="mt-4">
+                    <div class="mt-4" v-if="props.conference.lat && props.conference.lng">
                         Address
                         <div class="mt-4">
                              <i>Lattitude - {{props.conference.lat}}</i>
@@ -60,7 +60,7 @@ function unjoin(id) {
                              <i>Longitude - {{props.conference.lng}}</i>
                         </div>
                     </div>
-                    <div class="mt-4">
+                    <div v-if="props.conference.lat && props.conference.lng" class="mt-4">
                         <Map
                             :center="{lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
                             :position="{ lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"

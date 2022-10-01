@@ -74,14 +74,14 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="lat" value="Lattitude" />
                 <TextInput id="lat" type="number" class="mt-1 block w-full"
-                           v-model="form.position.lat" required autofocus/>
+                           v-model="form.position.lat" autofocus/>
                 <InputError class="mt-2" :message="form.errors.lat"/>
             </div>
 
             <div class="mt-4">
                 <InputLabel for="lng" value="Longitude" />
                 <TextInput id="lng" type="number" class="mt-1 block w-full"
-                           v-model="form.position.lng" required autofocus/>
+                           v-model="form.position.lng" autofocus/>
                 <InputError class="mt-2" :message="form.errors.lng" />
             </div>
             <div class="mt-4" id="app"
