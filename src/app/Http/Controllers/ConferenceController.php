@@ -113,8 +113,9 @@ class ConferenceController extends Controller
     }
     public function joinConference($id) {
         if (!Gate::allows('isAnnouncer') &
-            !Gate::allows('isListener')) {
-            abort(403);}
+            !Gate::allows('isListener')){
+            return Redirect::route('register');
+        }
         $userId = Auth::id();
 
         $conferences = new ConferencesUsers();

@@ -55,7 +55,7 @@ const showingNavigationDropdown = ref(false);
                                                     focus:outline-none transition ease-in-out duration-150">
                                                 <span
                                                     class="font-bold text-lg text-sky-600">
-                                                    {{ $page.props.auth.user?.first_name }}
+                                                    {{ $page.props.auth.user?.first_name || 'Guest'}}
                                                 </span>
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -74,9 +74,22 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                         </DropdownLink>
                                     </template>
                                     <template #content v-else>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log in
-                                        </DropdownLink>
+                                        <Link :href="route('login')"
+                                              class="ml-10 mt-48 text-sky-500 leading-relaxed no-underline">
+                                            Log In<span class="text-sky-500">-></span>
+                                            <span class="text-sky-600">></span>
+                                            <span class="text-sky-700">></span>
+                                            <span class="text-sky-800">></span>
+                                            <span class="text-sky-900">></span>
+                                        </Link>
+
+                                        <Link :href="route('register')"
+                                              class="ml-20 mt-48 text-cyan-500 leading-relaxed no-underline">
+                                            Register<span class="text-cyan-500">-></span>
+                                            <span class="text-cyan-600">></span>
+                                            <span class="text-cyan-700">></span>
+                                            <span class="text-cyan-800">></span>
+                                        </Link>
                                     </template>
                                 </Dropdown>
                             </div>

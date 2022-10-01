@@ -21,18 +21,18 @@ defineProps({
                 <span class="text-sky-800">></span>
                 <span class="text-sky-900">></span>
             </Link>
-
+            <br>
                 <Link :href="route('login')"
-                      class="ml-20 mt-48 font-bold text-6xl text-sky-500 leading-relaxed">
+                      class="mt-48 font-bold text-6xl text-sky-500 leading-relaxed">
                     Log In<span class="text-sky-500">-></span>
                     <span class="text-sky-600">></span>
                     <span class="text-sky-700">></span>
                     <span class="text-sky-800">></span>
                     <span class="text-sky-900">></span>
                 </Link>
-
+            <br>
                 <Link v-if="canRegister" :href="route('register')"
-                      class="ml-20 mt-48 font-bold text-6xl text-cyan-500 leading-relaxed">
+                      class="mt-48 font-bold text-6xl text-cyan-500 leading-relaxed">
                     Register<span class="text-cyan-500">-></span>
                     <span class="text-cyan-600">></span>
                     <span class="text-cyan-700">></span>
