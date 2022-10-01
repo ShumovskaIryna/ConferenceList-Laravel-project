@@ -53,10 +53,7 @@ function unjoin(id) {
                             <td>{{ conference.date }}</td>
 <!--                            IF USER IS NOT GUEST-->
                             <td>
-                                <Link v-if="props.auth?.user?.role === 'ADMIN' ||
-                                            props.auth?.user?.role === 'LISTENER' ||
-                                            props.auth?.user?.role === 'ANNOUNCER'"
-                                      :href="route('Details', conference.id )">
+                                <Link :href="route('Details', conference.id )">
                                     <button class="btn btn-outline-info">
                                         Details
                                     </button>

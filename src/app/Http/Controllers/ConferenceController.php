@@ -22,6 +22,12 @@ class ConferenceController extends Controller
             'position.lng'=> 'required|max:25',
             'countries'=> 'required'
         ]);
+        $isAnnouncer = Gate::allows('isAnnouncer');
+        $isAdmin = Gate::allows('isAdmin');
+        $canCreateConf = $isAnnouncer || $isAdmin;
+        if (!$canCreateConf) {
+            abort(403, 'Create conference can Admin and Announcer only' );
+        }
         $userId = Auth::id();
 
         $conferences = new Conference();
@@ -60,6 +66,11 @@ class ConferenceController extends Controller
 
     public function detailConference($confId)
     {
+        if (!Gate::allows('isAnnouncer') &&
+        !Gate::allows('isListener') &&
+        !Gate::allows('isAdmin')){
+            return Redirect::route('register');
+        }
         $userId = Auth::id();
         $conference = new Conference();
         $idConference = $conference->getConfId($userId, $confId);
@@ -74,7 +85,7 @@ class ConferenceController extends Controller
 
         $isOwner = $conference->created_by === $userId;
         if (!Gate::allows('isAdmin') && !$isOwner) {
-            abort(403, 'You are can not edit this conference');
+            abort(403, 'You can not edit this conference');
         }
         return Inertia::render('Edit', [
             'conference' => Conference::findOrFail($id)
@@ -106,13 +117,13 @@ class ConferenceController extends Controller
         $conference = Conference::find($id);
          $isOwner = $conference->created_by === $userId;
          if (!Gate::allows('isAdmin') && !$isOwner) {
-            abort(403, 'You are can not delete this conference');
+            abort(403, 'You can not delete this conference');
          }
         $conference->delete();
         return Redirect::route('Conferences');
     }
     public function joinConference($id) {
-        if (!Gate::allows('isAnnouncer') &
+        if (!Gate::allows('isAnnouncer') &&
             !Gate::allows('isListener')){
             return Redirect::route('register');
         }

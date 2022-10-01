@@ -18,6 +18,10 @@ const props = defineProps({
     position: {
         type: Object,
     },
+    auth: {
+        type: Object,
+        default: {},
+    },
 });
 function join(id) {
     Inertia.post(route("join", id));
@@ -71,36 +75,46 @@ function unjoin(id) {
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <Link :href="route('Edit', props.conference.id )">
-                            <button class="btn btn-outline-warning mr-4">Edit</button></Link>
-                        <Link :href="route('Conferences')">
-                            <button class="btn btn-outline-dark mr-4">Back</button></Link>
-                        <Link :href="route('Delete', props.conference.id )">
-                            <button class="btn btn-outline-danger mr-4">Delete</button></Link>
-                    </div>
-                    <div class="flex items-center justify-end mt-4">
-                        <button v-if="conference.isOwn" class="btn btn-outline-success">
-                            IT IS MINE
-                        </button>
-                        <div v-else-if="conference.isAlreadyJoined" class="relative flex">
-                            <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
-                                Cancel participation
-                            </button>
-                            <div class="hide ml-5">
-                                <Share
-                                    source="modifySource"
-                                    :QQ="false"
-                                    :QZone="false"
-                                    :weibo="false"
-                                    :weChat="false"
-                                    :twitter="true"
-                                    :facebook="true"
-                                ></Share>
-                            </div>
+<!--              IF USER IS ADMIN OR OWNER-->
+                        <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
+                            <Link :href="route('Edit', conference.id )">
+                                <button class="btn btn-outline-warning mr-4">
+                                    Edit
+                                </button>
+                            </Link>
+                            <Link :href="route('Delete', conference.id )">
+                                <button class="btn btn-outline-danger mr-4">
+                                    Delete
+                                </button>
+                            </Link>
                         </div>
-                        <button v-else class="btn btn-outline-success" @click="join(conference.id)">
-                            Join
-                        </button>
+<!--                IF USER IS NOT ADMIN-->
+                        <div v-else>
+                            <div v-if="props.conference.isAlreadyJoined" class="relative flex">
+                                <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
+                                    Cancel participation
+                                </button>
+                                <div class="hide ml-5">
+                                    <Share
+                                        source="modifySource"
+                                        :QQ="false"
+                                        :QZone="false"
+                                        :weibo="false"
+                                        :weChat="false"
+                                        :twitter="true"
+                                        :facebook="true"
+                                    ></Share>
+                                </div>
+                            </div>
+                            <button v-else class="btn btn-outline-success" @click="join(conference.id)">
+                                Join
+                            </button>
+                        </div>
+                        <Link :href="route('Conferences')">
+                            <button class="btn btn-outline-dark ml-5">
+                                Back
+                            </button>
+                        </Link>
                     </div>
             </div>
         </div>
