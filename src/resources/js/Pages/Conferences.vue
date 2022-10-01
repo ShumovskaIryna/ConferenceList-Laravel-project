@@ -14,8 +14,11 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    auth: {
+        type: Object,
+        default: {},
+    },
 });
-
 function join(id) {
     Inertia.post(route("join", id));
 }
@@ -30,6 +33,8 @@ function unjoin(id) {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
+
+                    <h2>I AM {{props.auth?.user?.role}}</h2>
 
                     <b-table class="table">
                         <thead>
@@ -53,29 +58,40 @@ function unjoin(id) {
                                     </button>
                                 </Link>
                             </td>
-                            <td>
-                            <button v-if="conference.isOwn" class="btn btn-outline-success">
-                                IT IS MINE
-                            </button>
-                            <div v-else-if="conference.isAlreadyJoined" class="relative flex">
-                                <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
-                                    Cancel participation
-                                </button>
-                                <div class="hide ml-5">
-                                    <Share
-                                        source="modifySource"
-                                        :QQ="false"
-                                        :QZone="false"
-                                        :weibo="false"
-                                        :weChat="false"
-                                        :twitter="true"
-                                        :facebook="true"
-                                    ></Share>
+
+<!--                            IF USER IS ADMIN OR OWNER-->
+                                <td>
+                                    <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
+                                        <Link
+                                            :href="route('Delete', conference.id )"
+                                        >
+                                            <button class="btn btn-outline-danger mr-4">
+                                                Delete
+                                            </button>
+                                        </Link>
+                                    </div>
+<!--                            IF USER IS NOT ADMIN-->
+                                    <div v-else>
+                                <div v-if="conference.isAlreadyJoined" class="relative flex">
+                                    <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
+                                        Cancel participation
+                                    </button>
+                                    <div class="hide ml-5">
+                                        <Share
+                                            source="modifySource"
+                                            :QQ="false"
+                                            :QZone="false"
+                                            :weibo="false"
+                                            :weChat="false"
+                                            :twitter="true"
+                                            :facebook="true"
+                                        ></Share>
+                                    </div>
                                 </div>
-                            </div>
-                            <button v-else class="btn btn-outline-success" @click="join(conference.id)">
-                                Join
-                            </button>
+                                <button v-else class="btn btn-outline-success" @click="join(conference.id)">
+                                    Join
+                                </button>
+                    </div>
                             </td>
                         </tr>
                         </tbody>

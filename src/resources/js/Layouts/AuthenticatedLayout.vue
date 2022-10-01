@@ -32,7 +32,9 @@ const showingNavigationDropdown = ref(false);
                                     Conferences
                                 </NavLink>
                             </div>
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
+                                       $page.props.auth.user?.role === 'ADMIN'"
+                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('Create')" :active="route().current('Create')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     +New
@@ -53,7 +55,8 @@ const showingNavigationDropdown = ref(false);
                                                     focus:outline-none transition ease-in-out duration-150">
                                                 <span
                                                     class="font-bold text-lg text-sky-600">
-                                                    {{ $page.props.auth.user.first_name }}</span>
+                                                    {{ $page.props.auth.user?.first_name }}
+                                                </span>
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                      viewBox="0 0 20 20" fill="currentColor">
@@ -65,9 +68,14 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                         </span>
                                     </template>
 
-                                    <template #content>
+                                    <template #content v-if="$page.props.auth?.user">
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
+                                        </DropdownLink>
+                                    </template>
+                                    <template #content v-else>
+                                        <DropdownLink :href="route('logout')" method="post" as="button">
+                                            Log in
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -106,8 +114,8 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.first_name }}</div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
+                                {{ $page.props.auth.user?.first_name }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user?.email }}</div>
                         </div>
 
                         <div class="mt-3 space-y-1">

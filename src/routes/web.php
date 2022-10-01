@@ -26,8 +26,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/conferences', [ConferenceController::class, 'getConferences']
-)->middleware(['auth', 'verified'])->name('Conferences');
+Route::get('/conferences', [ConferenceController::class, 'getConferences'])
+    ->name('Conferences');
+
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
@@ -58,3 +59,7 @@ Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController
 
 Route::post('/conferences', [ConferenceController::class, 'create'])->name('conferences');
 
+
+Route::get('/token', function () {
+    return csrf_token();
+});

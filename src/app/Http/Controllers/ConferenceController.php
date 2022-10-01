@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 
 class ConferenceController extends Controller
 {
@@ -42,7 +43,12 @@ class ConferenceController extends Controller
     public function getConferences()
     {
         if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
-
+//        $isAnnouncer = Gate::allows('isAnnouncer');
+//        $isListener = Gate::allows('isListener');
+//        $canSeeConf = $isAnnouncer && $isListener
+//        if ($canSeeConf) {
+//            abort(403);
+//        }
         $userId = Auth::id();
         $conferences = new Conference;
         $paginatedConferences = $conferences->getPaginateConf($userId);
@@ -63,6 +69,13 @@ class ConferenceController extends Controller
     }
     public function editConference($id)
     {
+        $userId = Auth::id();
+        $conference = Conference::find($id);
+
+        $isOwner = $conference->created_by === $userId;
+        if (!Gate::allows('isAdmin') && !$isOwner) {
+            abort(403, 'You are can not edit this conference');
+        }
         return Inertia::render('Edit', [
             'conference' => Conference::findOrFail($id)
         ]);
@@ -89,10 +102,19 @@ class ConferenceController extends Controller
     }
     public function deleteConference($id)
     {
-        Conference::find($id)->delete();
+        $userId = Auth::id();
+        $conference = Conference::find($id);
+         $isOwner = $conference->created_by === $userId;
+         if (!Gate::allows('isAdmin') && !$isOwner) {
+            abort(403, 'You are can not delete this conference');
+         }
+        $conference->delete();
         return Redirect::route('Conferences');
     }
     public function joinConference($id) {
+        if (!Gate::allows('isAnnouncer') &
+            !Gate::allows('isListener')) {
+            abort(403);}
         $userId = Auth::id();
 
         $conferences = new ConferencesUsers();
