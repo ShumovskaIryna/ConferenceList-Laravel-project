@@ -37,43 +37,31 @@ function unjoin(id) {
     <AuthenticatedLayout>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-2 sm:pt-0 bg-gray-100">
             <div class="w-full sm:max-w-md mt-2 px-9 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                    <div class="mt-4">
-                        Title
-                        <div class="mt-4">
-                            <i>{{props.conference.title}}</i>
+                <div class="row">
+                    <div class="col">
+                        {{props.conference.title}}
+                    </div>
+                    <div class="col">
+                        {{props.conference.date}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div v-if="props.conference.lat && props.conference.lng" class="mt-4">
+                            <Map
+                                :center="{lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
+                                :position="{ lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
+                            />
                         </div>
                     </div>
-
-                    <div class="mt-4">
-                        Date
-                        <div class="mt-4">
-                            <i>{{props.conference.date}}</i>
-                        </div>
+                </div>
+                <div class="row mt-4" v-if="props.conference.lat && props.conference.lng">
+                    <div class="col">
+                           Address -  {{props.conference.countries}} (lat: {{props.conference.lat}}; lng: {{props.conference.lng}})
                     </div>
-
-                    <div class="mt-4" v-if="props.conference.lat && props.conference.lng">
-                        Address
-                        <div class="mt-4">
-                             <i>Lattitude - {{props.conference.lat}}</i>
-                        </div>
-                        <div class="mt-4">
-                             <i>Longitude - {{props.conference.lng}}</i>
-                        </div>
-                    </div>
-                    <div v-if="props.conference.lat && props.conference.lng" class="mt-4">
-                        <Map
-                            :center="{lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
-                            :position="{ lat: parseFloat(props.conference.lat), lng: parseFloat(props.conference.lng)}"
-                        />
-                    </div>
-
-                    <div class="mt-4">
-                        Country
-                        <div class="mt-4">
-                            <i>{{props.conference.countries}}</i>
-                        </div>
-                    </div>
-
+                </div>
+                <div class="row mt-4">
+                </div>
                     <div class="flex items-center justify-end mt-4">
 <!--              IF USER IS ADMIN OR OWNER-->
                         <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
