@@ -27,7 +27,6 @@ class Conference extends Model
      */
     public function getPaginateConf($userId) {
         $conferences = $this->with('conferencesUsers')->paginate(15);
-        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
 
         foreach($conferences as $conf) {
             $isOwn = $conf->created_by === $userId;

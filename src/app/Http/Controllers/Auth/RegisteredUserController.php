@@ -46,6 +46,8 @@ class RegisteredUserController extends Controller
             'role' => 'required',
         ]);
 
+        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -56,6 +58,9 @@ class RegisteredUserController extends Controller
             'phone' => $request->phone,
             'role' => $request->role
         ]);
+
+        fwrite(STDOUT, $user);
+
 
         event(new Registered($user));
 
