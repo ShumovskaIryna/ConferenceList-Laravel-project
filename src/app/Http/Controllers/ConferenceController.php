@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Gate;
 
 class ConferenceController extends Controller
 {
+
     public function create(Request $request){
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
@@ -46,6 +47,7 @@ class ConferenceController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
     public function getConferences()
     {
         if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
@@ -78,6 +80,7 @@ class ConferenceController extends Controller
             'conference' => $idConference
         ]);
     }
+
     public function editConference($id)
     {
         $userId = Auth::id();
@@ -91,6 +94,7 @@ class ConferenceController extends Controller
             'conference' => Conference::findOrFail($id)
         ]);
     }
+
     public function editSaveConference( $id, Request $request){
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
@@ -117,6 +121,7 @@ class ConferenceController extends Controller
             'conference' => $conference,
         ]);
     }
+
     public function deleteConference($id)
     {
         $userId = Auth::id();
@@ -128,6 +133,7 @@ class ConferenceController extends Controller
         $conference->delete();
         return Redirect::route('Conferences');
     }
+
     public function joinConference($id) {
         if (!Gate::allows('isAnnouncer') &&
             !Gate::allows('isListener')){
@@ -138,6 +144,7 @@ class ConferenceController extends Controller
         $conferences = new ConferencesUsers();
         $conferences->join($id,$userId);
     }
+
     public function unjoinConference($id) {
         $userId = Auth::id();
 

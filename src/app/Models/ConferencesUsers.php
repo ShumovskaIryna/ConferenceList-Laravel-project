@@ -20,6 +20,7 @@ class ConferencesUsers extends Model
 
         $confUser->save();
     }
+
     public function unjoin($conferenceId, $userId) {
         $confUser = new ConferencesUsers();
 

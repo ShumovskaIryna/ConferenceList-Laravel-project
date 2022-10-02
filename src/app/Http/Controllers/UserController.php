@@ -14,27 +14,6 @@ class UserController extends Controller
 
     public function __invoke()
     {
-//        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-//            $query->where(function ($query) use ($value) {
-//                Collection::wrap($value)->each(function ($value) use ($query) {
-//                    $query
-//                        ->orWhere('first_name', 'LIKE', "%{$value}%")
-//                        ->orWhere('email', 'LIKE', "%{$value}%");
-//                });
-//            });
-//        });
-//        $users = QueryBuilder::for(User::class)
-//            ->defaultSort('first_name')
-//            ->allowedSorts(['first_name', 'email'])
-//            ->allowedFilters(['first_name', 'email', $globalSearch])
-//            ->paginate(8)
-//            ->withQueryString();
-//
-//        return Inertia::render('Users/Index', ['users' => $users])->table(function (InertiaTable $table) {
-//            $table->column('id', 'ID', searchable: true, sortable: true);
-//            $table->column('first_name', 'User Name', searchable: true, sortable: true);
-//            $table->column('email', 'Email Address', searchable: true, sortable: true);
-//            $table->column('created_at', 'Join Date', searchable: true, sortable: true);
-//        });
+ //
     }
 }

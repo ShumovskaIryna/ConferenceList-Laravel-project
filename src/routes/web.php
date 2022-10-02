@@ -59,7 +59,6 @@ Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController
 
 Route::post('/conferences', [ConferenceController::class, 'create'])->name('conferences');
 
-
 Route::get('/token', function () {
     return csrf_token();
 });

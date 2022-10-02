@@ -11,6 +11,7 @@ class Conference extends Model
     /**
      * The users that belong to the conferences.
      */
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'conferences_users');
@@ -18,6 +19,7 @@ class Conference extends Model
     /**
      * to pivote
      */
+
     public function conferencesUsers() {
         return $this->hasMany(
             ConferencesUsers::class, 'conference_id', 'id');
@@ -25,6 +27,7 @@ class Conference extends Model
     /**
      *
      */
+
     public function getPaginateConf($userId) {
         $conferences = $this->with('conferencesUsers')->paginate(15);
 
@@ -47,6 +50,7 @@ class Conference extends Model
         }
         return $conferences;
     }
+
     public function getConfId($userId, $confId) {
         $conference = $this->with('conferencesUsers')->findOrFail($confId);
 
