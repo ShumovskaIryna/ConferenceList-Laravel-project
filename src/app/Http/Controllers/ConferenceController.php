@@ -50,7 +50,7 @@ class ConferenceController extends Controller
 
     public function getConferences()
     {
-        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+        if (!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
 //        $isAnnouncer = Gate::allows('isAnnouncer');
 //        $isListener = Gate::allows('isListener');
 //        $canSeeConf = $isAnnouncer && $isListener

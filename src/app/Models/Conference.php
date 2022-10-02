@@ -36,7 +36,7 @@ class Conference extends Model
             $conf->isOwn = $isOwn;
         $confMapUsers = $conf->conferencesUsers;
 
-            if(empty($confMapUsers)) {
+            if (empty($confMapUsers)) {
                 continue;
             }
 
@@ -58,7 +58,7 @@ class Conference extends Model
         $conference->isOwn = $isOwn;
         $confMapUsers = $conference->conferencesUsers;
 
-            if(empty($confMapUsers)) {
+            if (empty($confMapUsers)) {
                 return $conference;
             }
 
