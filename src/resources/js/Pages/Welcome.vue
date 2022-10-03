@@ -9,35 +9,41 @@ defineProps({
 
 <template>
     <Head title="Welcome" />
-
     <div class="relative flex items-top justify-center min-h-screen bg-slate-200 content-center
             sm:items-center sm:pt-0">
-        <div v-if="canLogin" class="fixed w-6/12 content-center text-center ">
-            <Link :href="route('Conferences')"
-                  class="font-bold text-6xl text-sky-400">
-                Conferences<span class="text-sky-500">-></span>
-                <span class="text-sky-600">></span>
-                <span class="text-sky-700">></span>
-                <span class="text-sky-800">></span>
-                <span class="text-sky-900">></span>
-            </Link>
-            <br>
-                <Link :href="route('login')"
-                      class="mt-48 font-bold text-6xl text-sky-500 leading-relaxed">
-                    Log In<span class="text-sky-500">-></span>
-                    <span class="text-sky-600">></span>
-                    <span class="text-sky-700">></span>
-                    <span class="text-sky-800">></span>
-                    <span class="text-sky-900">></span>
+        <div v-if="canLogin" class="content-center text-center ">
+                <Link :href="route('Conferences')"
+                    class="font-bold text-3xl text-sky-400 hover:bg-gray-400 border">
+                    <button type="button"
+                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
+                                rounded-md text-sky-600 hover:text-sky-800
+                                focus:outline-none transition ease-in-out duration-150">
+                        <span class="font-bold text-lg text-sky-800">
+                            Conferences
+                        </span>
+                    </button>
                 </Link>
-            <br>
+                <Link :href="route('login')"
+                      class="font-bold text-3xl text-sky-400 hover:bg-gray-400 border">
+                    <button type="button"
+                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
+                                rounded-md text-sky-600 hover:text-sky-800
+                                focus:outline-none transition ease-in-out duration-150">
+                    <span class="font-bold text-lg text-sky-800">
+                       Login
+                    </span>
+                    </button>
+                </Link>
                 <Link v-if="canRegister" :href="route('register')"
-                      class="mt-48 font-bold text-6xl text-cyan-500 leading-relaxed">
-                    Register<span class="text-cyan-500">-></span>
-                    <span class="text-cyan-600">></span>
-                    <span class="text-cyan-700">></span>
-                    <span class="text-cyan-800">></span>
-                    <span class="text-cyan-900">></span>
+                      class="font-bold text-3xl text-sky-400 hover:bg-gray-400 border">
+                    <button type="button"
+                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
+                                rounded-md text-sky-600 hover:text-sky-800
+                                focus:outline-none transition ease-in-out duration-150">
+                    <span class="font-bold text-lg text-sky-800">
+                       Register
+                    </span>
+                    </button>
                 </Link>
         </div>
     </div>

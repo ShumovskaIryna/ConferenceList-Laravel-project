@@ -1,13 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 
-const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
@@ -18,29 +15,39 @@ const showingNavigationDropdown = ref(false);
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
-                            <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('Conferences')">
-                                    <ApplicationLogo class="block h-9 w-auto" />
-                                </Link>
-                            </div>
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('Conferences')" :active="route().current('Conferences')"
                                          class="font-bold text-lg text-sky-700 no-underline">
-                                    Conferences
+                                    <button type="button"
+                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
+                                                    rounded-md text-sky-600 hover:text-sky-800
+                                                    focus:outline-none transition ease-in-out duration-150">
+                                                <span
+                                                    class="font-bold text-lg text-sky-800">
+                                                    Conferences
+                                                </span>
+                                    </button>
                                 </NavLink>
                             </div>
                             <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
                                        $page.props.auth.user?.role === 'ADMIN'"
-                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                 class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('Create')" :active="route().current('Create')"
                                          class="font-bold text-lg text-sky-700 no-underline">
-                                    +New
+                                    <button type="button"
+                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
+                                                    rounded-md text-sky-600 hover:text-sky-800
+                                                    focus:outline-none transition ease-in-out duration-150">
+                                                <span
+                                                    class="font-bold text-lg text-sky-800">
+                                                    +New
+                                                </span>
+                                    </button>
                                 </NavLink>
                             </div>
                         </div>
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
+                        <div class="sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
@@ -57,8 +64,9 @@ const showingNavigationDropdown = ref(false);
                                                 </span>
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                      viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10
+                                                    10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414
+                                                    0l-4-4a1 1 0 010-1.414z"
                                                           clip-rule="evenodd" />
                                                 </svg>
                                             </button>
@@ -71,61 +79,16 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                     </template>
                                     <template #content v-else>
                                         <Link :href="route('login')"
-                                              class="ml-10 mt-48 text-sky-500 leading-relaxed no-underline">
-                                            Log In<span class="text-sky-500">-></span>
-                                            <span class="text-sky-600">></span>
-                                            <span class="text-sky-700">></span>
-                                            <span class="text-sky-800">></span>
-                                            <span class="text-sky-900">></span>
+                                              class="ml-5 mt-48 text-sky-500 leading-relaxed no-underline">
+                                            Log In
                                         </Link>
                                         <Link :href="route('register')"
-                                              class="ml-20 mt-48 text-cyan-500 leading-relaxed no-underline">
-                                            Register<span class="text-cyan-500">-></span>
-                                            <span class="text-cyan-600">></span>
-                                            <span class="text-cyan-700">></span>
-                                            <span class="text-cyan-800">></span>
+                                              class="ml-5 mr-5 mt-48 text-cyan-500 leading-relaxed no-underline">
+                                            Register
                                         </Link>
                                     </template>
                                 </Dropdown>
                             </div>
-                        </div>
-                        <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
-                            <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
-                                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400
-                                    hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100
-                                    focus:text-gray-500 transition duration-150 ease-in-out">
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path :class="{'hidden': showingNavigationDropdown, 'inline-flex'
-                                    : ! showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex'
-                                    : showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
-                     class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('Conferences')" :active="route().current('Conferences')">
-                            Conferences
-                        </ResponsiveNavLink>
-                    </div>
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user?.first_name }}</div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user?.email }}</div>
-                        </div>
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </ResponsiveNavLink>
                         </div>
                     </div>
                 </div>
