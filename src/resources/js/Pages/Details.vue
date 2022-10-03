@@ -23,10 +23,14 @@ const props = defineProps({
         default: {},
     },
 });
-function join(id) {
+
+function join(id)
+{
     Inertia.post(route("join", id));
 }
-function unjoin(id) {
+
+function unjoin(id)
+{
     Inertia.post(route("unjoin", id));
 }
 </script>

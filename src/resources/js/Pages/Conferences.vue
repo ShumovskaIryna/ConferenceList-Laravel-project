@@ -1,10 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
 import {Share} from 'vue3-social-share';
 import 'vue3-social-share/lib/index.css'
-
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Pagination from '@/Components/Pagination.vue'
@@ -19,10 +18,14 @@ const props = defineProps({
         default: {},
     },
 });
-function join(id) {
+
+function join(id)
+{
     Inertia.post(route("join", id));
 }
-function unjoin(id) {
+
+function unjoin(id)
+{
     Inertia.post(route("unjoin", id));
 }
 </script>
@@ -63,9 +66,7 @@ function unjoin(id) {
 <!--                            IF USER IS ADMIN OR OWNER-->
                             <td>
                                 <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
-                                    <Link
-                                        :href="route('Delete', conference.id )"
-                                    >
+                                    <Link :href="route('Delete', conference.id )">
                                         <button class="btn btn-outline-danger mr-4">
                                             Delete
                                         </button>

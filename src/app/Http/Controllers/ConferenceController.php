@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Gate;
 class ConferenceController extends Controller
 {
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
@@ -30,7 +31,6 @@ class ConferenceController extends Controller
             abort(403, 'Create conference can Admin and Announcer only' );
         }
         $userId = Auth::id();
-
         $conferences = new Conference();
         $conferences->title = $request->input('title');
         $conferences->date = $request->input('date');
@@ -39,28 +39,18 @@ class ConferenceController extends Controller
         $conferences->countries = $request->input('countries');
         $conferences->created_by = $userId;
         $conferences->save();
-
         $users = User::find($userId);
         $conferences->users()->attach($users, [
             'joined_at' => date('d-m-y h:i:s'),
         ]);
-
         return redirect(RouteServiceProvider::HOME);
     }
 
     public function getConferences()
     {
-        if (!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
-//        $isAnnouncer = Gate::allows('isAnnouncer');
-//        $isListener = Gate::allows('isListener');
-//        $canSeeConf = $isAnnouncer && $isListener
-//        if ($canSeeConf) {
-//            abort(403);
-//        }
         $userId = Auth::id();
         $conferences = new Conference;
         $paginatedConferences = $conferences->getPaginateConf($userId);
-
         return Inertia::render('Conferences', [
             'conferences' => $paginatedConferences
         ]);
@@ -85,7 +75,6 @@ class ConferenceController extends Controller
     {
         $userId = Auth::id();
         $conference = Conference::find($id);
-
         $isOwner = $conference->created_by === $userId;
         if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not edit this conference');
@@ -95,7 +84,8 @@ class ConferenceController extends Controller
         ]);
     }
 
-    public function editSaveConference( $id, Request $request){
+    public function editSaveConference( $id, Request $request)
+    {
         $validation = $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
@@ -110,13 +100,10 @@ class ConferenceController extends Controller
         $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
         $conferences->save();
-
         $userId = Auth::id();
         $conference = Conference::find($id);
-
         $isOwner = $conference->created_by === $userId;
         $conference->isOwn = $isOwner;
-
         return Inertia::render('Details', [
             'conference' => $conference,
         ]);
@@ -134,20 +121,20 @@ class ConferenceController extends Controller
         return Redirect::route('Conferences');
     }
 
-    public function joinConference($id) {
+    public function joinConference($id)
+    {
         if (!Gate::allows('isAnnouncer') &&
             !Gate::allows('isListener')){
             return Redirect::route('register');
         }
         $userId = Auth::id();
-
         $conferences = new ConferencesUsers();
         $conferences->join($id,$userId);
     }
 
-    public function unjoinConference($id) {
+    public function unjoinConference($id)
+    {
         $userId = Auth::id();
-
         $conferences = new ConferencesUsers();
         $conferences->unjoin($id,$userId);
     }

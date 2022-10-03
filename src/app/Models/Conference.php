@@ -20,7 +20,8 @@ class Conference extends Model
      * to pivote
      */
 
-    public function conferencesUsers() {
+    public function conferencesUsers()
+    {
         return $this->hasMany(
             ConferencesUsers::class, 'conference_id', 'id');
     }
@@ -28,45 +29,45 @@ class Conference extends Model
      *
      */
 
-    public function getPaginateConf($userId) {
+    public function getPaginateConf($userId)
+    {
         $conferences = $this->with('conferencesUsers')->paginate(15);
-
-        foreach($conferences as $conf) {
+        foreach($conferences as $conf)
+        {
             $isOwn = $conf->created_by === $userId;
             $conf->isOwn = $isOwn;
-        $confMapUsers = $conf->conferencesUsers;
-
-            if (empty($confMapUsers)) {
+            $confMapUsers = $conf->conferencesUsers;
+            if (empty($confMapUsers))
+            {
                 continue;
             }
-
-        foreach($confMapUsers as $additionalData) {
-            $isAlreadyJoined = $additionalData->user_id === $userId
-                && $additionalData->joined_at
-                && $additionalData->conference_id === $conf->id;
-
-            $conf->isAlreadyJoined = $isAlreadyJoined;
+            foreach($confMapUsers as $additionalData)
+            {
+                $isAlreadyJoined = $additionalData->user_id === $userId
+                    && $additionalData->joined_at
+                    && $additionalData->conference_id === $conf->id;
+                $conf->isAlreadyJoined = $isAlreadyJoined;
             }
         }
         return $conferences;
     }
 
-    public function getConfId($userId, $confId) {
+    public function getConfId($userId, $confId)
+    {
         $conference = $this->with('conferencesUsers')->findOrFail($confId);
-
         $isOwn = $conference->created_by === $userId;
         $conference->isOwn = $isOwn;
         $confMapUsers = $conference->conferencesUsers;
-
-            if (empty($confMapUsers)) {
-                return $conference;
-            }
-
-            foreach($confMapUsers as $additionalData) {
-                $isAlreadyJoined = $additionalData->user_id === $userId
-                    && $additionalData->joined_at
-                    && $additionalData->conference_id === $conference->id;
-                $conference->isAlreadyJoined = $isAlreadyJoined;
+        if (empty($confMapUsers))
+        {
+            return $conference;
+        }
+        foreach($confMapUsers as $additionalData)
+        {
+            $isAlreadyJoined = $additionalData->user_id === $userId
+                && $additionalData->joined_at
+                && $additionalData->conference_id === $conference->id;
+            $conference->isAlreadyJoined = $isAlreadyJoined;
         }
         return $conference;
     }

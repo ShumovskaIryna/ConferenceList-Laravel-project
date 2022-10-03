@@ -56,6 +56,7 @@ const submit = () => {
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <Head title="Create" />
+
         <form @submit.prevent="submit">
             <div class="mt-4">
                 <InputLabel for="title" value="Title" />
@@ -84,13 +85,14 @@ const submit = () => {
                            v-model="form.position.lng" autofocus/>
                 <InputError class="mt-2" :message="form.errors.lng" />
             </div>
+
             <div class="mt-4" id="app"
                  v-if="form.position.lat && form.position.lng">
                     <Map
                         :center="form.position"
-                        :position="form.position"
-                    />
+                        :position="form.position" />
                 </div>
+
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>

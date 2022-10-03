@@ -24,7 +24,6 @@ const showingNavigationDropdown = ref(false);
                                     <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
-
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('Conferences')" :active="route().current('Conferences')"
@@ -41,7 +40,6 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                             </div>
                         </div>
-
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
@@ -57,7 +55,6 @@ const showingNavigationDropdown = ref(false);
                                                     class="font-bold text-lg text-sky-600">
                                                     {{ $page.props.auth.user?.first_name || 'Guest'}}
                                                 </span>
-
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                      viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd"
@@ -67,7 +64,6 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                             </button>
                                         </span>
                                     </template>
-
                                     <template #content v-if="$page.props.auth?.user">
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
@@ -82,7 +78,6 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                             <span class="text-sky-800">></span>
                                             <span class="text-sky-900">></span>
                                         </Link>
-
                                         <Link :href="route('register')"
                                               class="ml-20 mt-48 text-cyan-500 leading-relaxed no-underline">
                                             Register<span class="text-cyan-500">-></span>
@@ -94,7 +89,6 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                 </Dropdown>
                             </div>
                         </div>
-
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
                             <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
@@ -113,7 +107,6 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                         </div>
                     </div>
                 </div>
-
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
                      class="sm:hidden">
@@ -122,7 +115,6 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                             Conferences
                         </ResponsiveNavLink>
                     </div>
-
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
@@ -130,7 +122,6 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                                 {{ $page.props.auth.user?.first_name }}</div>
                             <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user?.email }}</div>
                         </div>
-
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Log Out
@@ -139,14 +130,12 @@ d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1
                     </div>
                 </div>
             </nav>
-
             <!-- Page Heading -->
             <header class="bg-white shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>
-
             <!-- Page Content -->
             <main>
                 <slot />

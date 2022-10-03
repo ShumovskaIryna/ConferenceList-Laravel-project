@@ -14,6 +14,6 @@ class UserController extends Controller
 
     public function __invoke()
     {
- //
+        //
     }
 }
