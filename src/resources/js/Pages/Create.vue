@@ -4,7 +4,6 @@ import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Map from './Map.vue'
 
@@ -48,11 +47,6 @@ const submit = () => {
 
     <AuthenticatedLayout>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
-                </Link>
-            </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <Head title="Create" />

@@ -1,10 +1,13 @@
 <script setup>
 import { ref } from 'vue';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 
+const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
@@ -15,8 +18,14 @@ import { Link } from '@inertiajs/inertia-vue3';
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
+                            <!-- Logo -->
+                            <div class="shrink-0 flex items-center">
+                                <Link :href="route('Conferences')">
+                                    <ApplicationLogo class="block h-9 w-auto" />
+                                </Link>
+                            </div>
                             <!-- Navigation Links -->
-                            <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('Conferences')" :active="route().current('Conferences')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
@@ -32,7 +41,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                             </div>
                             <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
                                        $page.props.auth.user?.role === 'ADMIN'"
-                                 class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('Create')" :active="route().current('Create')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
@@ -47,7 +56,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                                 </NavLink>
                             </div>
                         </div>
-                        <div class="sm:flex sm:items-center sm:ml-6">
+                        <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
@@ -90,7 +99,55 @@ import { Link } from '@inertiajs/inertia-vue3';
                                 </Dropdown>
                             </div>
                         </div>
+                        <!-- Hamburger -->
+                        <div class="-mr-2 flex items-center sm:hidden">
+                            <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
+                                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400
+                                    hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100
+                                    focus:text-gray-500 transition duration-150 ease-in-out">
+                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                    <path :class="{'hidden': showingNavigationDropdown, 'inline-flex'
+                                    : ! showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex'
+                                    : showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+                </div>
+                <!-- Responsive Navigation Menu -->
+                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+                     class="sm:hidden">
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('Conferences')" :active="route().current('Conferences')">
+                            Conferences
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
+                                       $page.props.auth.user?.role === 'ADMIN'"
+                         class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('Create')" :active="route().current('Create')">
+                            +New
+                        </ResponsiveNavLink>
+                    </div>
+                    <template v-if="$page.props.auth?.user">
+                        <Link :href="route('logout')" method="post"
+                              class="ml-5 mr-5 mt-48 text-cyan-500 leading-relaxed no-underline">
+                            Log Out
+                        </Link>
+                    </template>
+                    <template v-else>
+                        <Link :href="route('login')"
+                              class="ml-5 mt-48 text-sky-500 leading-relaxed no-underline">
+                            Log In
+                        </Link>
+                        <Link :href="route('register')"
+                              class="ml-5 mr-5 mt-48 text-cyan-500 leading-relaxed no-underline">
+                            Register
+                        </Link>
+                    </template>
                 </div>
             </nav>
             <!-- Page Heading -->
