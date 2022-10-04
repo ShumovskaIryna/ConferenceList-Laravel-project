@@ -31,15 +31,20 @@ class ConferenceController extends Controller
             abort(403, 'Create conference can Admin and Announcer only' );
         }
         $userId = Auth::id();
+
         $conferences = new Conference();
+
         $conferences->title = $request->input('title');
         $conferences->date = $request->input('date');
         $conferences->lat = $request->input('position.lat');
         $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
         $conferences->created_by = $userId;
+
         $conferences->save();
+
         $users = User::find($userId);
+
         $conferences->users()->attach($users, [
             'joined_at' => date('d-m-y h:i:s'),
         ]);
@@ -49,7 +54,9 @@ class ConferenceController extends Controller
     public function getConferences()
     {
         $userId = Auth::id();
+
         $conferences = new Conference;
+
         $paginatedConferences = $conferences->getPaginateConf($userId);
         return Inertia::render('Conferences', [
             'conferences' => $paginatedConferences
@@ -63,8 +70,11 @@ class ConferenceController extends Controller
         !Gate::allows('isAdmin')){
             return Redirect::route('register');
         }
+
         $userId = Auth::id();
+
         $conference = new Conference();
+
         $idConference = $conference->getConfId($userId, $confId);
         return Inertia::render('Details', [
             'conference' => $idConference
@@ -74,7 +84,9 @@ class ConferenceController extends Controller
     public function editConference($id)
     {
         $userId = Auth::id();
+
         $conference = Conference::find($id);
+
         $isOwner = $conference->created_by === $userId;
         if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not edit this conference');
@@ -94,12 +106,14 @@ class ConferenceController extends Controller
             'countries'=> 'required'
         ]);
         $conferences = Conference::find($id);
+
         $conferences->title = $request->input('title');
         $conferences->date = $request->input('date');
         $conferences->lat = $request->input('position.lat');
         $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
         $conferences->save();
+
         $userId = Auth::id();
         $conference = Conference::find($id);
         $isOwner = $conference->created_by === $userId;

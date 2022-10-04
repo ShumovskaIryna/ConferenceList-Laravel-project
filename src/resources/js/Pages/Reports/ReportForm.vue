@@ -1,0 +1,87 @@
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import {Head, useForm} from '@inertiajs/inertia-vue3';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+
+const CONFERENCE_ID_INDEX = 4;
+
+const url = window.location.href;
+const lastParam = url.split("/");
+const confId = lastParam[CONFERENCE_ID_INDEX];
+console.log(url, confId);
+
+const form = useForm({
+    topic: '',
+    time_start: '',
+    time_finish: '',
+    description: '',
+    file: '',
+    terms: false,
+});
+
+const submit = () => {
+    form.post(route('report-create', confId));
+};
+</script>
+
+<template>
+    <Head title="ReportForm" />
+
+    <AuthenticatedLayout>
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                <Head title="ReportForm" />
+
+                <form @submit.prevent="submit">
+                    <div class="mt-4">
+                        <InputLabel for="topic" value="Topic" />
+                        <TextInput id="topic" type="text" class="mt-1 block w-full"
+                                   v-model="form.topic" required autofocus />
+                        <InputError class="mt-2" :message="form.errors.topic" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="time_start" value="Time Start" />
+                        <TextInput id="time_start" type="datetime-local" class="mt-1 block w-full"
+                                   v-model="form.time_start" required />
+                        <InputError class="mt-2" :message="form.errors.time_start" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="time_finish" value="Time Finish" />
+                        <TextInput id="time_finish" type="datetime-local" class="mt-1 block w-full"
+                                   v-model="form.time_finish" required />
+                        <InputError class="mt-2" :message="form.errors.time_finish" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="description" value="Description" />
+                        <textarea v-model="form.description" id="description" type="text"
+                                  class="mt-1 block w-full" required>
+                        </textarea>
+                        <InputError class="mt-2" :message="form.errors.description" />
+                    </div>
+
+                    <div class="mt-4 block w-full">
+                        <InputLabel for="file" value="Presentation" />
+                        <button class="mr-4 btn btn-outline-info">Upload</button>
+                        <TextInput id="file" type="text" v-model="form.file"
+                                   class="w-3/4"/>
+                        <InputError class="mt-2" :message="form.errors.file" />
+                    </div>
+
+                    <div class="flex items-center justify-end mt-4">
+                        <PrimaryButton class="ml-4" as="button"
+                                       :class="{ 'opacity-25': form.processing }"
+                                       :disabled="form.processing" >
+                            Create Report
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </AuthenticatedLayout>
+</template>
