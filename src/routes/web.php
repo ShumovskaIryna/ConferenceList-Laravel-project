@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConferenceController;
 use Illuminate\Foundation\Application;
@@ -51,13 +53,20 @@ Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConf
 Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
     ->name('join');
 
+Route::get('/conferences/{id}/report-form', function () {
+    return Inertia::render('Reports/ReportForm');
+})->name('get_report_form');
+
+Route::post('/conferences/{id}/report-create', [ReportController::class, 'create'])
+    ->name('report-create');
+
 Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
     ->name('unjoin');
 
-Route::get('get-countries', [\App\Http\Controllers\Auth\RegisteredUserController::class,
-    'getCountries']);
+Route::get('get-countries', [RegisteredUserController::class, 'getCountries']);
 
-Route::post('/conferences', [ConferenceController::class, 'create'])->name('conferences');
+Route::post('/conferences', [ConferenceController::class, 'create'])
+    ->name('conferences');
 
 Route::get('/token', function () {
     return csrf_token();

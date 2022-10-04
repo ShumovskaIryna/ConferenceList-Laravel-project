@@ -19,9 +19,9 @@ const props = defineProps({
     },
 });
 
-function join(id)
+function createReport(id)
 {
-    Inertia.post(route("join", id));
+    Inertia.get(route("get_report_form", id));
 }
 
 function unjoin(id)
@@ -34,7 +34,7 @@ function unjoin(id)
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-x-scroll shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
 
                     <h2>I AM {{props.auth?.user?.role || 'GUEST'}}</h2>
@@ -90,7 +90,7 @@ function unjoin(id)
                                                 ></Share>
                                             </div>
                                     </div>
-                                        <button v-else class="btn btn-outline-success" @click="join(conference.id)">
+                                        <button v-else class="btn btn-outline-success" @click="createReport(conference.id)">
                                             Join
                                         </button>
                                 </div>
