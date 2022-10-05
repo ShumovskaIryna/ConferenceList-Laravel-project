@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class ReportController extends Controller
 {
@@ -42,5 +43,23 @@ class ReportController extends Controller
         $conferences->join($confId, $userId);
 
         return Redirect::route('Details', $confId);
+    }
+
+    public function getReports($confId)
+    {
+        if (!Gate::allows('isAnnouncer') &&
+            !Gate::allows('isListener') &&
+            !Gate::allows('isAdmin')) {
+            return Redirect::route('register');
+        }
+        $userId = Auth::id();
+
+        $reports = new Report;
+
+        $paginatedReports = $reports->getPaginateReports($userId, $confId);
+
+        return Inertia::render('Reports/ReportsList', [
+            'reports' => $paginatedReports
+        ]);
     }
 }

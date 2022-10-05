@@ -58,7 +58,10 @@ Route::get('/conferences/{id}/report-form', function () {
 })->name('get_report_form');
 
 Route::post('/conferences/{id}/report-create', [ReportController::class, 'create'])
-    ->name('report-create');
+    ->name('report_create');
+
+Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports'])
+    ->name('reports_list');
 
 Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
     ->name('unjoin');

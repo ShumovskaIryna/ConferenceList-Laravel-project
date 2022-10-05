@@ -13,33 +13,39 @@ class Report extends Model
      * The users that belong to the reports.
      */
 
-//    public function users()
-//    {
-//        return $this->belongsToMany(User::class, 'users_reports');
-//    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'reports_conferences_users');
+    }
 
     /**
      * The conferences that belong to the reports.
      */
 
-//    public function conferences()
-//    {
-//        return $this->belongsToMany(Conference::class, 'conferences_reports');
-//    }
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'reports_conferences_users');
+    }
 
     /**
      * to pivote
      */
 
-//    public function conferencesReports()
-//    {
-//        return $this->hasMany(
-//            conferencesReports::class, 'conference_id', 'id');
-//    }
-//
-//    public function usersReports()
-//    {
-//        return $this->hasMany(
-//            usersReports::class, 'users_id', 'id');
-//    }
+    public function reportsUsers()
+    {
+        return $this->hasMany(
+            ReportsUsers::class, 'users_id', 'id');
+    }
+
+    public function getPaginateReports($userId, $confId)
+    {
+        $reports = $this->where('conference_id', $confId)->paginate(15);
+        foreach($reports as $report)
+        {
+            $isOwn = $report->created_by === $userId;
+            $report->isOwn = $isOwn;
+
+        }
+        return $reports;
+    }
 }

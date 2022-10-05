@@ -62,8 +62,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
         ->name('join');
 
-    Route::post('/conferences/report-create', [ReportController::class, 'create'])
+    Route::post('/conferences/{id}/report-create', [ReportController::class, 'create'])
         ->name('report-create');
+
+    Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports']);
 
     Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
         ->name('unjoin');

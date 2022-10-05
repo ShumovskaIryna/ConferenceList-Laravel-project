@@ -116,12 +116,17 @@ function unjoin(id)
                                 </button>
                             </div>
                         </div>
-                        <Link :href="route('Conferences')">
-                            <button class="btn btn-outline-dark ml-5">
-                                Back
+                        <Link :href="route('reports_list', conference.id)">
+                            <button class="btn btn-outline-dark">
+                                Reports
                             </button>
                         </Link>
                     </div>
+                <Link :href="route('Conferences')">
+                    <button class="btn btn-outline-dark ml-5 mt-5">
+                        Back
+                    </button>
+                </Link>
             </div>
         </div>
     </AuthenticatedLayout>

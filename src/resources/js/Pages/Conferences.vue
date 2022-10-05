@@ -67,6 +67,13 @@ function unjoin(id)
                                     </button>
                                 </Link>
                             </td>
+                            <td>
+                                <Link :href="route('reports_list', conference.id)">
+                                    <button class="btn btn-outline-dark">
+                                        Reports
+                                    </button>
+                                </Link>
+                            </td>
 
 <!--                            IF USER IS ADMIN OR OWNER-->
                             <td>

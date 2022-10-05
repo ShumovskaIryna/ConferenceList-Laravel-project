@@ -11,7 +11,6 @@ const CONFERENCE_ID_INDEX = 4;
 const url = window.location.href;
 const lastParam = url.split("/");
 const confId = lastParam[CONFERENCE_ID_INDEX];
-console.log(url, confId);
 
 const form = useForm({
     topic: '',
@@ -23,7 +22,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('report-create', confId));
+    form.post(route('report_create', confId));
 };
 </script>
 
