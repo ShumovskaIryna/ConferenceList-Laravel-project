@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 
 class ReportController extends Controller
 {
@@ -38,8 +39,8 @@ class ReportController extends Controller
         $reports->save();
 
         $conferences = new ConferencesUsers();
-        $conferences->join($confId,$userId);
+        $conferences->join($confId, $userId);
 
-        return redirect(RouteServiceProvider::HOME);
+        return Redirect::route('Details', $confId);
     }
 }

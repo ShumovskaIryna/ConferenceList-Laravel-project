@@ -24,6 +24,11 @@ const props = defineProps({
     },
 });
 
+function createReport(id)
+{
+    Inertia.get(route("get_report_form", id));
+}
+
 function join(id)
 {
     Inertia.post(route("join", id));
@@ -98,9 +103,18 @@ function unjoin(id)
                                     ></Share>
                                 </div>
                             </div>
-                            <button v-else class="btn btn-outline-success" @click="join(conference.id)">
-                                Join
-                            </button>
+                            <div v-else>
+                                <button v-if="props.auth?.user?.role === 'ANNOUNCER'"
+                                        class="btn btn-outline-success"
+                                        @click="createReport(conference.id)">
+                                    Join
+                                </button>
+                                <button v-else
+                                        class="btn btn-outline-success"
+                                        @click="join(conference.id)">
+                                    Join
+                                </button>
+                            </div>
                         </div>
                         <Link :href="route('Conferences')">
                             <button class="btn btn-outline-dark ml-5">
