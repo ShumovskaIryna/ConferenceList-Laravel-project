@@ -3,6 +3,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import Map from './Map.vue'
 import {Inertia} from "@inertiajs/inertia";
+import {Share} from 'vue3-social-share';
+import 'vue3-social-share/lib/index.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 const props = defineProps({
     conference: {
@@ -117,13 +121,13 @@ function unjoin(id)
                             </div>
                         </div>
                         <Link :href="route('reports_list', conference.id)">
-                            <button class="btn btn-outline-dark">
+                            <button class="btn btn-outline-dark ml-5">
                                 Reports
                             </button>
                         </Link>
                     </div>
                 <Link :href="route('Conferences')">
-                    <button class="btn btn-outline-dark ml-5 mt-5">
+                    <button class="btn btn-outline-dark ml-5 mt-2">
                         Back
                     </button>
                 </Link>
