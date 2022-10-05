@@ -10,30 +10,42 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
+    public $FILE_PATH = 'files/presentation/';
+
     public function create($confId, Request $request)
     {
+        $userId = Auth::id();
+
         $request->validate([
             'topic'=> 'required|min:2|max:255',
             'time_start'=> 'required|date',
             'time_finish'=> 'required|date',
             'description'=> 'required|string|max:5000',
-            'presentation'=> '',
+            'file' => 'required|file|mimes:ppt,pptx|max:10240',
         ]);
 
         if (!Gate::allows('isAnnouncer')) {
             abort(403, 'Create report can Announcer only' );
         }
-        $userId = Auth::id();
+        $uploadedFile = $request->file('file');
+        $filename = $uploadedFile->getClientOriginalName();
+
+        Storage::disk('local')->putFileAs(
+            $this->FILE_PATH.$userId,
+            $uploadedFile,
+            $filename
+        );
 
         $reports = new Report();
         $reports->topic = $request->input('topic');
         $reports->time_start = $request->input('time_start');
         $reports->time_finish = $request->input('time_finish');
         $reports->description = $request->input('description');
-        $reports->file_path = $request->input('file');
+        $reports->file_path = $this->FILE_PATH.$userId.'/'.$filename;
         $reports->created_by = $userId;
         $reports->conference_id = $confId;
 

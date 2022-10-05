@@ -66,9 +66,8 @@ const submit = () => {
 
                     <div class="mt-4 block w-full">
                         <InputLabel for="file" value="Presentation" />
-                        <button class="mr-4 btn btn-outline-info">Upload</button>
-                        <TextInput id="file" type="text" v-model="form.file"
-                                   class="w-3/4"/>
+                        <TextInput id="file" type="file" v-model="form.file"
+                                   @input="form.file = $event.target.files[0]"/>
                         <InputError class="mt-2" :message="form.errors.file" />
                     </div>
 
