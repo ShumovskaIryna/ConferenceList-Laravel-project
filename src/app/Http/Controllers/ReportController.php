@@ -24,8 +24,8 @@ class ReportController extends Controller
             'topic'=> 'required|min:2|max:255',
             'time_start'=> 'required|date',
             'time_finish'=> 'required|date',
-            'description'=> 'required|string|max:5000',
-            'file' => 'required|file|mimes:ppt,pptx|max:10240',
+            'description'=> 'required|string',
+            'file' => 'required|file|mimes:html',
         ]);
 
         if (!Gate::allows('isAnnouncer')) {
@@ -72,6 +72,24 @@ class ReportController extends Controller
 
         return Inertia::render('Reports/ReportsList', [
             'reports' => $paginatedReports
+        ]);
+    }
+
+    public function detailReport($confId, $reportId)
+    {
+        if (!Gate::allows('isAnnouncer') &&
+            !Gate::allows('isListener') &&
+            !Gate::allows('isAdmin')){
+            return Redirect::route('register');
+        }
+
+        $userId = Auth::id();
+
+        $report = new Report;
+
+        $idReport = $report->getReportId($userId, $confId, $reportId);
+        return Inertia::render('Reports/ReportDetails', [
+            'report' => $idReport
         ]);
     }
 }

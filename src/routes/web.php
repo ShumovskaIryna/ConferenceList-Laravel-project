@@ -63,6 +63,9 @@ Route::post('/conferences/{id}/report-create', [ReportController::class, 'create
 Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports'])
     ->name('reports_list');
 
+Route::get('/conferences/{confId}/reports-list/{reportId}', [ReportController::class, 'detailReport'])
+    ->name('report_details');
+
 Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
     ->name('unjoin');
 

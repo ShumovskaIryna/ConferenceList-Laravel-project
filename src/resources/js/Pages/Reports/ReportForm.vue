@@ -66,7 +66,7 @@ const submit = () => {
 
                     <div class="mt-4 block w-full">
                         <InputLabel for="file" value="Presentation" />
-                        <TextInput id="file" type="file" v-model="form.file"
+                        <TextInput id="file" type="file"
                                    @input="form.file = $event.target.files[0]"/>
                         <InputError class="mt-2" :message="form.errors.file" />
                     </div>
