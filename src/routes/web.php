@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConferenceController;
@@ -62,6 +63,12 @@ Route::post('/conferences/{id}/report-create', [ReportController::class, 'create
 
 Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports'])
     ->name('reports_list');
+
+Route::post('/conferences/{confId}/reports-list/{reportId}/comment-create', [CommentController::class, 'create'])
+    ->name('comment_create');
+
+Route::get('/conferences/{confId}/reports-list/{reportId}', [CommentController::class, 'getComments'])
+    ->name('comments_list');
 
 Route::get('/conferences/{confId}/reports-list/{reportId}', [ReportController::class, 'detailReport'])
     ->name('report_details');
