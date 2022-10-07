@@ -91,8 +91,12 @@ const submit = () => {
                         </form>
                         Comments:
                         <div v-for="comment in props.comments.data">
-                            <div class="mb-2 text-sky-900 text-lg text-center">
-                                Comment #{{comment.id}}
+                            <div class="mb-2 text-sm text-sky-400 border-b border-gray-200">
+                                Comment by some user
+                                <div class="mb-2 text-lg text-sky-900">
+                                    {{comment.comment}}
+                                </div>
+                                Created at {{comment.created_at}}
                             </div>
                         </div>
                     </div>

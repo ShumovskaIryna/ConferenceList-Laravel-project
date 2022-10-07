@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\ConferencesUsers;
 use App\Models\Report;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -87,9 +87,12 @@ class ReportController extends Controller
 
         $report = new Report;
 
-        $idReport = $report->getReportId($userId, $confId, $reportId);
+        $comments = new Comment;
+        $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
+        $reportById = $report->getReportId($userId, $confId, $reportId);
         return Inertia::render('Reports/ReportDetails', [
-            'report' => $idReport
+            'report' => $reportById,
+            'comments' => $paginatedComments
         ]);
     }
 

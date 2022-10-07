@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function getPaginateComments($userId, $reportId)
+    public function getPaginateComments($userId, $confId, $reportId)
     {
         $comments = $this->where('report_id', $reportId)->paginate(15);
         foreach($comments as $comment)
@@ -18,5 +18,9 @@ class Comment extends Model
             $comment->isOwn = $isOwn;
         }
         return $comments;
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
