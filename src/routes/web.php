@@ -73,6 +73,12 @@ Route::get('/conferences/{confId}/reports-list/{reportId}', [CommentController::
 Route::get('/conferences/{confId}/reports-list/{reportId}', [ReportController::class, 'detailReport'])
     ->name('report_details');
 
+Route::get('/conferences/{confId}/reports-list/{reportId}/edit', [ReportController::class, 'editReport'])
+    ->name('report_edit');
+
+Route::post('/conferences/{confId}/reports-list/{reportId}/edit', [ReportController::class, 'editSaveReport'])
+    ->name('edit_save_report');
+
 Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
     ->name('unjoin');
 

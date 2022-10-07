@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head, useForm} from '@inertiajs/inertia-vue3';
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -62,9 +62,16 @@ const submit = () => {
                         Presentation: {{props.report.file_path}}
                     </div>
                     <div v-if="props.report.isOwn" class="mt-4">
+                        <Link :href="route('report_edit', [confId, props.report.id])">
+                            <button class="mb-4 mr-2 btn btn-outline-warning">
+                                Edit
+                            </button>
+                        </Link>
+                        <Link :href="route()">
                         <button class="mb-4 btn btn-outline-danger">
-                            Cancel participation
-                        </button>
+                                Leave & delete
+                            </button>
+                        </Link>
                     </div>
                     <div class="mb-4 bg-white text-sky-600 border-b border-gray-200">
                         <form @submit.prevent="submit">

@@ -92,4 +92,45 @@ class ReportController extends Controller
             'report' => $idReport
         ]);
     }
+
+    public function editReport($confId, $reportId)
+    {
+            return Inertia::render('Reports/ReportEdit', [
+            'report' => Report::findOrFail($reportId)
+        ]);
+    }
+    public function editSaveReport($confId, $reportId, Request $request)
+    {
+        $userId = Auth::id();
+
+        $request->validate([
+            'topic'=> 'required|min:2|max:255',
+            'time_start'=> 'required|date',
+            'time_finish'=> 'required|date',
+            'description'=> 'required|string',
+            'file' => 'required|file|mimes:html',
+        ]);
+
+        $uploadedFile = $request->file('file');
+        $filename = $uploadedFile->getClientOriginalName();
+
+        Storage::disk('local')->putFileAs(
+            $this->FILE_PATH.$userId,
+            $uploadedFile,
+            $filename
+        );
+
+        $report = Report::find($reportId);
+
+        $report->topic = $request->input('topic');
+        $report->time_start = $request->input('time_start');
+        $report->time_finish = $request->input('time_finish');
+        $report->description = $request->input('description');
+        $report->file_path = $this->FILE_PATH . $userId . '/' . $filename;
+        $report->save();
+
+        return Inertia::render('Reports/ReportDetails', [
+            'report' => Report::findOrFail($reportId)
+        ]);
+    }
 }

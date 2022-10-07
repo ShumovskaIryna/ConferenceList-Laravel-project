@@ -38,6 +38,11 @@ console.log(33, props);
                         <div class="text-sky-600 border-b border-gray-200">
                             Description: {{report.description.slice(0,100) + '...'}}
                         </div>
+                        <div v-if="report.isOwn" class="mt-4">
+                            <button class="mb-4 btn btn-outline-success">
+                             It is mine report
+                            </button>
+                        </div>
                     </div>
                 </Link>
             </div>
