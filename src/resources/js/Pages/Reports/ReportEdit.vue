@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import {Inertia} from "@inertiajs/inertia";
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -33,6 +34,11 @@ const form = useForm({
 const submit = () => {
     form.post(route('edit_save_report',[confId, props.report.id]));
 };
+
+function unjoin(confId)
+{
+    Inertia.post(route("unjoin", confId));
+}
 </script>
 
 <template>
@@ -93,6 +99,9 @@ const submit = () => {
                         </PrimaryButton>
                     </div>
                 </form>
+                <button class="mb-4 btn btn-outline-danger" @click="unjoin(confId)">
+                    Leave & delete
+                </button>
             </div>
         </div>
     </AuthenticatedLayout>
