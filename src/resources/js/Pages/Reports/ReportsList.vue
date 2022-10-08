@@ -27,7 +27,13 @@ console.log(33, props);
             </button>
         </Link>
         <div class="py-12">
-            <div v-for="report in props.reports.data" class="max-w-7xl inline-block sm:px-6 lg:px-8">
+            <div v-if="props.reports.data.length == 0"
+                  class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">
+                    <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                This conference don`t have any reports 🤷‍♀️
+                    </div>
+            </div>
+            <div v-else v-for="report in props.reports.data" class="max-w-7xl inline-block sm:px-6 lg:px-8">
                 <Link :href="route('report_details', [confId, report.id])" class="no-underline">
                     <div class="relative w-80 p-5 ml-4 mt-4 bg-white shadow-sm sm:rounded-lg">
                         <div class="mb-2 text-sky-900 text-lg text-center">
