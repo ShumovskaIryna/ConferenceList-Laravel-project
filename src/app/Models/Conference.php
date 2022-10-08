@@ -46,7 +46,9 @@ class Conference extends Model
                 $isAlreadyJoined = $additionalData->user_id === $userId
                     && $additionalData->joined_at
                     && $additionalData->conference_id === $conf->id;
-                $conf->isAlreadyJoined = $isAlreadyJoined;
+                if ($isAlreadyJoined) {
+                    $conf->isAlreadyJoined = $isAlreadyJoined;
+                }
             }
         }
         return $conferences;

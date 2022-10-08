@@ -22,11 +22,9 @@ class ConferencesUsers extends Model
 
     public function unjoin($conferenceId, $userId)
     {
-        $confUser = new ConferencesUsers();
-        $confUser->user_id = $userId;
-        $confUser->conference_id = $conferenceId;
-        $confUser->joined_at = null;
-        $confUser->save();
+        ConferencesUsers::where('user_id', $userId)
+            ->where('conference_id', $conferenceId)
+            ->delete();
 
         Report::where('created_by', $userId)
             ->where('conference_id', $conferenceId)
