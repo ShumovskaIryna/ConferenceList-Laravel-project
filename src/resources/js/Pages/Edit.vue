@@ -53,6 +53,11 @@ form.post(route('edit_save', props.conference.id));
     <Head title="Edit" />
 
     <AuthenticatedLayout>
+        <Link :href="route('Details', props.conference.id)">
+            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
+                Back
+            </button>
+        </Link>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <Head title="Edit" />
@@ -115,8 +120,6 @@ form.post(route('edit_save', props.conference.id));
                         </PrimaryButton>
                     </div>
                 </form>
-                <Link :href="route('Details', conference.id)">
-                    <button class="btn btn-outline-dark mr-4">Back</button></Link>
                 <Link :href="route('Delete', conference.id )">
                     <button class="btn btn-outline-danger">Delete</button></Link>
             </div>

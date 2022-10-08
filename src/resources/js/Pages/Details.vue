@@ -48,8 +48,13 @@ function unjoin(id)
     <Head title="Details" />
 
     <AuthenticatedLayout>
+        <Link :href="route('Conferences')">
+            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
+                Back
+            </button>
+        </Link>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-2 sm:pt-0 bg-gray-100">
-            <div class="w-full sm:max-w-md mt-2 px-9 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full mt-5 sm:max-w-md mt-2 px-9 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <div class="row">
                     <div class="col">
                         {{props.conference.title}}
@@ -73,64 +78,57 @@ function unjoin(id)
                            Address -  {{props.conference.countries}} (lat: {{props.conference.lat}}; lng: {{props.conference.lng}})
                     </div>
                 </div>
-                <div class="row mt-4">
-                </div>
-                    <div class="flex items-center justify-end mt-4">
+                <div class="flex items-center justify-end mt-4">
 <!--              IF USER IS ADMIN OR OWNER-->
-                        <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
-                            <Link :href="route('Edit', conference.id )">
-                                <button class="btn btn-outline-warning mr-4">
-                                    Edit
-                                </button>
-                            </Link>
-                            <Link :href="route('Delete', conference.id )">
-                                <button class="btn btn-outline-danger mr-4">
-                                    Delete
-                                </button>
-                            </Link>
-                        </div>
-<!--                IF USER IS NOT ADMIN-->
-                        <div v-else>
-                            <div v-if="props.conference.isAlreadyJoined" class="relative flex">
-                                <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
-                                    Cancel participation
-                                </button>
-                                <div class="hide ml-5">
-                                    <Share
-                                        source="modifySource"
-                                        :QQ="false"
-                                        :QZone="false"
-                                        :weibo="false"
-                                        :weChat="false"
-                                        :twitter="true"
-                                        :facebook="true"
-                                    ></Share>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <button v-if="props.auth?.user?.role === 'ANNOUNCER'"
-                                        class="btn btn-outline-success"
-                                        @click="createReport(conference.id)">
-                                    Join
-                                </button>
-                                <button v-else
-                                        class="btn btn-outline-success"
-                                        @click="join(conference.id)">
-                                    Join
-                                </button>
-                            </div>
-                        </div>
-                        <Link :href="route('reports_list', conference.id)">
-                            <button class="btn btn-outline-dark ml-5">
-                                Reports
+                    <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
+                        <Link :href="route('Edit', conference.id )">
+                            <button class="btn btn-outline-warning mr-4">
+                                Edit
+                            </button>
+                        </Link>
+                        <Link :href="route('Delete', conference.id )">
+                            <button class="btn btn-outline-danger mr-4">
+                                Delete
                             </button>
                         </Link>
                     </div>
-                <Link :href="route('Conferences')">
-                    <button class="btn btn-outline-dark ml-5 mt-2">
-                        Back
-                    </button>
-                </Link>
+<!--                IF USER IS NOT ADMIN-->
+                    <div v-else>
+                        <div v-if="props.conference.isAlreadyJoined" class="relative flex">
+                            <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
+                                Cancel participation
+                            </button>
+                            <div class="hide ml-5">
+                                <Share
+                                    source="modifySource"
+                                    :QQ="false"
+                                    :QZone="false"
+                                    :weibo="false"
+                                    :weChat="false"
+                                    :twitter="true"
+                                    :facebook="true"
+                                ></Share>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <button v-if="props.auth?.user?.role === 'ANNOUNCER'"
+                                    class="btn btn-outline-success"
+                                    @click="createReport(conference.id)">
+                                Join
+                            </button>
+                            <button v-else
+                                    class="btn btn-outline-success"
+                                    @click="join(conference.id)">
+                                Join
+                            </button>
+                        </div>
+                    </div>
+                    <Link :href="route('reports_list', conference.id)">
+                        <button class="btn btn-outline-dark ml-5">
+                            Reports
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>

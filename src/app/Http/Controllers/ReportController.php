@@ -132,8 +132,12 @@ class ReportController extends Controller
         $report->file_path = $this->FILE_PATH . $userId . '/' . $filename;
         $report->save();
 
+        $comments = new Comment;
+        $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
+        $reportById = $report->getReportId($userId, $confId, $reportId);
         return Inertia::render('Reports/ReportDetails', [
-            'report' => Report::findOrFail($reportId)
+            'report' => $reportById,
+            'comments' => $paginatedComments
         ]);
     }
 }

@@ -19,6 +19,7 @@ class Comment extends Model
         }
         return $comments;
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);

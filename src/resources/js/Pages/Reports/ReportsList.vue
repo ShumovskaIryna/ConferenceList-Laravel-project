@@ -21,6 +21,11 @@ console.log(33, props);
 </script>
 <template>
     <AuthenticatedLayout>
+        <Link :href="route('Details', confId)">
+            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
+                Back
+            </button>
+        </Link>
         <div class="py-12">
             <div v-for="report in props.reports.data" class="max-w-7xl inline-block sm:px-6 lg:px-8">
                 <Link :href="route('report_details', [confId, report.id])" class="no-underline">
