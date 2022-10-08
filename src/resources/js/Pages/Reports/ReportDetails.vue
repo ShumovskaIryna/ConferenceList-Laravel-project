@@ -8,6 +8,7 @@ import TextInput from '@/Components/TextInput.vue';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import {Inertia} from "@inertiajs/inertia";
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -36,6 +37,11 @@ const submit = () => {
         onFinish: () => form.reset('comment'),
     });
 };
+
+function unjoin(confId)
+{
+    Inertia.post(route("unjoin", confId));
+}
 </script>
 
 <template>
@@ -72,11 +78,9 @@ const submit = () => {
                                 Edit
                             </button>
                         </Link>
-                        <Link :href="route()">
-                        <button class="mb-4 btn btn-outline-danger">
+                        <button class="mb-4 btn btn-outline-danger" @click="unjoin(confId)">
                                 Leave & delete
-                            </button>
-                        </Link>
+                        </button>
                     </div>
                     <div class="mb-4 bg-white text-sky-600 border-b border-gray-200">
                         <form @submit.prevent="submit">

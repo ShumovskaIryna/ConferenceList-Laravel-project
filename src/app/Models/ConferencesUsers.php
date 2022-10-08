@@ -27,5 +27,9 @@ class ConferencesUsers extends Model
         $confUser->conference_id = $conferenceId;
         $confUser->joined_at = null;
         $confUser->save();
+
+        Report::where('created_by', $userId)
+            ->where('conference_id', $conferenceId)
+            ->delete();
     }
 }

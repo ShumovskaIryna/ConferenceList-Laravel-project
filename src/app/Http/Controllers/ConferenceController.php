@@ -17,7 +17,7 @@ class ConferenceController extends Controller
 
     public function create(Request $request)
     {
-        $validation = $request->validate([
+        $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
             'position.lat'=> 'max:25',
@@ -98,7 +98,7 @@ class ConferenceController extends Controller
 
     public function editSaveConference( $id, Request $request)
     {
-        $validation = $request->validate([
+        $request->validate([
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
             'position.lat'=> 'max:25',
@@ -151,5 +151,6 @@ class ConferenceController extends Controller
         $userId = Auth::id();
         $conferences = new ConferencesUsers();
         $conferences->unjoin($id,$userId);
+        return Redirect::route('Conferences');
     }
 }
