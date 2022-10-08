@@ -70,7 +70,9 @@ function unjoin(confId)
                         Description: {{props.report.description}}
                     </div>
                     <div class="mb-4 bg-white text-sky-600 border-b border-gray-200">
-                        Presentation: {{props.report.file_path}}
+                        <a :href="props.report.file_path">
+                            Open presentation
+                        </a>
                     </div>
                     <div v-if="props.report.isOwn" class="mt-4">
                         <Link :href="route('report_edit', [confId, props.report.id])">

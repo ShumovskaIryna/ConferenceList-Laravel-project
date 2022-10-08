@@ -48,12 +48,14 @@ class Report extends Model
         }
         return $reports;
     }
+
     public function getReportId($userId, $confId, $reportId)
     {
         $report = $this->where('conference_id', $confId)->findOrFail($reportId);
             $isOwn = $report->created_by === $userId;
             $report->isOwn = $isOwn;
 
+        $report->file_path = $file_path = public_path('app/'.$report->file_path);
         return $report;
     }
 }
