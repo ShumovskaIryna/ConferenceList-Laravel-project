@@ -103,7 +103,7 @@ function unjoin(confId)
                         Comments:
                         <div v-for="comment in props.comments.data">
                             <div class="mb-2 text-sm text-sky-400 border-b border-gray-200">
-                                Comment by some user
+                                Comment by {{comment.user.first_name}} {{comment.user.last_name}}
                                 <div class="mb-2 text-lg text-sky-900">
                                     {{comment.comment}}
                                 </div>
