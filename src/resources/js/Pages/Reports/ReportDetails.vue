@@ -42,6 +42,12 @@ function unjoin(confId)
 {
     Inertia.post(route("unjoin", confId));
 }
+
+function deleteComment(confId, reportId, commentId)
+{
+    Inertia.post(route('comment_delete', [confId, reportId, commentId]));
+}
+
 </script>
 
 <template>
@@ -100,14 +106,24 @@ function unjoin(confId)
                                 </PrimaryButton>
                             </div>
                         </form>
-                        Comments:
                         <div v-for="comment in props.comments.data">
-                            <div class="mb-2 text-sm text-sky-400 border-b border-gray-200">
-                                Comment by {{comment.user.first_name}} {{comment.user.last_name}}
-                                <div class="mb-2 text-lg text-sky-900">
+                            <div class="mt-2 text-sm text-sky-400 border-b border-gray-200">
+                                <div class="mt-1 text-sm text-sky-600">
+                                    {{comment.user.first_name}} {{comment.user.last_name}} | {{comment.created_at}}
+                                </div>
+                                <div class="mt-1 text-lg text-sky-900">
                                     {{comment.comment}}
                                 </div>
-                                Created at {{comment.created_at}}
+                                <div class="mt-1 text-sm text-cyan-600">
+                                    <button
+                                        v-if="props.auth?.user?.role === 'ADMIN' || comment.isOwn"
+                                        @click="deleteComment(confId, props.report.id, comment.id)">
+                                        Delete
+                                    </button> |
+                                    <button>
+                                        Edit
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
