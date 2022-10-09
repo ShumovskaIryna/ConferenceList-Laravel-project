@@ -58,7 +58,11 @@ function unjoin(id)
                         <tr>
                             <th scope="row">{{ conference.id }}</th>
                             <td class="max-w-xs">{{ conference.title }}</td>
-                            <td>{{ conference.date }}</td>
+                            <td> 
+                                {{new Date(conference.date).toLocaleString('en-US', 
+                                {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour24: false, 
+                                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
+                            </td>
 <!--                            IF USER IS NOT GUEST-->
                             <td>
                                 <Link :href="route('Details', conference.id )">

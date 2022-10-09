@@ -78,8 +78,17 @@ function editComment(confId, reportId, commentId)
                         Topic: {{props.report.topic}}
                     </div>
                     <div class="mb-2 bg-white text-sky-800 border-b border-gray-200">
-                        From {{props.report.time_start}}
-                        Untill {{props.report.time_finish}}
+                            On: {{new Date(props.report.time_start).toLocaleString('en-US',
+                        {month: 'long', day: 'numeric', weekday: 'long',
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
+                        <br>
+                            from: {{new Date(props.report.time_start).toLocaleString('en-US',
+                        {hour: 'numeric', minute: 'numeric', hour24: false, 
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
+                        <br>
+                            untill: {{new Date(props.report.time_finish).toLocaleString('en-US', 
+                        {hour: 'numeric', minute: 'numeric', hour24: false, 
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
                     </div>
                     <div class="mb-2 bg-white text-sky-700 border-b border-gray-200">
                         Description: {{props.report.description}}
@@ -118,7 +127,10 @@ function editComment(confId, reportId, commentId)
                         <div v-for="comment in props.comments.data">
                             <div class="mt-2 text-sm text-sky-400 border-b border-gray-200">
                                 <div class="mt-1 text-sm text-sky-600">
-                                    {{comment.user.first_name}} {{comment.user.last_name}} | {{comment.created_at}}
+                                    {{comment.user.first_name}} {{comment.user.last_name}} |                 
+                                    {{new Date(comment.created_at).toLocaleString('en-US', 
+                                {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', 
+                                hour24: false, timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
                                 </div>
                                 <div class="mt-1 text-lg text-sky-900">
                                     {{comment.comment_message}}

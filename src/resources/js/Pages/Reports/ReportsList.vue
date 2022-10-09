@@ -43,8 +43,17 @@ console.log(33, props);
                             Topic: {{report.topic}}
                         </div>
                         <div class="text-sky-700 border-b border-gray-200">
-                            From {{report.time_start}}
-                            Untill {{ report.time_finish }}
+                            On: {{new Date(report.time_start).toLocaleString('en-US',
+                        {month: 'long', day: 'numeric', weekday: 'long',
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
+                        <br>
+                            from: {{new Date(report.time_start).toLocaleString('en-US',
+                        {hour: 'numeric', minute: 'numeric', hour24: false, 
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
+                        <br>
+                            untill: {{new Date(report.time_finish).toLocaleString('en-US', 
+                        {hour: 'numeric', minute: 'numeric', hour24: false, 
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
                         </div>
                         <div class="text-sky-600 border-b border-gray-200">
                             Description: {{report.description.slice(0,100) + '...'}}

@@ -60,7 +60,10 @@ function unjoin(id)
                         {{props.conference.title}}
                     </div>
                     <div class="col">
-                        {{props.conference.date}}
+                        {{new Date(props.conference.date).toLocaleString('en-US', 
+                        {year: 'numeric', month: 'long', day: 'numeric',
+                        weekday: 'long', hour: 'numeric', minute: 'numeric', hour24: false, 
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
                     </div>
                 </div>
                 <div class="row">
