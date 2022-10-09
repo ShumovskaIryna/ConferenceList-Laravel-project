@@ -14,14 +14,14 @@ class CommentController extends Controller
     public function create($confId, $reportId, Request $request)
     {
         $request->validate([
-            'comment'=> 'required|min:2|max:255',
+            'comment_message'=> 'required|min:2|max:255',
         ]);
 
         $userId = Auth::id();
 
         $comment = new Comment();
 
-        $comment->comment = $request->input('comment');
+        $comment->comment_message = $request->input('comment_message');
         $comment->created_by = $userId;
         $comment->report_id = $reportId;
         $comment->save();
@@ -49,6 +49,48 @@ class CommentController extends Controller
 
         Comment::where('id', $commentId)
             ->delete();
+
+        $report = new Report;
+        $comments = new Comment;
+        $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
+        $reportById = $report->getReportId($userId, $confId, $reportId);
+        return Inertia::render('Reports/ReportDetails', [
+            'report' => $reportById,
+            'comments' => $paginatedComments
+        ]);
+    }
+
+    public function edit($confId, $reportId, $commentId)
+    {
+        $userId = Auth::id();
+
+        $comment = Comment::find($commentId);
+
+        $isOwner = $comment->created_by === $userId;
+        if (!Gate::allows('isAdmin') && !$isOwner) {
+            abort(403, 'You can not edit this comment');
+        }
+        $report = new Report;
+        $reportById = $report->getReportId($userId, $confId, $reportId);
+        return Inertia::render('Reports/CommentEdit', [
+            'report' => $reportById,
+            'comment' => Comment::findOrFail($commentId)
+        ]);
+    }
+
+    public function editSaveComment($confId, $reportId, $commentId,  Request $request)
+    {
+        $request->validate([
+            'comment_message'=> 'required|min:2|max:255',
+        ]);
+
+        $userId = Auth::id();
+
+        $comment = Comment::find($commentId);
+
+        $comment->comment_message = $request->input('comment_message');
+        $comment->report_id = $reportId;
+        $comment->save();
 
         $report = new Report;
         $comments = new Comment;

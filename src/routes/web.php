@@ -71,6 +71,14 @@ Route::post('/conferences/{confId}/reports-list/{reportId}/comment-delete/{comme
     [CommentController::class, 'delete'])
     ->name('comment_delete');
 
+Route::get('/conferences/{confId}/reports-list/{reportId}/comment-edit/{commentId}',
+    [CommentController::class, 'edit'])
+    ->name('comment_edit');
+
+Route::post('/conferences/{confId}/reports-list/{reportId}/comment-edit/{commentId}',
+    [CommentController::class, 'editSaveComment'])
+    ->name('edit_save_comment');
+
 Route::get('/conferences/{confId}/reports-list/{reportId}', [ReportController::class, 'detailReport'])
     ->name('report_details');
 

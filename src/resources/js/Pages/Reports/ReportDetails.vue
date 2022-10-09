@@ -25,16 +25,20 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    comment: {
+        type: Array,
+        default: [],
+    },
 });
 
 const form = useForm({
-    comment: '',
+    comment_message: '',
     terms: false,
 });
 
 const submit = () => {
     form.post(route('comment_create', [confId, props.report.id]), {
-        onFinish: () => form.reset('comment'),
+        onFinish: () => form.reset('comment_message'),
     });
 };
 
@@ -46,6 +50,11 @@ function unjoin(confId)
 function deleteComment(confId, reportId, commentId)
 {
     Inertia.post(route('comment_delete', [confId, reportId, commentId]));
+}
+
+function editComment(confId, reportId, commentId)
+{
+    Inertia.get(route('comment_edit', [confId, reportId, commentId]));
 }
 
 </script>
@@ -93,10 +102,10 @@ function deleteComment(confId, reportId, commentId)
                     <div class="mb-4 bg-white text-sky-600 border-b border-gray-200">
                         <form @submit.prevent="submit">
                             <div class="mt-4">
-                                <InputLabel for="comment" value="Write your comment" />
-                                <TextInput id="comment" type="text" class="mt-1 block w-full"
-                                           v-model="form.comment" required/>
-                                <InputError class="mt-2" :message="form.errors.comment" />
+                                <InputLabel for="comment_message" value="Write your comment" />
+                                <TextInput id="comment_message" type="text" class="mt-1 block w-full"
+                                           v-model="form.comment_message" required/>
+                                <InputError class="mt-2" :message="form.errors.comment_message" />
                             </div>
                             <div class="flex items-center justify-end mt-4">
                                 <PrimaryButton class="ml-4"
@@ -112,16 +121,18 @@ function deleteComment(confId, reportId, commentId)
                                     {{comment.user.first_name}} {{comment.user.last_name}} | {{comment.created_at}}
                                 </div>
                                 <div class="mt-1 text-lg text-sky-900">
-                                    {{comment.comment}}
+                                    {{comment.comment_message}}
                                 </div>
                                 <div class="mt-1 text-sm text-cyan-600">
                                     <button
                                         v-if="props.auth?.user?.role === 'ADMIN' || comment.isOwn"
                                         @click="deleteComment(confId, props.report.id, comment.id)">
                                         Delete
-                                    </button> |
-                                    <button>
-                                        Edit
+                                    </button>
+                                    <button
+                                        v-if="props.auth?.user?.role === 'ADMIN' || comment.isOwn"
+                                        @click="editComment(confId, props.report.id, comment.id)">
+                                        | Edit
                                     </button>
                                 </div>
                             </div>
