@@ -57,7 +57,7 @@ function unjoin(id)
                         <tbody v-for="conference in props.conferences.data">
                         <tr>
                             <th scope="row">{{ conference.id }}</th>
-                            <td class="max-w-xs">{{ conference.title }}</td>
+                            <td class="max-w-xs p-2">{{ conference.title }}</td>
                             <td> 
                                 {{new Date(conference.date).toLocaleString('en-US', 
                                 {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour24: false, 
@@ -66,24 +66,19 @@ function unjoin(id)
 <!--                            IF USER IS NOT GUEST-->
                             <td>
                                 <Link :href="route('Details', conference.id )">
-                                    <button class="btn btn-outline-info">
+                                    <button class="btn btn-outline-info mr-1 mt-1">
                                         Details
                                     </button>
                                 </Link>
-                            </td>
-                            <td>
                                 <Link :href="route('reports_list', conference.id)">
-                                    <button class="btn btn-outline-dark">
+                                    <button class="btn btn-outline-dark mt-1">
                                         Reports
                                     </button>
                                 </Link>
-                            </td>
-
 <!--                            IF USER IS ADMIN OR OWNER-->
-                            <td>
                                 <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
                                     <Link :href="route('Delete', conference.id )">
-                                        <button class="btn btn-outline-danger mr-4">
+                                        <button class="btn btn-outline-danger mt-1">
                                             Delete
                                         </button>
                                     </Link>
@@ -91,10 +86,10 @@ function unjoin(id)
 <!--                            IF USER IS NOT ADMIN-->
                                 <div v-else>
                                     <div v-if="conference.isAlreadyJoined" class="relative flex">
-                                        <button class="btn btn-outline-danger" @click="unjoin(conference.id)">
+                                        <button class="btn btn-outline-danger mt-1" @click="unjoin(conference.id)">
                                             Cancel participation
                                         </button>
-                                            <div class="hide ml-5">
+                                            <div class="hide">
                                                 <Share
                                                     source="modifySource"
                                                     :QQ="false"
@@ -108,12 +103,12 @@ function unjoin(id)
                                     </div>
                                     <div v-else>
                                         <button v-if="props.auth?.user?.role === 'ANNOUNCER'"
-                                                class="btn btn-outline-success"
+                                                class="btn btn-outline-success mt-1"
                                                 @click="createReport(conference.id)">
                                             Join
                                         </button>
                                         <button v-else
-                                                class="btn btn-outline-success"
+                                                class="btn btn-outline-success mt-1"
                                                 @click="join(conference.id)">
                                             Join
                                         </button>
