@@ -64,7 +64,7 @@ Route::post('/conferences/{id}/report-create', [ReportController::class, 'create
 Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports'])
     ->name('reports_list');
 
-Route::post('/conferences/{confId}/reports-list/{reportId}/comment-create', [CommentController::class, 'create'])
+Route::post('/conferences/{confId}/reports-list/{reportId}', [CommentController::class, 'create'])
     ->name('comment_create');
 
 Route::post('/conferences/{confId}/reports-list/{reportId}/comment-delete/{commentId}',
