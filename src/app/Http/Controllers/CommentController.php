@@ -67,7 +67,12 @@ class CommentController extends Controller
         $comment = Comment::find($commentId);
 
         $isOwner = $comment->created_by === $userId;
-        if (!Gate::allows('isAdmin') && !$isOwner) {
+        $ALLOWED_TIME_FOR_UPDATE = 10 * 60 * 1000;
+
+        $isTimeValid = time() < (strtotime($comment->updated_at) + $ALLOWED_TIME_FOR_UPDATE);
+
+        if (!$isTimeValid || !$isOwner) {
+
             abort(403, 'You can not edit this comment');
         }
         $report = new Report;
@@ -88,8 +93,18 @@ class CommentController extends Controller
 
         $comment = Comment::find($commentId);
 
+        $isOwner = $comment->created_by === $userId;
+
+        $ALLOWED_TIME_FOR_UPDATE = 10 * 60 * 1000;
+
+        $isTimeValid = time() < (strtotime($comment->updated_at) + $ALLOWED_TIME_FOR_UPDATE);
+
+        if (!$isTimeValid || !$isOwner) {
+
+            abort(403, 'You can not edit this comment');
+        }
+
         $comment->comment_message = $request->input('comment_message');
-        $comment->report_id = $reportId;
         $comment->save();
 
         $report = new Report;
