@@ -63,6 +63,9 @@ console.log(33, props);
                              It is mine report
                             </button>
                         </div>
+                        <div class="absolute right-3 bottom-3">
+                            Comments count: {{report.comments_count}} 💬 
+                        </div>
                     </div>
                 </Link>
             </div>

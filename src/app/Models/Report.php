@@ -27,6 +27,12 @@ class Report extends Model
         return $this->belongsToMany(Conference::class, 'reports_conferences_users');
     }
 
+    public function comments() {
+        return $this->hasMany(
+            Comment::class, 'report_id', 'id'
+        );
+    }
+
     /**
      * to pivote
      */
@@ -39,7 +45,10 @@ class Report extends Model
 
     public function getPaginateReports($userId, $confId)
     {
-        $reports = $this->where('conference_id', $confId)->paginate(15);
+        $reports = $this
+        ->where('conference_id', $confId)
+        ->withCount(['comments'])
+        ->paginate(15);
         foreach($reports as $report)
         {
             $isOwn = $report->created_by === $userId;

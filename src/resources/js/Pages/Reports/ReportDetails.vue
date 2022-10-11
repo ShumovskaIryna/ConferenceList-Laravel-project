@@ -9,7 +9,6 @@ import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {Inertia} from "@inertiajs/inertia";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -29,18 +28,6 @@ const props = defineProps({
     comment: {
         type: Array,
         default: [],
-    },
-    editor: { 
-        type: Object,
-        default: ClassicEditor
-    },
-    editorDisabled: { 
-        type: Boolean,
-        default: true
-    },
-    editorConfig: {
-        type: Object,
-        toolbar: [ 'bold', 'italic', '|', 'link' ]
     }
 });
 
@@ -75,8 +62,6 @@ function editComment(confId, reportId, commentId)
 {
     Inertia.get(route('comment_edit', [confId, reportId, commentId]));
 }
-
-
 
 </script>
 
@@ -136,10 +121,6 @@ function editComment(confId, reportId, commentId)
                                 <TextInput id="comment_message" type="text" class="mt-1 block w-full"
                                            v-model="form.comment_message" required/>
                                 <InputError class="mt-2" :message="form.errors.comment_message" />
-                                <div id="app">
-                                    <ckeditor :editor="editor" v-model="props.editorData" :config="props.editorConfig">
-                                    </ckeditor>
-                                </div>
                             </div>
                             <div class="flex items-center justify-end mt-4">
                                 <PrimaryButton class="ml-4"
