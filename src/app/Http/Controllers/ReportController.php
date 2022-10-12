@@ -34,7 +34,7 @@ class ReportController extends Controller
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
 
-        Storage::disk('local')->putFileAs(
+        Storage::disk('public')->putFileAs(
             $this->FILE_PATH.$userId,
             $uploadedFile,
             $filename
@@ -117,7 +117,7 @@ class ReportController extends Controller
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
 
-        Storage::disk('local')->putFileAs(
+        Storage::disk('public')->putFileAs(
             $this->FILE_PATH.$userId,
             $uploadedFile,
             $filename

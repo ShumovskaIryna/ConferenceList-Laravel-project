@@ -100,7 +100,7 @@ function editComment(confId, reportId, commentId)
                         Description: {{props.report.description}}
                     </div>
                     <div class="mb-4 bg-white text-sky-600 border-b border-gray-200">
-                        <a :href="props.report.file_path">
+                        <a :href="props.report.file_path" download>
                             Open presentation
                         </a>
                     </div>

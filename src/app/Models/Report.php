@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Report extends Model
 {
@@ -64,7 +65,7 @@ class Report extends Model
             $isOwn = $report->created_by === $userId;
             $report->isOwn = $isOwn;
 
-        $report->file_path = $file_path = public_path('app/'.$report->file_path);
+        $report->file_path = Storage::url($report->file_path);
         return $report;
     }
 }
