@@ -18,7 +18,7 @@ class Comment extends Model
     {
         $comments = $this->where('report_id', $reportId)
             ->with('user')
-            ->paginate(15);
+            ->paginate(10);
         foreach($comments as $comment)
         {
             $isOwn = $comment->created_by === $userId;

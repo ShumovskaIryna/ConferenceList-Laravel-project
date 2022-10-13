@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {Inertia} from "@inertiajs/inertia";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Pagination from '@/Components/Pagination.vue'
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -41,7 +42,6 @@ const submit = () => {
             form.defaults({
                 comment_message: '',
             });
-            console.log(4444)
             form.reset();
         }
     });
@@ -153,6 +153,9 @@ function editComment(confId, reportId, commentId)
                                 </div>
                             </div>
                         </div>
+                            <div class="relative flex justify-center">
+                                <Pagination :links="comments.links" />
+                            </div>
                     </div>
                 </div>
             </div>

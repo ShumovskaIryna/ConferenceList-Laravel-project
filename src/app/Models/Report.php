@@ -49,7 +49,7 @@ class Report extends Model
         $reports = $this
         ->where('conference_id', $confId)
         ->withCount(['comments'])
-        ->paginate(15);
+        ->paginate(10);
         foreach($reports as $report)
         {
             $isOwn = $report->created_by === $userId;

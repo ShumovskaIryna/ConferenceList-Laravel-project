@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Pagination from '@/Components/Pagination.vue'
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -17,7 +18,6 @@ const props = defineProps({
         default: [],
     },
 });
-console.log(33, props);
 </script>
 <template>
     <AuthenticatedLayout>
@@ -68,6 +68,9 @@ console.log(33, props);
                         </div>
                     </div>
                 </Link>
+                    <div class="relative flex justify-center">
+                            <Pagination :links="reports.links" />
+                    </div>
             </div>
         </div>
     </AuthenticatedLayout>
