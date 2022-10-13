@@ -6,7 +6,7 @@ use App\Models\Conference;
 use App\Models\ConferencesUsers;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreConferenceRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\Gate;
 class ConferenceController extends Controller
 {
 
-    public function create(Request $request)
+    /**
+     * Store a new conference.
+     *
+     * @param  \App\Http\Requests\StoreConferenceRequest  $request
+     * @return Illuminate\Http\Response
+     */
+
+    public function create(StoreConferenceRequest $request)
     {
-        $request->validate([
-            'title'=> 'required|min:2|max:255',
-            'date'=> 'required|date|after:today',
-            'position.lat'=> 'max:25',
-            'position.lng'=> 'max:25',
-            'countries'=> 'required'
-        ]);
+        $validated = $request->validated();
+
         $isAnnouncer = Gate::allows('isAnnouncer');
         $isAdmin = Gate::allows('isAdmin');
         $canCreateConf = $isAnnouncer || $isAdmin;
@@ -96,15 +98,9 @@ class ConferenceController extends Controller
         ]);
     }
 
-    public function editSaveConference( $id, Request $request)
+    public function editSaveConference( $id, StoreConferenceRequest  $request)
     {
-        $request->validate([
-            'title'=> 'required|min:2|max:255',
-            'date'=> 'required|date|after:today',
-            'position.lat'=> 'max:25',
-            'position.lng'=> 'max:25',
-            'countries'=> 'required'
-        ]);
+        $validated = $request->validated();
         $conferences = Conference::find($id);
 
         $conferences->title = $request->input('title');

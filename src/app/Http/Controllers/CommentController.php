@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Report;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCommentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -12,11 +12,17 @@ use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    public function create($confId, $reportId, Request $request)
+    
+    /**
+    * Store a new conference.
+    *
+    * @param  \App\Http\Requests\StoreCommentRequest  $request
+    * @return Illuminate\Http\Response
+    */
+
+    public function create($confId, $reportId, StoreCommentRequest $request)
     {
-        $request->validate([
-            'comment_message'=> 'required|min:2|max:255',
-        ]);
+        $validated = $request->validated();
 
         $userId = Auth::id();
 
@@ -77,11 +83,9 @@ class CommentController extends Controller
         ]);
     }
 
-    public function editSaveComment($confId, $reportId, $commentId,  Request $request)
+    public function editSaveComment($confId, $reportId, $commentId,  StoreCommentRequest $request)
     {
-        $request->validate([
-            'comment_message'=> 'required|min:2|max:255',
-        ]);
+        $validated = $request->validated();
 
         $userId = Auth::id();
 

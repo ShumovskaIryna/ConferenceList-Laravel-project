@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\ConferencesUsers;
 use App\Models\Report;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreReportRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -16,17 +16,18 @@ class ReportController extends Controller
 {
     public $FILE_PATH = 'files/presentation/';
 
-    public function create($confId, Request $request)
+    /**
+     * Store a new report.
+     *
+     * @param  \App\Http\Requests\StoreReportRequest  $request
+     * @return Illuminate\Http\Response
+     */
+
+    public function create($confId, StoreReportRequest $request)
     {
         $userId = Auth::id();
 
-        $request->validate([
-            'topic'=> 'required|min:2|max:255',
-            'time_start'=> 'required|date',
-            'time_finish'=> 'required|date',
-            'description'=> 'required|string',
-            'file' => 'required|file|mimes:html',
-        ]);
+        $validated = $request->validated();
 
         if (!Gate::allows('isAnnouncer')) {
             abort(403, 'Create report can Announcer only' );
@@ -103,17 +104,11 @@ class ReportController extends Controller
         ]);
     }
     
-    public function editSaveReport($confId, $reportId, Request $request)
+    public function editSaveReport($confId, $reportId, StoreReportRequest $request)
     {
         $userId = Auth::id();
 
-        $request->validate([
-            'topic'=> 'required|min:2|max:255',
-            'time_start'=> 'required|date',
-            'time_finish'=> 'required|date',
-            'description'=> 'required|string',
-            'file' => 'required|file|mimes:html',
-        ]);
+        $validated = $request->validated();
 
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
