@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class ReportController extends Controller
 {
@@ -32,6 +33,34 @@ class ReportController extends Controller
         if (!Gate::allows('isAnnouncer')) {
             abort(403, 'Create report can Announcer only' );
         }
+    // Validation for date
+        $time_start = $request->input('time_start');
+        $time_finish = $request->input('time_finish');
+
+        $isTimeBooked = Report::where(function ($query) use ($time_start) {
+            $query->where('time_start', '<', $time_start)
+                  ->where('time_finish', '>', $time_start);
+        })
+        ->orWhere(function ($query) use ($time_finish) {
+            $query->where('time_start', '<', $time_finish)
+                  ->where('time_finish', '>', $time_finish);
+        })
+        ->leftJoin('conferences', function ($leftJoin) use ($time_start) {
+            $leftJoin
+                ->on('conferences.id', '=', 'reports.conference_id');   
+        })
+        ->orWhere(function ($query) use($time_start) {
+            $query->where('conferences.date', '>', $time_start);
+        })
+        ->get();
+
+        if (count($isTimeBooked)){
+            throw ValidationException::withMessages([
+                'time_start' => 
+                    'Try this time '.$isTimeBooked[0]->time_finish.'. Conference start at '.$isTimeBooked[0]->date
+            ]);
+        }
+    // end Validation for date
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
 
