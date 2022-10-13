@@ -8,6 +8,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import PeterAlbusVue from 'vue3-social-share';
 import 'vue3-social-share/lib/index.css'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -19,6 +20,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .use(PeterAlbusVue)
+            .use( CKEditor )
             .use(VueGoogleMaps, {
                 load: {
                     key: 'AIzaSyA69OWMQ-Hpg2G4Cwx5rvnDfAnJRxTKpTQ',

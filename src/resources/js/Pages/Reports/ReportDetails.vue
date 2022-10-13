@@ -1,17 +1,19 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
+// import InputError from '@/Components/InputError.vue';
+// import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+// import TextInput from '@/Components/TextInput.vue';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {Inertia} from "@inertiajs/inertia";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const CONFERENCE_ID_INDEX = 4;
 
+const editorConfig = {};
 const url = window.location.href;
 const lastParam = url.split("/");
 const confId = lastParam[CONFERENCE_ID_INDEX];
@@ -117,10 +119,9 @@ function editComment(confId, reportId, commentId)
                     <div class="mb-4 bg-white text-sky-600 border-b border-gray-200">
                         <form @submit.prevent="submit">
                             <div class="mt-4">
-                                <InputLabel for="comment_message" value="Write your comment" />
-                                <TextInput id="comment_message" type="text" class="mt-1 block w-full"
-                                           v-model="form.comment_message" required/>
-                                <InputError class="mt-2" :message="form.errors.comment_message" />
+                                <ckeditor  id="comment_message" type="text" class="mt-1 block w-full" 
+                                        :editor="ClassicEditor" v-model="form.comment_message" :config="editorConfig" required>
+                                </ckeditor>
                             </div>
                             <div class="flex items-center justify-end mt-4">
                                 <PrimaryButton class="ml-4"
@@ -138,8 +139,8 @@ function editComment(confId, reportId, commentId)
                                 {month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', 
                                 hour24: false, timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
                                 </div>
-                                <div class="mt-1 text-lg text-sky-900">
-                                    {{comment.comment_message}}
+                                <div class="mt-1 text-lg text-sky-900" v-html="comment.comment_message">
+                        
                                 </div>
                                 <div class="mt-1 text-sm text-cyan-600">
                                     <button
