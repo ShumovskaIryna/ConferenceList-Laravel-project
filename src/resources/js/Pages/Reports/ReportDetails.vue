@@ -143,7 +143,7 @@ function editComment(confId, reportId, commentId)
                                     <button
                                         v-if="props.auth?.user?.role === 'ADMIN' || comment.isOwn"
                                         @click="deleteComment(confId, props.report.id, comment.id)">
-                                        Delete 
+                                        Delete | 
                                     </button>
                                     <button
                                         v-if="props.auth?.user?.role === 'ADMIN' || comment.isOwn"
