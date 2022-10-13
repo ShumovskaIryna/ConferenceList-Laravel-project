@@ -28,7 +28,7 @@ class StoreReportRequest extends FormRequest
             'time_start'=> 'required|date',
             'time_finish'=> 'required|date',
             'description'=> 'required|string',
-            'file' => 'required|file|mimes:html'
+            'file' => 'required|file|mimes:ppt,pptx|max:10240000'
         ];
     }
 }
