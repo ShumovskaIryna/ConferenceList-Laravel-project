@@ -1,10 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
-// import InputError from '@/Components/InputError.vue';
-// import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-// import TextInput from '@/Components/TextInput.vue';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

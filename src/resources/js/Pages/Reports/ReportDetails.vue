@@ -1,10 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
-// import InputError from '@/Components/InputError.vue';
-// import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-// import TextInput from '@/Components/TextInput.vue';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -42,7 +39,7 @@ const submit = () => {
     form.post(route('comment_create', [confId, props.report.id]), {
         onFinish: () => {
             form.defaults({
-                comment_message: null,
+                comment_message: '',
             });
             console.log(4444)
             form.reset();
@@ -120,7 +117,8 @@ function editComment(confId, reportId, commentId)
                         <form @submit.prevent="submit">
                             <div class="mt-4">
                                 <ckeditor  id="comment_message" type="text" class="mt-1 block w-full" 
-                                        :editor="ClassicEditor" v-model="form.comment_message" :config="editorConfig" required>
+                                        :editor="ClassicEditor" v-model="form.comment_message" 
+                                        :config="editorConfig" required>
                                 </ckeditor>
                             </div>
                             <div class="flex items-center justify-end mt-4">
@@ -140,7 +138,6 @@ function editComment(confId, reportId, commentId)
                                 hour24: false, timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}}
                                 </div>
                                 <div class="mt-1 text-lg text-sky-900" v-html="comment.comment_message">
-                        
                                 </div>
                                 <div class="mt-1 text-sm text-cyan-600">
                                     <button
