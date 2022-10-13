@@ -60,7 +60,7 @@ console.log(33, props);
                         </div>
                         <div v-if="report.isOwn" class="mt-4">
                             <button class="mb-4 btn btn-outline-success">
-                             It is mine report
+                                It is mine report
                             </button>
                         </div>
                         <div class="absolute right-3 bottom-3">

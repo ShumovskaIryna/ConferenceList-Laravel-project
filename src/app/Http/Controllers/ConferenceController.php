@@ -127,10 +127,10 @@ class ConferenceController extends Controller
     {
         $userId = Auth::id();
         $conference = Conference::find($id);
-         $isOwner = $conference->created_by === $userId;
-         if (!Gate::allows('isAdmin') && !$isOwner) {
+        $isOwner = $conference->created_by === $userId;
+        if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not delete this conference');
-         }
+        }
         $conference->delete();
         return Redirect::route('Conferences');
     }

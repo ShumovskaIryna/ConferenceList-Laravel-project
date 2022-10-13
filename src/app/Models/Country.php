@@ -17,9 +17,4 @@ class Country extends Model
         'name',
         'short_code',
     ];
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
 }

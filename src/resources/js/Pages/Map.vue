@@ -23,12 +23,12 @@ export default {
         map-type-id="terrain"
         style="width: 300px; height: 300px"
     >
-            <GMapMarker
-                :key="index"
-                :position="position"
-                :clickable="true"
-                :draggable="true"
-                @click="center = position"
-            />
+    <GMapMarker
+        :key="index"
+        :position="position"
+        :clickable="true"
+        :draggable="true"
+        @click="center = position"
+    />
     </GMapMap>
 </template>

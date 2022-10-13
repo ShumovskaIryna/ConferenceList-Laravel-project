@@ -15,7 +15,7 @@ const props = defineProps({
         default: [],
     },
     components: {
-            Map
+        Map
     },
     center: {
         type: Object,

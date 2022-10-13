@@ -98,10 +98,11 @@ class ReportController extends Controller
 
     public function editReport($confId, $reportId)
     {
-            return Inertia::render('Reports/ReportEdit', [
+        return Inertia::render('Reports/ReportEdit', [
             'report' => Report::findOrFail($reportId)
         ]);
-}
+    }
+    
     public function editSaveReport($confId, $reportId, Request $request)
     {
         $userId = Auth::id();
