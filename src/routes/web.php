@@ -43,7 +43,7 @@ Route::get('/create-conference', function () {
     if (!$canCreateConf) {
         abort(403, 'Create conference can Admin and Announcer only' );
     }
-    return Inertia::render('Create');})
+    return Inertia::render('Conferences/Create');})
     ->name('conference_new');
 
 Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
@@ -55,7 +55,7 @@ Route::get('/conferences/{id}/edit', [ConferenceController::class, 'editConferen
 Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveConference'])
     ->name('edit_save');
 
-Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConference'])
+Route::delete('/conferences/{id}/delete', [ConferenceController::class, 'deleteConference'])
     ->name('conference_delete');
 
 Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])

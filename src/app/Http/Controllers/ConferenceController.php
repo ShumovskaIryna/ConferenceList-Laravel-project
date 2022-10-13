@@ -58,7 +58,7 @@ class ConferenceController extends Controller
         $conferences = new Conference;
 
         $paginatedConferences = $conferences->getPaginateConf($userId);
-        return Inertia::render('Conferences', [
+        return Inertia::render('Conferences/Conferences', [
             'conferences' => $paginatedConferences
         ]);
     }
@@ -76,7 +76,7 @@ class ConferenceController extends Controller
         $conference = new Conference();
 
         $idConference = $conference->getConfId($userId, $confId);
-        return Inertia::render('Details', [
+        return Inertia::render('Conferences/Details', [
             'conference' => $idConference
         ]);
     }
@@ -91,7 +91,7 @@ class ConferenceController extends Controller
         if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not edit this conference');
         }
-        return Inertia::render('Edit', [
+        return Inertia::render('Conferences/Edit', [
             'conference' => Conference::findOrFail($id)
         ]);
     }
@@ -118,7 +118,7 @@ class ConferenceController extends Controller
         $conference = Conference::find($id);
         $isOwner = $conference->created_by === $userId;
         $conference->isOwn = $isOwner;
-        return Inertia::render('Details', [
+        return Inertia::render('Conferences/Details', [
             'conference' => $conference,
         ]);
     }
