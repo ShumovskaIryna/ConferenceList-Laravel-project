@@ -40,7 +40,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('conferences'));
+    form.post(route('conference_create'));
 };
 </script>
 
@@ -48,7 +48,7 @@ const submit = () => {
     <Head title="Create" />
 
     <AuthenticatedLayout>
-        <Link :href="route('Conferences')">
+        <Link :href="route('conferences_list')">
             <button class="absolute ml-4 mt-1 btn btn-outline-primary">
                 Conferences
             </button>

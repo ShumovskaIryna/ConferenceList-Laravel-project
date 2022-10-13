@@ -53,7 +53,7 @@ form.post(route('edit_save', props.conference.id));
     <Head title="Edit" />
 
     <AuthenticatedLayout>
-        <Link :href="route('Details', props.conference.id)">
+        <Link :href="route('conference_details', props.conference.id)">
             <button class="absolute ml-4 mt-1 btn btn-outline-primary">
                 Back
             </button>
@@ -120,7 +120,7 @@ form.post(route('edit_save', props.conference.id));
                         </PrimaryButton>
                     </div>
                 </form>
-                <Link :href="route('Delete', conference.id )">
+                <Link :href="route('conference_delete', conference.id )">
                     <button class="btn btn-outline-danger">Delete</button></Link>
             </div>
         </div>

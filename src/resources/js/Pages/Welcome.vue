@@ -14,7 +14,7 @@ defineProps({
     <div class="relative flex items-top justify-center min-h-screen bg-slate-200 content-center
             sm:items-center sm:pt-0">
         <div v-if="canLogin" class="content-center text-center ">
-                <Link :href="route('Conferences')"
+                <Link :href="route('conferences_list')"
                     class="font-bold text-3xl text-sky-400 hover:bg-gray-300">
                     <button type="button"
                             class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold

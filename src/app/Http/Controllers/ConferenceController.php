@@ -132,7 +132,7 @@ class ConferenceController extends Controller
             abort(403, 'You can not delete this conference');
         }
         $conference->delete();
-        return Redirect::route('Conferences');
+        return Redirect::route('conferences_list');
     }
 
     public function joinConference($id)
@@ -151,6 +151,6 @@ class ConferenceController extends Controller
         $userId = Auth::id();
         $conferences = new ConferencesUsers();
         $conferences->unjoin($id,$userId);
-        return Redirect::route('Conferences');
+        return Redirect::route('conferences_list');
     }
 }

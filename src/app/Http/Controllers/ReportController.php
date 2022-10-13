@@ -54,7 +54,7 @@ class ReportController extends Controller
         $conferences = new ConferencesUsers();
         $conferences->join($confId, $userId);
 
-        return Redirect::route('Details', $confId);
+        return Redirect::route('conference_details', $confId);
     }
 
     public function getReports($confId)

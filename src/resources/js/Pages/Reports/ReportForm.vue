@@ -30,7 +30,7 @@ const submit = () => {
     <Head title="ReportForm" />
 
     <AuthenticatedLayout>
-        <Link :href="route('Details', confId)">
+        <Link :href="route('conference_details', confId)">
             <button class="absolute ml-4 mt-1 btn btn-outline-primary">
                 Back
             </button>

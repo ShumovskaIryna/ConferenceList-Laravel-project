@@ -48,7 +48,7 @@ function unjoin(id)
     <Head title="Details" />
 
     <AuthenticatedLayout>
-        <Link :href="route('Conferences')">
+        <Link :href="route('conferences_list')">
             <button class="absolute ml-4 mt-1 btn btn-outline-primary">
                 Back
             </button>
@@ -84,12 +84,12 @@ function unjoin(id)
                 <div class="flex items-center justify-end mt-4">
 <!--              IF USER IS ADMIN OR OWNER-->
                     <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
-                        <Link :href="route('Edit', conference.id )">
+                        <Link :href="route('conference_edit', conference.id )">
                             <button class="btn btn-outline-warning mr-4">
                                 Edit
                             </button>
                         </Link>
-                        <Link :href="route('Delete', conference.id )">
+                        <Link :href="route('conference_delete', conference.id )">
                             <button class="btn btn-outline-danger mr-4">
                                 Delete
                             </button>

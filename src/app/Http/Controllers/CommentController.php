@@ -7,6 +7,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class CommentController extends Controller
@@ -50,14 +51,7 @@ class CommentController extends Controller
         Comment::where('id', $commentId)
             ->delete();
 
-        $report = new Report;
-        $comments = new Comment;
-        $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
-        $reportById = $report->getReportId($userId, $confId, $reportId);
-        return Inertia::render('Reports/ReportDetails', [
-            'report' => $reportById,
-            'comments' => $paginatedComments
-        ]);
+        return Redirect::route('report_details', [$confId, $reportId, $commentId]);
     }
 
     public function edit($confId, $reportId, $commentId)
@@ -106,14 +100,7 @@ class CommentController extends Controller
 
         $comment->comment_message = $request->input('comment_message');
         $comment->save();
-
-        $report = new Report;
-        $comments = new Comment;
-        $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
-        $reportById = $report->getReportId($userId, $confId, $reportId);
-        return Inertia::render('Reports/ReportDetails', [
-            'report' => $reportById,
-            'comments' => $paginatedComments
-        ]);
+        
+        return Redirect::route('report_details', [$confId, $reportId, $commentId]);
     }
 }

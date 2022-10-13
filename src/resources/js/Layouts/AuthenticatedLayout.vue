@@ -20,13 +20,13 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('Conferences')">
+                                <Link :href="route('conferences_list')">
                                     <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('Conferences')" :active="route().current('Conferences')"
+                                <NavLink :href="route('conferences_list')" :active="route().current('conferences_list')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
                                             class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
@@ -42,7 +42,7 @@ const showingNavigationDropdown = ref(false);
                             <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
                                        $page.props.auth.user?.role === 'ADMIN'"
                                  class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('Create')" :active="route().current('Create')"
+                                <NavLink :href="route('conference_new')" :active="route().current('conference_new')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
                                             class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
@@ -121,14 +121,14 @@ const showingNavigationDropdown = ref(false);
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
                      class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('Conferences')" :active="route().current('Conferences')">
+                        <ResponsiveNavLink :href="route('conferences_list')" :active="route().current('conferences_list')">
                             Conferences
                         </ResponsiveNavLink>
                     </div>
                     <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
                                        $page.props.auth.user?.role === 'ADMIN'"
                          class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('Create')" :active="route().current('Create')">
+                        <ResponsiveNavLink :href="route('conference_new')" :active="route().current('conference_new')">
                             +New
                         </ResponsiveNavLink>
                     </div>

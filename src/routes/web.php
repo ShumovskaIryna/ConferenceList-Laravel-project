@@ -30,26 +30,26 @@ Route::get('/', function () {
 });
 
 Route::get('/conferences', [ConferenceController::class, 'getConferences'])
-    ->name('Conferences');
+    ->name('conferences_list');
 
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
 Route::get('/create', function () {
     return Inertia::render('Create');})
-    ->name('Create');
+    ->name('conference_new');
 
 Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
-    ->name('Details');
+    ->name('conference_details');
 
 Route::get('/conferences/{id}/edit', [ConferenceController::class, 'editConference'])
-    ->name('Edit');
+    ->name('conference_edit');
 
 Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveConference'])
     ->name('edit_save');
 
 Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConference'])
-    ->name('Delete');
+    ->name('conference_delete');
 
 Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
     ->name('join');
@@ -94,7 +94,7 @@ Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinCon
 Route::get('get-countries', [RegisteredUserController::class, 'getCountries']);
 
 Route::post('/conferences', [ConferenceController::class, 'create'])
-    ->name('conferences');
+    ->name('conference_create');
 
 Route::get('/token', function () {
     return csrf_token();

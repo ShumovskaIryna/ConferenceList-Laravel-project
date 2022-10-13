@@ -65,7 +65,7 @@ function unjoin(id)
                             </td>
 <!--                            IF USER IS NOT GUEST-->
                             <td>
-                                <Link :href="route('Details', conference.id )">
+                                <Link :href="route('conference_details', conference.id )">
                                     <button class="btn btn-outline-info mr-1 mt-1">
                                         Details
                                     </button>
@@ -77,7 +77,7 @@ function unjoin(id)
                                 </Link>
 <!--                            IF USER IS ADMIN OR OWNER-->
                                 <div v-if="props.auth?.user?.role === 'ADMIN' || conference.isOwn">
-                                    <Link :href="route('Delete', conference.id )">
+                                    <Link :href="route('conference_delete', conference.id )">
                                         <button class="btn btn-outline-danger mt-1">
                                             Delete
                                         </button>
