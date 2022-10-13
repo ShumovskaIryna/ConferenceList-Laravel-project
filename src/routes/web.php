@@ -8,6 +8,7 @@ use App\Http\Controllers\ConferenceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,12 @@ Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
 Route::get('/create-conference', function () {
+    $isAnnouncer = Gate::allows('isAnnouncer');
+    $isAdmin = Gate::allows('isAdmin');
+    $canCreateConf = $isAnnouncer || $isAdmin;
+    if (!$canCreateConf) {
+        abort(403, 'Create conference can Admin and Announcer only' );
+    }
     return Inertia::render('Create');})
     ->name('conference_new');
 
