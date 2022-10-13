@@ -35,7 +35,7 @@ Route::get('/conferences', [ConferenceController::class, 'getConferences'])
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
-Route::get('/create', function () {
+Route::get('/create-conference', function () {
     return Inertia::render('Create');})
     ->name('conference_new');
 
