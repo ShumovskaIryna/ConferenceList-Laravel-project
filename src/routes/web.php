@@ -106,3 +106,9 @@ Route::post('/conferences', [ConferenceController::class, 'create'])
 Route::get('/token', function () {
     return csrf_token();
 });
+
+Route::get('/user-profile', [RegisteredUserController::class, 'editUser'])
+->name('user_profile');
+
+Route::post('/user-profile', [RegisteredUserController::class, 'editSaveUser'])
+->name('user_profile_update');

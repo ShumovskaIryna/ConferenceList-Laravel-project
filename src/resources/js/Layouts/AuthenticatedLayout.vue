@@ -82,6 +82,9 @@ const showingNavigationDropdown = ref(false);
                                         </span>
                                     </template>
                                     <template #content v-if="$page.props.auth?.user">
+                                        <DropdownLink :href="route('user_profile')">
+                                            Profile
+                                        </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
