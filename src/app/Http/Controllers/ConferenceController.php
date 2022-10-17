@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conference;
 use App\Models\ConferencesUsers;
 use App\Models\User;
+use App\Models\Country;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\StoreConferenceRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class ConferenceController extends Controller
      * @return Illuminate\Http\Response
      */
 
-    public function create(StoreConferenceRequest $request)
+    public function store(StoreConferenceRequest $request)
     {
         $validated = $request->validated();
 
@@ -51,6 +52,20 @@ class ConferenceController extends Controller
             'joined_at' => date('d-m-y h:i:s'),
         ]);
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function create()
+    {
+        $isAnnouncer = Gate::allows('isAnnouncer');
+        $isAdmin = Gate::allows('isAdmin');
+        $canCreateConf = $isAnnouncer || $isAdmin;
+        if (!$canCreateConf) {
+            abort(403, 'Create conference can Admin and Announcer only' );
+        }
+        $countries = Country::all();
+        return Inertia::render('Conferences/Create', [
+            'countries' => $countries
+        ]);
     }
 
     public function getConferences()
@@ -93,7 +108,9 @@ class ConferenceController extends Controller
         if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not edit this conference');
         }
+        $countries = Country::all();
         return Inertia::render('Conferences/Edit', [
+            'countries' => $countries,
             'conference' => Conference::findOrFail($id)
         ]);
     }

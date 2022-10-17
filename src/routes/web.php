@@ -36,14 +36,7 @@ Route::get('/conferences', [ConferenceController::class, 'getConferences'])
 Route::get('/users',UserController::class)->name('users');
 require __DIR__.'/auth.php';
 
-Route::get('/create-conference', function () {
-    $isAnnouncer = Gate::allows('isAnnouncer');
-    $isAdmin = Gate::allows('isAdmin');
-    $canCreateConf = $isAnnouncer || $isAdmin;
-    if (!$canCreateConf) {
-        abort(403, 'Create conference can Admin and Announcer only' );
-    }
-    return Inertia::render('Conferences/Create');})
+Route::get('/create-conference', [ConferenceController::class, 'create'])
     ->name('conference_new');
 
 Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
@@ -98,9 +91,7 @@ Route::post('/conferences/{confId}/reports-list/{reportId}/edit', [ReportControl
 Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
     ->name('unjoin');
 
-Route::get('get-countries', [RegisteredUserController::class, 'getCountries']);
-
-Route::post('/conferences', [ConferenceController::class, 'create'])
+Route::post('/conferences', [ConferenceController::class, 'store'])
     ->name('conference_create');
 
 Route::get('/token', function () {

@@ -28,11 +28,6 @@ const props = defineProps({
         type: Object,
     },
 });
-axios.get('/get-countries').then(response => {
-    props.countries = response.data;
-}).catch(error => {
-    console.error(error);
-});
 
 const form = useForm({
     title: props.conference.title,
@@ -101,9 +96,6 @@ form.post(route('edit_save', props.conference.id));
                     <div class="mt-4">
                         <InputLabel for="countries" value="Country" />
                         <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
-                            <option class="form-control" selected>
-                                {{props.conference.countries}}
-                            </option>
                             <option v-for="country in props.countries"
                                     :value="country.nicename" class="form-control">
                                 {{ country.nicename }}

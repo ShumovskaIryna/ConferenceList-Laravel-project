@@ -25,7 +25,6 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register', [
             'countries' => $countries,
         ]);
-
     }
 
     /**
@@ -55,12 +54,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);
-    }
-
-    public function getCountries()
-    {
-        $countries = Country::all();
-        return response()->json($countries);
     }
 
     public function editUser()
