@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -38,9 +39,7 @@ class RegisteredUserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validated = $request->validated();
-        // $request->validate([
-        //     'email' => 'required|string|email|max:255|unique:users',
-        // ]);
+        
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -68,7 +67,7 @@ class RegisteredUserController extends Controller
         ]);
     }
     
-    public function editSaveUser(StoreUserRequest $request)
+    public function editSaveUser(UpdateUserRequest $request)
     {
         $validated = $request->validated();
 
@@ -78,7 +77,7 @@ class RegisteredUserController extends Controller
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->password = Hash::make($request->input('password'));
         $user->birthdate = $request->input('birthdate');
         $user->countries = $request->input('countries');
         $user->phone = $request->input('phone');

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678'),
             'role' => 'ADMIN',
             'birthdate' => '2022-09-22 00:00:00',
-            'countries' => 'Ukraine +380',
+            'countries' => 'Ukraine',
             'phone' => '123456789',
         ]);
 
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678'),
             'role' => 'LISTENER',
             'birthdate' => '2022-09-22 00:00:00',
-            'countries' => 'Ukraine +380',
+            'countries' => 'Ukraine',
             'phone' => '123456789',
         ]);
 
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678'),
             'role' => 'ANNOUNCER',
             'birthdate' => '2022-09-22 00:00:00',
-            'countries' => 'Ukraine +380',
+            'countries' => 'Ukraine',
             'phone' => '123456789',
         ]);
     }
