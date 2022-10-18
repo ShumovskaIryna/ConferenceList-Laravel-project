@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\ConferencesUsers;
+use App\Models\ReportsUsers;
 use App\Models\Report;
 use App\Http\Requests\StoreReportRequest;
 use Illuminate\Support\Facades\Auth;
@@ -164,5 +165,19 @@ class ReportController extends Controller
             'report' => $reportById,
             'comments' => $paginatedComments
         ]);
+    }
+
+    public function likeReport($confId, $reportId)
+    {
+        $userId = Auth::id();
+        $report = new ReportsUsers();
+        $report->like($reportId, $userId);
+    }
+
+    public function unlikeReport($confId, $reportId)
+    {
+        $userId = Auth::id();
+        $report = new ReportsUsers();
+        $report->unlike($reportId, $userId);
     }
 }

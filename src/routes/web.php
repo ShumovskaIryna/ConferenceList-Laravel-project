@@ -8,7 +8,6 @@ use App\Http\Controllers\ConferenceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,3 +102,9 @@ Route::get('/user-profile', [RegisteredUserController::class, 'editUser'])
 
 Route::post('/user-profile', [RegisteredUserController::class, 'editSaveUser'])
 ->name('user_profile_update');
+
+Route::post('/conferences/{confId}/reports-list/{reportId}/like', [ReportController::class, 'likeReport'])
+    ->name('report_like');
+
+Route::delete('/conferences/{confId}/reports-list/{reportId}/like', [ReportController::class, 'unlikeReport'])
+    ->name('report_unlike');

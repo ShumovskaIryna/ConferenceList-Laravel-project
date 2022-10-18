@@ -16,17 +16,12 @@ class Report extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'reports_conferences_users');
+        return $this->belongsToMany(User::class, 'favorites_reports');
     }
 
     /**
      * The conferences that belong to the reports.
      */
-
-    public function conferences()
-    {
-        return $this->belongsToMany(Conference::class, 'reports_conferences_users');
-    }
 
     public function comments() {
         return $this->hasMany(
@@ -41,7 +36,7 @@ class Report extends Model
     public function reportsUsers()
     {
         return $this->hasMany(
-            ReportsUsers::class, 'users_id', 'id');
+            ReportsUsers::class, 'report_id', 'id');
     }
 
     public function getPaginateReports($userId, $confId)
@@ -54,7 +49,19 @@ class Report extends Model
         {
             $isOwn = $report->created_by === $userId;
             $report->isOwn = $isOwn;
+            $reportsUsers = $report->reportsUsers;
+            if (empty($reportsUsers)) {
+                continue;
+            }
 
+            foreach($reportsUsers as $additionalData) {
+                $isAlreadyLiked = $additionalData->user_id === $userId
+                    && $additionalData->liked_at
+                    && $additionalData->report_id === $report->id;
+                if ($isAlreadyLiked) {
+                    $report->isAlreadyLiked = $isAlreadyLiked;
+                }
+            }
         }
         return $reports;
     }
