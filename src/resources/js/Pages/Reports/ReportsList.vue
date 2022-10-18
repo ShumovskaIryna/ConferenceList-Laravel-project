@@ -6,6 +6,10 @@ import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Pagination from '@/Components/Pagination.vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHeart, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faHeart, faHeartCirclePlus)
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -79,14 +83,14 @@ function unlikeReport(confId, reportId)
                         Comments count: {{report.comments_count}} 💬 
                     </div>
                     <button v-if="report.isAlreadyLiked" 
-                        class="btn btn-outline-success mt-1" 
+                        class="mt-4 btn btn-outline-danger" 
                         @click="unlikeReport(confId, report.id)">
-                            Unlike
+                        <font-awesome-icon icon="fa-solid fa-heart" />
                     </button>
                     <button v-else
-                        class="btn btn-outline-success mt-1" 
+                        class="mt-4 btn btn-outline-dark" 
                         @click="likeReport(confId, report.id)">
-                            Like
+                        <font-awesome-icon icon="fa-solid fa-heart-circle-plus" />
                     </button>
                 </div>
             </div>
