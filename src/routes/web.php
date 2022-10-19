@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConferenceController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -111,3 +112,9 @@ Route::delete('/conferences/{confId}/reports-list/{reportId}/like', [ReportContr
 
 Route::get('/reports-fav-list', [ReportController::class, 'getFavReports'])
     ->name('reports_fav_list');
+
+Route::get('/category-create', [CategoryController::class, 'create'])
+    ->name('category_new');
+
+Route::post('/category-create', [CategoryController::class, 'store'])
+    ->name('category_create');

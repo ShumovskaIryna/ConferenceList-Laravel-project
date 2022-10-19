@@ -59,6 +59,21 @@ const showingNavigationDropdown = ref(false);
                                     </button>
                                 </NavLink>
                             </div>
+                            <div v-if="$page.props.auth.user?.role === 'ADMIN'"
+                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('category_new')" :active="route().current('category_new')"
+                                         class="font-bold text-lg text-sky-700 no-underline">
+                                    <button type="button"
+                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
+                                                    rounded-md text-sky-600 hover:text-sky-800
+                                                    focus:outline-none transition ease-in-out duration-150">
+                                                <span
+                                                    class="font-bold text-lg text-sky-800">
+                                                    +Category
+                                                </span>
+                                    </button>
+                                </NavLink>
+                            </div>
                         </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
