@@ -85,12 +85,13 @@ class Report extends Model
     public function getFavoritesReports($userId)
     {
         $reports = $this
+            ->withCount(['comments'])
             ->join('favorites_reports', function($join) use ($userId) {
                 $join->on('favorites_reports.report_id', '=', 'reports.id')
                 ->whereNotNull('liked_at')
                 ->where('favorites_reports.user_id', '=', $userId);
             })
-            ->select('reports.*', 'favorites_reports.liked_at')
+            ->addSelect('favorites_reports.liked_at')
             ->paginate(10);
         
         return $reports;
