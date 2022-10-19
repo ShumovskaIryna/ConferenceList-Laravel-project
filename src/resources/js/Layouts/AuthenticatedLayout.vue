@@ -29,48 +29,56 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                             </div>
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                                 <NavLink :href="route('conferences_list')" :active="route().current('conferences_list')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
-                                                    rounded-md text-sky-600 hover:text-sky-800
-                                                    focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-800">
-                                                    Conferences
-                                                </span>
+                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
+                                            rounded-md text-sky-600 hover:text-sky-800
+                                            focus:outline-none transition ease-in-out duration-150">
+                                        <span class="font-bold text-lg text-sky-800">
+                                            Conferences
+                                        </span>
                                     </button>
                                 </NavLink>
                             </div>
                             <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
                                        $page.props.auth.user?.role === 'ADMIN'"
-                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                 class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                                 <NavLink :href="route('conference_new')" :active="route().current('conference_new')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
-                                                    rounded-md text-sky-600 hover:text-sky-800
-                                                    focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-800">
-                                                    +New
-                                                </span>
+                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
+                                            rounded-md text-sky-600 hover:text-sky-800
+                                            focus:outline-none transition ease-in-out duration-150">
+                                        <span class="font-bold text-lg text-sky-800">
+                                            +New
+                                        </span>
                                     </button>
                                 </NavLink>
                             </div>
                             <div v-if="$page.props.auth.user?.role === 'ADMIN'"
-                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                 class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                                 <NavLink :href="route('category_list')" :active="route().current('category_list')"
+                                         class="font-bold text-lg text-sky-700 no-underline">
+                                    <button type="button"
+                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
+                                            rounded-md text-sky-600 hover:text-sky-800
+                                            focus:outline-none transition ease-in-out duration-150">
+                                        <span class="font-bold text-lg text-sky-800">
+                                            Categories
+                                        </span>
+                                    </button>
+                                </NavLink>
                                 <NavLink :href="route('category_new')" :active="route().current('category_new')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
-                                                    rounded-md text-sky-600 hover:text-sky-800
-                                                    focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-800">
-                                                    +Category
-                                                </span>
+                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
+                                            rounded-md text-sky-600 hover:text-sky-800
+                                            focus:outline-none transition ease-in-out duration-150">
+                                        <span class="font-bold text-lg text-sky-800">
+                                            +Category
+                                        </span>
                                     </button>
                                 </NavLink>
                             </div>
@@ -94,8 +102,7 @@ const showingNavigationDropdown = ref(false);
                                                     border-transparent text-sm leading-4 font-bold
                                                     rounded-md text-sky-600 bg-slate-200 hover:text-sky-800
                                                     focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-600">
+                                                <span class="font-bold text-lg text-sky-600">
                                                     {{ $page.props.auth.user?.first_name || 'Guest'}}
                                                 </span>
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +110,7 @@ const showingNavigationDropdown = ref(false);
                                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10
                                                     10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414
                                                     0l-4-4a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd" />
+                                                    clip-rule="evenodd" />
                                                 </svg>
                                             </button>
                                         </span>
@@ -133,10 +140,10 @@ const showingNavigationDropdown = ref(false);
                         <div class="-mr-2 flex items-center sm:hidden">
                             <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
                                 <button v-if="99 >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
-                                        <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
+                                    <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
                                 </button>
                                 <button v-if="$page.props.auth.user?.favCount > 99" class="mt-1 btn btn-outline-danger">
-                                        <font-awesome-icon icon="fa-solid fa-heart" /> 99+
+                                    <font-awesome-icon icon="fa-solid fa-heart" /> 99+
                                 </button>
                             </Link>
                             <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
@@ -163,11 +170,19 @@ const showingNavigationDropdown = ref(false);
                             Conferences
                         </ResponsiveNavLink>
                     </div>
-                    <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
-                                       $page.props.auth.user?.role === 'ADMIN'"
+                    <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' || $page.props.auth.user?.role === 'ADMIN'"
                          class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('conference_new')" :active="route().current('conference_new')">
                             +New
+                        </ResponsiveNavLink>
+                    </div>
+                    <div v-if="$page.props.auth.user?.role === 'ADMIN'"
+                        class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('category_list')" :active="route().current('category_list')">
+                            Categories
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('category_new')" :active="route().current('category_new')">
+                            +Category
                         </ResponsiveNavLink>
                     </div>
                     <template v-if="$page.props.auth?.user">

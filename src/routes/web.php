@@ -118,3 +118,6 @@ Route::get('/category-create', [CategoryController::class, 'create'])
 
 Route::post('/category-create', [CategoryController::class, 'store'])
     ->name('category_create');
+
+    Route::get('/category-list', [CategoryController::class, 'getCategories'])
+    ->name('category_list');

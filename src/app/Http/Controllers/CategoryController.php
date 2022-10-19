@@ -35,4 +35,12 @@ class CategoryController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+    
+    public function getCategories()
+    {
+        $categories = Category::all();
+        return Inertia::render('Categories/CategoriesList', [
+            'categories' => $categories
+        ]);
+    }
 }
