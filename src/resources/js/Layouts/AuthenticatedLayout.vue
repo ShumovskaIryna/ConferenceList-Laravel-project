@@ -131,6 +131,14 @@ const showingNavigationDropdown = ref(false);
                         </div>
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
+                            <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
+                                <button v-if="99 >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
+                                </button>
+                                <button v-if="$page.props.auth.user?.favCount > 99" class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> 99+
+                                </button>
+                            </Link>
                             <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
                                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400
                                     hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100
