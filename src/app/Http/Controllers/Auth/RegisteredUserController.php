@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\User;
+use App\Models\ReportsUsers;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -73,6 +74,10 @@ class RegisteredUserController extends Controller
 
         $userId = Auth::id();
         $user = User::find($userId);
+        
+        $favCount = ReportsUsers::where('user_id', $userId)
+        ->whereNotNull('liked_at')
+        ->get()->count();
     
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
@@ -83,6 +88,8 @@ class RegisteredUserController extends Controller
         $user->phone = $request->input('phone');
         $user->role = $request->input('role');
         $user->save();
+
+        $user->favCount = $favCount;
 
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);

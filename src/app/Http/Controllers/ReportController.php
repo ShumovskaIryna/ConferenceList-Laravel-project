@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\ConferencesUsers;
+use App\Models\Conference;
 use App\Models\ReportsUsers;
 use App\Models\Report;
 use App\Http\Requests\StoreReportRequest;
@@ -65,7 +66,9 @@ class ReportController extends Controller
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
 
-        Storage::disk('public')->putFileAs(
+        /** @var Illuminate\Filesystem\FilesystemAdapter */
+        $filesystem = Storage::disk('local');
+        $filesystem->putFileAs(
             $this->FILE_PATH.$userId,
             $uploadedFile,
             $filename
@@ -143,7 +146,9 @@ class ReportController extends Controller
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
 
-        Storage::disk('public')->putFileAs(
+        /** @var Illuminate\Filesystem\FilesystemAdapter */
+        $filesystem = Storage::disk('local');
+        $filesystem->putFileAs(
             $this->FILE_PATH.$userId,
             $uploadedFile,
             $filename
@@ -179,5 +184,23 @@ class ReportController extends Controller
         $userId = Auth::id();
         $report = new ReportsUsers();
         $report->unlike($reportId, $userId);
+    }
+
+
+    public function getFavReports()
+    {
+        if (!Gate::allows('isAnnouncer') &&
+            !Gate::allows('isListener') &&
+            !Gate::allows('isAdmin')) {
+            return Redirect::route('register');
+        }
+        $userId = Auth::id();
+        $reports = new Report;
+        $conferences = new Conference;
+        $favoriteReports = $reports->getFavoritesReports($userId);
+
+        return Inertia::render('Reports/ReportsFavoritesList', [
+            'reports' => $favoriteReports
+        ]);
     }
 }

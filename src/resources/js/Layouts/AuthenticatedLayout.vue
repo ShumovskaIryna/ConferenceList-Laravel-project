@@ -62,9 +62,11 @@ const showingNavigationDropdown = ref(false);
                         </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
-                            <button class="mt-1 btn btn-outline-danger">
-                                <font-awesome-icon icon="fa-solid fa-heart" />
-                            </button>
+                            <Link :href="route('reports_fav_list')">
+                                <button class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
+                                </button>
+                            </Link>
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>

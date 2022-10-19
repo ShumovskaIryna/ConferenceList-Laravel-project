@@ -39,6 +39,12 @@ class Report extends Model
             ReportsUsers::class, 'report_id', 'id');
     }
 
+    public function conferences() 
+    {
+        return $this->belongsTo(
+            Conference::class, 'conference_id', 'id'
+        );
+    }
     public function getPaginateReports($userId, $confId)
     {
         $reports = $this
@@ -74,5 +80,19 @@ class Report extends Model
 
         $report->file_path = Storage::url($report->file_path);
         return $report;
+    }
+
+    public function getFavoritesReports($userId)
+    {
+        $reports = $this
+            ->join('favorites_reports', function($join) use ($userId) {
+                $join->on('favorites_reports.report_id', '=', 'reports.id')
+                ->whereNotNull('liked_at')
+                ->where('favorites_reports.user_id', '=', $userId);
+            })
+            ->select('reports.*', 'favorites_reports.liked_at')
+            ->paginate(10);
+        
+        return $reports;
     }
 }

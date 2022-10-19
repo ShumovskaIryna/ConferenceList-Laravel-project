@@ -108,3 +108,6 @@ Route::post('/conferences/{confId}/reports-list/{reportId}/like', [ReportControl
 
 Route::delete('/conferences/{confId}/reports-list/{reportId}/like', [ReportController::class, 'unlikeReport'])
     ->name('report_unlike');
+
+Route::get('/reports-fav-list', [ReportController::class, 'getFavReports'])
+    ->name('reports_fav_list');
