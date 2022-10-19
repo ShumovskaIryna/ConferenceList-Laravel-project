@@ -80,6 +80,7 @@ class ReportController extends Controller
         $reports->time_finish = $request->input('time_finish');
         $reports->description = $request->input('description');
         $reports->file_path = $this->FILE_PATH.$userId.'/'.$filename;
+        $reports->category = $request->input('category');
         $reports->created_by = $userId;
         $reports->conference_id = $confId;
 
@@ -161,6 +162,7 @@ class ReportController extends Controller
         $report->time_finish = $request->input('time_finish');
         $report->description = $request->input('description');
         $report->file_path = $this->FILE_PATH . $userId . '/' . $filename;
+        $report->category = $request->input('category');
         $report->save();
 
         $comments = new Comment;

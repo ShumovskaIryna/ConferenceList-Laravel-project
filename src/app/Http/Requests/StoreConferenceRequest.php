@@ -26,9 +26,10 @@ class StoreConferenceRequest extends FormRequest
         return [
             'title'=> 'required|min:2|max:255',
             'date'=> 'required|date|after:today',
-            'position.lat'=> 'max:25',
-            'position.lng'=> 'max:25',
-            'countries'=> 'required'
+            'position.lat' => 'max:25',
+            'position.lng' => 'max:25',
+            'countries' => 'required',
+            'category' => 'max:100'
         ];
     }
 }

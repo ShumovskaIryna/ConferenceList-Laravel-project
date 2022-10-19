@@ -36,6 +36,7 @@ const form = useForm({
         lat: props.conference.lat,
         lng: props.conference.lng,},
     countries: props.conference.countries,
+    category: '',
     terms: false,
 });
 
@@ -102,6 +103,16 @@ form.post(route('edit_save', props.conference.id));
                             </option>
                         </select>
                         <InputError class="mt-2" :message="form.errors.countries" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="category" value="Category" />
+                        <select id="category" class="mt-1 block w-full" v-model="form.category">
+                            <!-- <option v-for="category in props.category" :value="category.name"
+                                    class="form-control">{{ category.name }}
+                                </option> -->
+                        </select>
+                        <InputError class="mt-2" :message="form.errors.category" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">

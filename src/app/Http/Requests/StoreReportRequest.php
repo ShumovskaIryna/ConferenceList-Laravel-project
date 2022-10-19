@@ -24,11 +24,13 @@ class StoreReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'topic'=> 'required|min:2|max:255',
-            'time_start'=> 'required|date',
-            'time_finish'=> 'required|date',
-            'description'=> 'required|string',
-            'file' => 'required|file|mimes:ppt,pptx|max:10240000'
+            'topic' => 'required|min:2|max:255',
+            'time_start' => 'required|date',
+            'time_finish' => 'required|date',
+            'description' => 'required|string',
+            'file' => 'required|file|mimes:ppt,pptx|max:10240000',
+            'category' => 'max:100'
+
         ];
     }
 }

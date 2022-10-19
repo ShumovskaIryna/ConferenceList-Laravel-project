@@ -30,6 +30,7 @@ const form = useForm({
         lng: ''
     },
     countries: '',
+    category: '',
     terms: false,
 });
 
@@ -93,6 +94,16 @@ const submit = () => {
                                     class="form-control">{{ country.nicename }}</option>
                         </select>
                         <InputError class="mt-2" :message="form.errors.countries" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="category" value="Category" />
+                        <select id="category" class="mt-1 block w-full" v-model="form.category">
+                            <!-- <option v-for="category in props.category" :value="category.name"
+                                    class="form-control">{{ category.name }}
+                                </option> -->
+                        </select>
+                        <InputError class="mt-2" :message="form.errors.category" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">

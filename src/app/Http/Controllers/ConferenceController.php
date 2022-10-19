@@ -42,6 +42,7 @@ class ConferenceController extends Controller
         $conferences->lat = $request->input('position.lat');
         $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
+        $conferences->category = $request->input('category');
         $conferences->created_by = $userId;
 
         $conferences->save();
@@ -125,6 +126,7 @@ class ConferenceController extends Controller
         $conferences->lat = $request->input('position.lat');
         $conferences->lng = $request->input('position.lng');
         $conferences->countries = $request->input('countries');
+        $conferences->category = $request->input('category');
         $conferences->save();
 
         $userId = Auth::id();

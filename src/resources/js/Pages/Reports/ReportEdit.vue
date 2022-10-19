@@ -28,6 +28,7 @@ const form = useForm({
     time_finish: props.report.time_finish,
     description: props.report.description,
     file: props.report.filePath,
+    category: '',
     terms: false,
 });
 
@@ -89,6 +90,16 @@ function unjoin(confId)
                         <TextInput id="file" type="file"
                                    @input="form.file = $event.target.files[0]"/>
                         <InputError class="mt-2" :message="form.errors.file" />
+                    </div>
+
+                    <div class="mt-4 block w-full">
+                        <InputLabel for="category" value="Category" />
+                        <select id="category" class="mt-1 block w-full" v-model="form.category">
+                            <!-- <option v-for="category in props.category" :value="category.name"
+                                    class="form-control">{{ category.name }}
+                                </option> -->
+                        </select>
+                        <InputError class="mt-2" :message="form.errors.category" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">

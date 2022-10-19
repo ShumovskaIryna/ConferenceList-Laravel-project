@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('time_finish')->nullable();
             $table->string('description')->nullable();
             $table->string('file_path')->nullable();
+            $table->string('category');
             $table->bigInteger('created_by');
             $table->bigInteger('conference_id');
             $table->timestamps();
