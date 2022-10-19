@@ -62,9 +62,12 @@ const showingNavigationDropdown = ref(false);
                         </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
-                            <Link :href="route('reports_fav_list')">
-                                <button class="mt-1 btn btn-outline-danger">
+                            <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
+                                <button v-if="99 >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
                                         <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
+                                </button>
+                                <button v-if="$page.props.auth.user?.favCount > 99" class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> 99+
                                 </button>
                             </Link>
                             <div class="ml-3 relative">
