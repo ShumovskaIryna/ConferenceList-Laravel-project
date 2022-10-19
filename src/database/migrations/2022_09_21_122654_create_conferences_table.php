@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->string('countries')->nullable();
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->bigInteger('created_by');
             $table->timestamps();
         });
