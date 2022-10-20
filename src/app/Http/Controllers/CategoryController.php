@@ -30,7 +30,6 @@ class CategoryController extends Controller
         if (!$canCreateConf) {
             abort(403, 'Create category can Admin only' );
         }
-
         $category = new Category();
 
         $category->name = $request->input('name');
@@ -42,9 +41,24 @@ class CategoryController extends Controller
     
     public function getCategories()
     {
-        $categories = Category::all();
+        $isAdmin = Gate::allows('isAdmin');
+        $canCreateConf = $isAdmin;
+        if (!$canCreateConf) {
+            abort(403, 'See category list can Admin only' );
+        }
+       $categories = Category::with('children')
+            ->whereNull('category_id')
+            ->get();
+
         return Inertia::render('Categories/CategoriesList', [
             'categories' => $categories
         ]);
+    }
+    public function deleteCategory($categoryId)
+    {
+        Category::where('id', $categoryId)
+        ->delete();
+        Category::where('category_id', $categoryId)
+        ->delete();
     }
 }

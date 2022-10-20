@@ -18,10 +18,6 @@ class Category extends Model
         'category_id',
     ];
 
-        /**
-     * The users that belong to the reports.
-     */
-
     public function parent()
     {
         return $this->belongsTo(
@@ -29,14 +25,23 @@ class Category extends Model
         );
     }
 
-    /**
-     * The conferences that belong to the reports.
-     */
+    public function parents()
+    {
+        return $this->belongsTo(
+            Category::class, 'category_id'
+        )->with('parent');
+    }
+
+    public function child() {
+        return $this->hasMany(
+            Category::class, 'category_id'
+        );
+    }
 
     public function children() {
         return $this->hasMany(
-            Category::class, 'category_id', 'id'
-        );
+            Category::class, 'category_id'
+        )->with('children');
     }
     
 }
