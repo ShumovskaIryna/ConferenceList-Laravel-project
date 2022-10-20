@@ -17,7 +17,10 @@ class CategoryController extends Controller
         if (!$canCreateConf) {
             abort(403, 'Create category can Admin only' );
         }
-        return Inertia::render('Categories/CategoryForm');
+        $categories = Category::all();
+        return Inertia::render('Categories/CategoryForm', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(StoreCategoryRequest $request)
@@ -31,6 +34,7 @@ class CategoryController extends Controller
         $category = new Category();
 
         $category->name = $request->input('name');
+        $category->category_id = $request->input('category_id');
         $category->save();
 
         return redirect(RouteServiceProvider::HOME);
