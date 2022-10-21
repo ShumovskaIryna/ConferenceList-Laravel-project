@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTrash} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -35,21 +36,49 @@ const props = defineProps({
                         <tbody v-for="category in props.categories">
                         <tr>
                             <td scope="row">{{ category.id }}</td>
-                            <td scope="row">{{ category.name }}  
-                                <ul v-for="child in category.children">
-                                    <li>{{ child.name }} 
-                                        <Link :href="route('category_delete', child.id )">
-                                            <font-awesome-icon icon="fa-solid fa-trash" />
-                                        </Link>
-                                        <ul v-for="grandChild in child.children">
-                                            <li>{{ grandChild.name }}
-                                                <Link :href="route('category_delete', grandChild.id )">
-                                                    <font-awesome-icon icon="fa-solid fa-trash" />
-                                                </Link>
+                            <td scope="row">
+                                <Disclosure>
+                                    <DisclosureButton className="py-2">
+                                        {{ category.name }} 
+                                    </DisclosureButton>
+                                    <DisclosurePanel className="text-gray-600">
+                                        <ul v-for="child in category.children">
+                                            <li>
+                                                <Disclosure>
+                                                    <DisclosureButton className="py-2">
+                                                        {{ child.name }}
+                                                            <Link :href="route('category_delete', child.id )">
+                                                                <font-awesome-icon icon="fa-solid fa-trash" />
+                                                            </Link>
+                                                    </DisclosureButton> 
+                                                    <DisclosurePanel className="text-gray-500">
+                                                        <ul v-for="grandChild in child.children">
+                                                            <li>
+                                                                <Disclosure>
+                                                                    <DisclosureButton className="py-2">
+                                                                        {{ grandChild.name }}
+                                                                            <Link :href="route('category_delete', grandChild.id )">
+                                                                                <font-awesome-icon icon="fa-solid fa-trash" />
+                                                                            </Link>
+                                                                    </DisclosureButton> 
+                                                                    <DisclosurePanel className="text-gray-400">
+                                                                        <ul v-for="ggrandChild in grandChild.children">
+                                                                            <li>{{ ggrandChild.name }}
+                                                                                <Link :href="route('category_delete', ggrandChild.id )">
+                                                                                    <font-awesome-icon icon="fa-solid fa-trash" />
+                                                                                </Link>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </DisclosurePanel>
+                                                                </Disclosure>
+                                                            </li>
+                                                        </ul>
+                                                    </DisclosurePanel>
+                                                </Disclosure>
                                             </li>
                                         </ul>
-                                    </li>
-                                </ul>
+                                    </DisclosurePanel>
+                                </Disclosure>
                             </td>
                             <td scope="row">
                                 <Link :href="route('category_delete', category.id )">
