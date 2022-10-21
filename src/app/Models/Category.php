@@ -29,7 +29,9 @@ class Category extends Model
     {
         return $this->belongsTo(
             Category::class, 'category_id'
-        )->with('parent');
+        )
+        ->with('parent')
+        ->withCount(['conferences', 'reports']);
     }
 
     public function child() {
@@ -41,7 +43,24 @@ class Category extends Model
     public function children() {
         return $this->hasMany(
             Category::class, 'category_id'
-        )->with('children');
+        )
+        ->with('children')
+        ->withCount(['conferences', 'reports']);
+    }
+    
+
+    public function conferences()
+    {
+        return $this->belongsTo(
+            Conference::class, 'id', 'category'
+        );
+    }
+
+    public function reports()
+    {
+        return $this->belongsTo(
+            Report::class, 'id', 'category'
+        );
     }
     
 }

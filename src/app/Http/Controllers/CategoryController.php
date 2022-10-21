@@ -47,7 +47,8 @@ class CategoryController extends Controller
         if (!$canCreateConf) {
             abort(403, 'See category list can Admin only' );
         }
-       $categories = Category::with('children')
+       $categories = Category::with(['children'])
+            ->withCount(['conferences', 'reports'])
             ->whereNull('category_id')
             ->get();
 
