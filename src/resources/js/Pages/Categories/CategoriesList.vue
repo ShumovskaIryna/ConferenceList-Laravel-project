@@ -6,9 +6,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash} from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faTrash)
+library.add(faTrash, faPen)
 
 const props = defineProps({
     categories: {
@@ -48,7 +48,10 @@ const props = defineProps({
                                                     <DisclosureButton className="py-2">
                                                         {{ child.name }}
                                                             <Link :href="route('category_delete', child.id )">
-                                                                <font-awesome-icon icon="fa-solid fa-trash" />
+                                                                <font-awesome-icon class="ml-1" icon="fa-solid fa-trash" />
+                                                            </Link>
+                                                            <Link :href="route('category_edit', child.id )">
+                                                                <font-awesome-icon class="ml-1" icon="fa-solid fa-pen" />
                                                             </Link>
                                                     </DisclosureButton> 
                                                     <DisclosurePanel className="text-gray-500">
@@ -58,14 +61,20 @@ const props = defineProps({
                                                                     <DisclosureButton className="py-2">
                                                                         {{ grandChild.name }}
                                                                             <Link :href="route('category_delete', grandChild.id )">
-                                                                                <font-awesome-icon icon="fa-solid fa-trash" />
+                                                                                <font-awesome-icon class="ml-1" icon="fa-solid fa-trash" />
+                                                                            </Link>
+                                                                            <Link :href="route('category_edit', grandChild.id )">
+                                                                                <font-awesome-icon class="ml-1" icon="fa-solid fa-pen" />
                                                                             </Link>
                                                                     </DisclosureButton> 
                                                                     <DisclosurePanel className="text-gray-400">
                                                                         <ul v-for="ggrandChild in grandChild.children">
                                                                             <li>{{ ggrandChild.name }}
                                                                                 <Link :href="route('category_delete', ggrandChild.id )">
-                                                                                    <font-awesome-icon icon="fa-solid fa-trash" />
+                                                                                    <font-awesome-icon class="ml-1" icon="fa-solid fa-trash" />
+                                                                                </Link>
+                                                                                <Link :href="route('category_edit', ggrandChild.id )">
+                                                                                    <font-awesome-icon class="ml-1" icon="fa-solid fa-pen" />
                                                                                 </Link>
                                                                             </li>
                                                                         </ul>
@@ -86,6 +95,9 @@ const props = defineProps({
                                 </Link>
                             </td>
                             <td scope="row">
+                                <Link :href="route('category_edit', category.id )">
+                                    <font-awesome-icon icon="fa-solid fa-pen" />
+                                </Link>
                             </td>
                         </tr>
                         </tbody>

@@ -128,3 +128,10 @@ Route::get('/category-list', [CategoryController::class, 'getCategories'])
 
 Route::get('/category-list/{categoryId}/delete', [CategoryController::class, 'deleteCategory'])
     ->name('category_delete');
+
+Route::get('/category-list/{categoryId}/edit', [CategoryController::class, 'editCategory'])
+    ->name('category_edit');
+
+Route::post('/category-list/{categoryId}/edit', [CategoryController::class, 'editSaveCategory'])
+    ->name('category_save_edit');
+    

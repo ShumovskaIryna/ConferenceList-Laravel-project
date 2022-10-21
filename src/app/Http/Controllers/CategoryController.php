@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
@@ -25,6 +25,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
+        $validated = $request->validated();
         $isAdmin = Gate::allows('isAdmin');
         $canCreateConf = $isAdmin;
         if (!$canCreateConf) {
@@ -36,7 +37,7 @@ class CategoryController extends Controller
         $category->category_id = $request->input('category_id');
         $category->save();
 
-        return redirect(RouteServiceProvider::HOME);
+        return Redirect::route('category_list');
     }
     
     public function getCategories()
@@ -60,5 +61,41 @@ class CategoryController extends Controller
         ->delete();
         Category::where('category_id', $categoryId)
         ->delete();
+    }
+
+    public function editCategory($categoryId)
+    {
+        $isAdmin = Gate::allows('isAdmin');
+        $canCreateConf = $isAdmin;
+        if (!$canCreateConf) {
+            abort(403, 'Edit category can Admin only' );
+        }
+        $category = Category::with('children')
+        ->findOrFail($categoryId);
+
+        $categories = Category::with('children')
+        ->get();
+            
+        return Inertia::render('Categories/CategoryEdit', [
+            'categories' => $categories,
+            'category' => $category
+        ]);
+    }
+    
+    public function editSaveCategory($categoryId, StoreCategoryRequest $request)
+    {
+        $validated = $request->validated();
+        $isAdmin = Gate::allows('isAdmin');
+        $canCreateConf = $isAdmin;
+        if (!$canCreateConf) {
+            abort(403, 'Edit category can Admin only' );
+        }
+        $category = Category::findOrFail($categoryId);
+
+        $category->name = $request->input('name');
+        $category->category_id = $request->input('category_id');
+        $category->save();
+
+        return Redirect::route('category_list');
     }
 }
