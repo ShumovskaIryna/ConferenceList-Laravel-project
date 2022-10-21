@@ -14,6 +14,13 @@ const url = window.location.href;
 const lastParam = url.split("/");
 const confId = lastParam[CONFERENCE_ID_INDEX];
 
+const props = defineProps({
+    categories: {
+        type: Array,
+        default: [],
+    },
+});
+
 const form = useForm({
     topic: '',
     time_start: '',
@@ -82,9 +89,7 @@ const submit = () => {
                     <div class="mt-4 block w-full">
                         <InputLabel for="category" value="Category" />
                         <select id="category" class="mt-1 block w-full" v-model="form.category">
-                            <!-- <option v-for="category in props.category" :value="category.name"
-                                    class="form-control">{{ category.name }}
-                                </option> -->
+                            <option v-for="category in props.categories" :value="category.id">{{ category.name }}</option>
                         </select>
                         <InputError class="mt-2" :message="form.errors.category" />
                     </div>

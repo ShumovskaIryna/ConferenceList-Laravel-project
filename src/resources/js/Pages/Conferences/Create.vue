@@ -20,6 +20,10 @@ const props = defineProps({
     center: {
         type: Object,
     },
+    categories: {
+        type: Array,
+        default: [],
+    },
 });
 
 const form = useForm({
@@ -99,9 +103,7 @@ const submit = () => {
                     <div class="mt-4">
                         <InputLabel for="category" value="Category" />
                         <select id="category" class="mt-1 block w-full" v-model="form.category">
-                            <!-- <option v-for="category in props.category" :value="category.name"
-                                    class="form-control">{{ category.name }}
-                                </option> -->
+                            <option v-for="category in props.categories" :value="category.id">{{ category.name }}</option>
                         </select>
                         <InputError class="mt-2" :message="form.errors.category" />
                     </div>

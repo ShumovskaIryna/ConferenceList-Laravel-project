@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Country;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\StoreConferenceRequest;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -64,8 +65,10 @@ class ConferenceController extends Controller
             abort(403, 'Create conference can Admin and Announcer only' );
         }
         $countries = Country::all();
+        $categories = Category::all();
         return Inertia::render('Conferences/Create', [
-            'countries' => $countries
+            'countries' => $countries,
+            'categories' => $categories
         ]);
     }
 

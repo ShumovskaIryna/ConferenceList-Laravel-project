@@ -6,6 +6,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -55,8 +56,11 @@ Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConfere
     ->name('join');
 
 Route::get('/conferences/{id}/report-form', function () {
-    return Inertia::render('Reports/ReportForm');
-})->name('get_report_form');
+    $categories = Category::all();
+    return Inertia::render('Reports/ReportForm', [
+        'categories' => $categories
+    ]);})
+    ->name('get_report_form');
 
 Route::post('/conferences/{id}/report-create', [ReportController::class, 'create'])
     ->name('report_create');
