@@ -20,6 +20,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    categories: {
+        type: Array,
+        default: [],
+    },
 });
 
 const form = useForm({
@@ -28,7 +32,7 @@ const form = useForm({
     time_finish: props.report.time_finish,
     description: props.report.description,
     file: props.report.filePath,
-    category: '',
+    category: props.report.category,
     terms: false,
 });
 
@@ -95,9 +99,7 @@ function unjoin(confId)
                     <div class="mt-4 block w-full">
                         <InputLabel for="category" value="Category" />
                         <select id="category" class="mt-1 block w-full" v-model="form.category">
-                            <!-- <option v-for="category in props.category" :value="category.name"
-                                    class="form-control">{{ category.name }}
-                                </option> -->
+                            <option v-for="category in props.categories" :value="category.id">{{ category.name }}</option>
                         </select>
                         <InputError class="mt-2" :message="form.errors.category" />
                     </div>

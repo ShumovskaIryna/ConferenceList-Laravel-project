@@ -112,10 +112,12 @@ class ConferenceController extends Controller
         if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not edit this conference');
         }
+        $categories = Category::all();
         $countries = Country::all();
         return Inertia::render('Conferences/Edit', [
             'countries' => $countries,
-            'conference' => Conference::findOrFail($id)
+            'conference' => Conference::findOrFail($id),
+            'categories' => $categories
         ]);
     }
 
