@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ReportsUsers extends Model
 {
@@ -21,7 +22,7 @@ class ReportsUsers extends Model
         $reportUser = new ReportsUsers();
         $reportUser->user_id = $userId;
         $reportUser->report_id = $reportId;
-        $reportUser->liked_at = date('d-m-y h:i:s');
+        $reportUser->liked_at = Carbon::now();
         $reportUser->save();
     }
 

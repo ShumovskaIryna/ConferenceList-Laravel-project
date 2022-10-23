@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Conference;
 use App\Models\ConferencesUsers;
 use App\Models\User;
@@ -51,7 +52,7 @@ class ConferenceController extends Controller
         $users = User::find($userId);
 
         $conferences->users()->attach($users, [
-            'joined_at' => date('d-m-y h:i:s'),
+            'joined_at' => Carbon::now()
         ]);
         return redirect(RouteServiceProvider::HOME);
     }

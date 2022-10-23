@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ConferencesUsers extends Model
 {
@@ -16,7 +17,7 @@ class ConferencesUsers extends Model
         $confUser = new ConferencesUsers();
         $confUser->user_id = $userId;
         $confUser->conference_id = $conferenceId;
-        $confUser->joined_at = date('d-m-y h:i:s');
+        $confUser->joined_at = Carbon::now();
         $confUser->save();
     }
 
