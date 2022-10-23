@@ -19,9 +19,9 @@ const props = defineProps({
     },
 });
 
-function createReport(id)
+function createReport(id, categoryId)
 {
-    Inertia.get(route("get_report_form", id));
+    Inertia.get(route("get_report_form", [id, categoryId]));
 }
 
 function join(id)
@@ -104,7 +104,7 @@ function unjoin(id)
                                     <div v-else>
                                         <button v-if="props.auth?.user?.role === 'ANNOUNCER'"
                                                 class="btn btn-outline-success mt-1"
-                                                @click="createReport(conference.id)">
+                                                @click="createReport(conference.id, conference.category)">
                                             Join
                                         </button>
                                         <button v-else

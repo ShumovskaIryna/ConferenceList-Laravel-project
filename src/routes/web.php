@@ -6,7 +6,6 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\CategoryController;
-use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -55,14 +54,10 @@ Route::delete('/conferences/{id}/delete', [ConferenceController::class, 'deleteC
 Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
     ->name('join');
 
-Route::get('/conferences/{id}/report-form', function () {
-    $categories = Category::all();
-    return Inertia::render('Reports/ReportForm', [
-        'categories' => $categories
-    ]);})
+Route::get('/conferences/{id}/report-form/{categoryId}', [ReportController::class, 'create'])
     ->name('get_report_form');
 
-Route::post('/conferences/{id}/report-create', [ReportController::class, 'create'])
+Route::post('/conferences/{id}/report-create', [ReportController::class, 'store'])
     ->name('report_create');
 
 Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports'])
@@ -86,10 +81,10 @@ Route::post('/conferences/{confId}/reports-list/{reportId}/comment-edit/{comment
 Route::get('/conferences/{confId}/reports-list/{reportId}', [ReportController::class, 'detailReport'])
     ->name('report_details');
 
-Route::get('/conferences/{confId}/reports-list/{reportId}/edit', [ReportController::class, 'editReport'])
+Route::get('/conferences/{confId}/reports-list/{reportId}/edit/{categoryId}', [ReportController::class, 'editReport'])
     ->name('report_edit');
 
-Route::post('/conferences/{confId}/reports-list/{reportId}/edit', [ReportController::class, 'editSaveReport'])
+Route::post('/conferences/{confId}/reports-list/{reportId}/edit/{categoryId}', [ReportController::class, 'editSaveReport'])
     ->name('edit_save_report');
 
 Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])

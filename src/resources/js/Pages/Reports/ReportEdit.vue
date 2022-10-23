@@ -24,6 +24,10 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    conference: {
+        type: Array,
+        default: [],
+    }
 });
 
 const form = useForm({
@@ -37,7 +41,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('edit_save_report',[confId, props.report.id]));
+    form.post(route('edit_save_report',[confId, props.report.id, props.conference.category]));
 };
 
 function unjoin(confId)

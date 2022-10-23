@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Report;
+use App\Models\Conference;
 use App\Http\Requests\StoreCommentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -35,11 +36,13 @@ class CommentController extends Controller
 
         $report = new Report;
         $comments = new Comment;
+        $conference = Conference::find($confId);
         $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
         $reportById = $report->getReportId($userId, $confId, $reportId);
         return Inertia::render('Reports/ReportDetails', [
             'report' => $reportById,
-            'comments' => $paginatedComments
+            'comments' => $paginatedComments,
+            'conference' => $conference
         ]);
     }
 

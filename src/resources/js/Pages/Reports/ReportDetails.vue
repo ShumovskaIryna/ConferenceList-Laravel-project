@@ -28,6 +28,10 @@ const props = defineProps({
     comment: {
         type: Array,
         default: [],
+    },
+    conference: {
+        type: Array,
+        default: [],
     }
 });
 
@@ -104,7 +108,7 @@ function editComment(confId, reportId, commentId)
                         </a>
                     </div>
                     <div v-if="props.report.isOwn" class="mt-4">
-                        <Link :href="route('report_edit', [confId, props.report.id])">
+                        <Link :href="route('report_edit', [confId, props.report.id, props.conference.category])">
                             <button class="mb-4 mr-2 btn btn-outline-warning">
                                 Edit
                             </button>

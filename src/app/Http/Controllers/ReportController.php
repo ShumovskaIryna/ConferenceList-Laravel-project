@@ -7,6 +7,7 @@ use App\Models\ConferencesUsers;
 use App\Models\Conference;
 use App\Models\ReportsUsers;
 use App\Models\Report;
+use App\Models\Category;
 use App\Http\Requests\StoreReportRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -26,7 +27,20 @@ class ReportController extends Controller
      * @return Illuminate\Http\Response
      */
 
-    public function create($confId, StoreReportRequest $request)
+    public function create($confId, $categoryId)
+    {
+        $conference = Conference::find($confId);
+        $categories = Category::with('children')
+        ->where('category_id', $categoryId)
+        ->orWhere('id', $categoryId)
+        ->get();
+       return Inertia::render('Reports/ReportForm', [
+           'categories' => $categories,
+            'conference' => $conference
+       ]);
+    }
+
+    public function store ($confId, StoreReportRequest $request)
     {
         $userId = Auth::id();
 
@@ -121,20 +135,28 @@ class ReportController extends Controller
         $userId = Auth::id();
 
         $report = new Report;
-
+        $conference = Conference::find($confId);
         $comments = new Comment;
         $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
         $reportById = $report->getReportId($userId, $confId, $reportId);
         return Inertia::render('Reports/ReportDetails', [
             'report' => $reportById,
-            'comments' => $paginatedComments
+            'comments' => $paginatedComments,
+            'conference' => $conference
         ]);
     }
 
-    public function editReport($confId, $reportId)
+    public function editReport($confId, $reportId, $categoryId)
     {
+         $categories = Category::with('children')
+         ->where('category_id', $categoryId)
+         ->orWhere('id', $categoryId)
+         ->get();
+        $conference = Conference::find($confId);
         return Inertia::render('Reports/ReportEdit', [
-            'report' => Report::findOrFail($reportId)
+            'report' => Report::findOrFail($reportId),
+            'categories' => $categories,
+            'conference' => $conference
         ]);
     }
     
@@ -165,12 +187,14 @@ class ReportController extends Controller
         $report->category = $request->input('category');
         $report->save();
 
+        $conference = Conference::find($confId);
         $comments = new Comment;
         $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
         $reportById = $report->getReportId($userId, $confId, $reportId);
         return Inertia::render('Reports/ReportDetails', [
             'report' => $reportById,
-            'comments' => $paginatedComments
+            'comments' => $paginatedComments,
+            'conference' => $conference
         ]);
     }
 
