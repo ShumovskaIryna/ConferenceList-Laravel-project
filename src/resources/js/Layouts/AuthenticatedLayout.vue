@@ -43,21 +43,6 @@ const MAX_FAV_COUNT = 99;
                                     </button>
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
-                                       $page.props.auth.user?.role === 'ADMIN'"
-                                 class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                                <NavLink :href="route('conference_new')" :active="route().current('conference_new')"
-                                         class="font-bold text-lg text-sky-700 no-underline">
-                                    <button type="button"
-                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
-                                            rounded-md text-sky-600 hover:text-sky-800
-                                            focus:outline-none transition ease-in-out duration-150">
-                                        <span class="font-bold text-lg text-sky-800">
-                                            +New
-                                        </span>
-                                    </button>
-                                </NavLink>
-                            </div>
                             <div v-if="$page.props.auth.user?.role === 'ADMIN'"
                                  class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                                  <NavLink :href="route('category_list')" :active="route().current('category_list')"
@@ -68,17 +53,6 @@ const MAX_FAV_COUNT = 99;
                                             focus:outline-none transition ease-in-out duration-150">
                                         <span class="font-bold text-lg text-sky-800">
                                             Categories
-                                        </span>
-                                    </button>
-                                </NavLink>
-                                <NavLink :href="route('category_new')" :active="route().current('category_new')"
-                                         class="font-bold text-lg text-sky-700 no-underline">
-                                    <button type="button"
-                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
-                                            rounded-md text-sky-600 hover:text-sky-800
-                                            focus:outline-none transition ease-in-out duration-150">
-                                        <span class="font-bold text-lg text-sky-800">
-                                            +Category
                                         </span>
                                     </button>
                                 </NavLink>
@@ -171,19 +145,10 @@ const MAX_FAV_COUNT = 99;
                             Conferences
                         </ResponsiveNavLink>
                     </div>
-                    <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' || $page.props.auth.user?.role === 'ADMIN'"
-                         class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('conference_new')" :active="route().current('conference_new')">
-                            +New
-                        </ResponsiveNavLink>
-                    </div>
                     <div v-if="$page.props.auth.user?.role === 'ADMIN'"
                         class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('category_list')" :active="route().current('category_list')">
                             Categories
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('category_new')" :active="route().current('category_new')">
-                            +Category
                         </ResponsiveNavLink>
                     </div>
                     <template v-if="$page.props.auth?.user">

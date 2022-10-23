@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
 import {Share} from 'vue3-social-share';
@@ -44,6 +45,14 @@ function unjoin(id)
 
                     <h2>I AM {{props.auth?.user?.role || 'GUEST'}}</h2>
 
+                    <div v-if="props.auth.user?.role === 'ANNOUNCER' ||
+                        props.auth.user?.role === 'ADMIN'"
+                        class="relative text-right bg-blue-200">
+                        <ResponsiveNavLink class="no-underline text-sky-700" 
+                            :href="route('conference_new')" :active="route().current('conference_new')">
+                            <h4>+ New Conference</h4>
+                        </ResponsiveNavLink>
+                    </div>
                     <b-table class="table">
                         <thead>
                         <tr>

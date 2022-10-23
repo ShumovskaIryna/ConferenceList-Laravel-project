@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -23,12 +24,18 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-x-scroll shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="relative text-right bg-blue-200">
+                        <ResponsiveNavLink class="no-underline text-sky-700" 
+                            :href="route('category_new')" :active="route().current('category_new')">
+                            <h4>+ New Category</h4>
+                        </ResponsiveNavLink>
+                    </div>
                     <b-table class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Categories</th>
-                            <th scope="col">Conferences/Reports Count</th>
+                            <th scope="col">Conference / Report Counter</th>
                             <th scope="col">Delete</th>
                             <th scope="col">Edit</th>
                         </tr>
