@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Conference;
+use App\Models\Report;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -75,6 +76,8 @@ class CategoryController extends Controller
         $parent->delete();
 
         Conference::where('category', $categoryId)
+        ->update(['category' => null]);
+        Report::where('category', $categoryId)
         ->update(['category' => null]);
     }
 
