@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faHeart)
 
 const showingNavigationDropdown = ref(false);
+const MAX_FAV_COUNT = 99;
 </script>
 
 <template>
@@ -86,11 +87,11 @@ const showingNavigationDropdown = ref(false);
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
-                                <button v-if="99 >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
+                                <button v-if="MAX_FAV_COUNT >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
                                         <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
                                 </button>
-                                <button v-if="$page.props.auth.user?.favCount > 99" class="mt-1 btn btn-outline-danger">
-                                        <font-awesome-icon icon="fa-solid fa-heart" /> 99+
+                                <button v-if="$page.props.auth.user?.favCount > MAX_FAV_COUNT" class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> {{MAX_FAV_COUNT}}+
                                 </button>
                             </Link>
                             <div class="ml-3 relative">
@@ -139,11 +140,11 @@ const showingNavigationDropdown = ref(false);
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
                             <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
-                                <button v-if="99 >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
+                                <button v-if="MAX_FAV_COUNT >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
                                     <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
                                 </button>
-                                <button v-if="$page.props.auth.user?.favCount > 99" class="mt-1 btn btn-outline-danger">
-                                    <font-awesome-icon icon="fa-solid fa-heart" /> 99+
+                                <button v-if="$page.props.auth.user?.favCount > MAX_FAV_COUNT" class="mt-1 btn btn-outline-danger">
+                                    <font-awesome-icon icon="fa-solid fa-heart" /> {{MAX_FAV_COUNT}}+
                                 </button>
                             </Link>
                             <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
