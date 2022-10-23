@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Conference;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -58,10 +59,23 @@ class CategoryController extends Controller
     }
     public function deleteCategory($categoryId)
     {
-        Category::where('id', $categoryId)
-        ->delete();
-        Category::where('category_id', $categoryId)
-        ->delete();
+        $parent = Category::find($categoryId);
+        foreach ($parent->children as $child){
+            foreach ($child->children as $grandChild){
+                foreach ($grandChild->children as $ggrandChild){
+                    foreach ($ggrandChild->children as $gggrandChild){
+                        $gggrandChild->delete();
+                    }
+                    $ggrandChild->delete();
+                }
+                $grandChild->delete();
+            }
+            $child->delete();
+        }
+        $parent->delete();
+
+        Conference::where('category', $categoryId)
+        ->update(['category' => null]);
     }
 
     public function editCategory($categoryId)
