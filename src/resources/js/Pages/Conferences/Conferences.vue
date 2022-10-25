@@ -8,6 +8,7 @@ import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Pagination from '@/Components/Pagination.vue'
+import Filters from '../../Components/Filters.vue'
 
 const props = defineProps({
     conferences: {
@@ -40,7 +41,11 @@ function unjoin(id)
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-x-scroll shadow-sm sm:rounded-lg">
+            <div class="w-full inline-block sm:px-6 lg:px-8">
+                <div class="hidden sm:flex relative w-48 max-h-max p-2 mr-4 bg-white shadow-sm sm:rounded-lg float-left">
+                    <Filters/>
+                </div>
+                <div class="relative bg-white overflow-x-scroll shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
 
                     <h2>I AM {{props.auth?.user?.role || 'GUEST'}}</h2>
@@ -132,6 +137,7 @@ function unjoin(id)
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </AuthenticatedLayout>
