@@ -49,8 +49,8 @@ function unlikeReport(confId, reportId)
                         <Filters/>
                     </div>
                     <div v-if="props.reports.data.length == 0"
-                        class="min-h-screen flex flex-col items-center bg-gray-100">
-                        <div class="w-full sm:max-w-md px-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                        class="relative w-full sm:w-auto min-h-screen flex flex-col items-center bg-gray-100">
+                        <div class="ml-2 mr-2 p-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                             This conference don`t have any reports 🤷‍♀️
                         </div>
                     </div>
