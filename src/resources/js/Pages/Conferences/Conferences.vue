@@ -115,20 +115,27 @@ function unjoin(id)
                                                 </div>
                                         </div>
                                         <div v-else>
-                                        <button v-if="props.auth?.user?.role === 'ANNOUNCER'"
-                                                class="btn btn-outline-success mt-1"
-                                                @click="createReport(conference.id, conference.category)">
-                                            Join
-                                        </button>
-                                        <button v-else
-                                                class="btn btn-outline-success mt-1"
-                                                @click="join(conference.id)">
-                                            Join
-                                        </button>
+                                            <div v-if="props.auth?.user?.role === 'ANNOUNCER'">
+                                                <button v-if="conference.category"
+                                                        class="btn btn-outline-success mt-1"
+                                                        @click="createReport(conference.id, conference.category)">
+                                                    Join
+                                                </button>
+                                                <button v-else
+                                                        class="btn btn-outline-success mt-1"
+                                                        @click="createReport(conference.id, 0)">
+                                                    Join
+                                                </button>
+                                            </div>
+                                            <button v-else
+                                                    class="btn btn-outline-success mt-1"
+                                                    @click="join(conference.id)">
+                                                Join
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </b-table>
                         <div class="relative flex justify-center">
