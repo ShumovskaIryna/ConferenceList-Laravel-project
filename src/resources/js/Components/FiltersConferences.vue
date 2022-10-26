@@ -1,5 +1,6 @@
 <script setup>
 import {useForm} from '@inertiajs/inertia-vue3';
+
 const props = defineProps({
     countReport: {
     type: Array,
