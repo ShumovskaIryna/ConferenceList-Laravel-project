@@ -19,6 +19,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    categories: {
+        type: Array,
+        default: [],
+    },
 });
 
 function createReport(id, categoryId)
@@ -42,7 +46,8 @@ function unjoin(id)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="sm:flex relative w-full sm:w-48 max-h-max p-2 mb-2 mr-1 bg-white shadow-sm sm:rounded-lg float-left">
-                    <Filters/>
+                    <Filters
+                    :categories = "props.categories"/>
                 </div>
                 <div class="relative bg-white w-full sm:w-auto ml-2 overflow-x-scroll shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">

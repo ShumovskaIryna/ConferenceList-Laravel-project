@@ -78,10 +78,11 @@ class ConferenceController extends Controller
         $userId = Auth::id();
 
         $conferences = new Conference;
-
+        $categories = Category::all();
         $paginatedConferences = $conferences->getPaginateConf($userId);
         return Inertia::render('Conferences/Conferences', [
-            'conferences' => $paginatedConferences
+            'conferences' => $paginatedConferences,
+            'categories' => $categories
         ]);
     }
 

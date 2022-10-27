@@ -69,24 +69,23 @@ const submit = () => {
                 </div>
                 <h6>Select Category</h6>
                 <div class="mt-2 mb-2">
-                 <Multiselect
-                    v-model="form.selectedCategories"
-                    label="name"
-                    name="name" 
-                    track-by="id"
-                    @input="onMultipleSelectIput"
-                    :options="categoriesNames"
-                    >
-                 </Multiselect>
+                    <Multiselect
+                        v-model="form.selectedCategories"
+                        label="name"
+                        name="name"
+                        track-by="id"
+                        @input="onMultipleSelectIput"
+                        :options="categoriesNames">
+                    </Multiselect>
                  <pre>{{ form.selectedCategories }}</pre>
                 </div>
                 <div class="flex items-center justify-end mt-4">
-                        <PrimaryButton class="ml-4"
-                                       :class="{ 'opacity-25': form.processing }"
-                                       :disabled="form.processing">
-                            Apply
-                        </PrimaryButton>
-                    </div>
+                    <PrimaryButton class="ml-4"
+                                    :class="{ 'opacity-25': form.processing }"
+                                    :disabled="form.processing">
+                        Apply
+                    </PrimaryButton>
+                </div>
             </form>
         </div>
     </div>
