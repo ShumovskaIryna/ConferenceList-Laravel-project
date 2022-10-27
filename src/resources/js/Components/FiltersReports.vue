@@ -1,31 +1,49 @@
 <script setup>
 import {useForm} from '@inertiajs/inertia-vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
     durationReport: {
-    type: Array,
-    default: [5, 35],
-},
+        type: Array,
+        default: [5, 35],
+    },
     timeConf: {
-    type: Array,
-    default: [],
-}
+        type: Array,
+        default: [],
+    },
+    categories:{
+        type: Array,
+        default: [],
+    }
 });
 
 const form = useForm({
     maxDurationReport: props.durationReport[0],
     minDurationReport: props.durationReport[1],
-    category: '',
+    selectedCategories: [7],
     TimeStart: props.timeConf[0],
     TimeFinish: props.timeConf[1],
     terms: false,
 });
 
+const categoriesNames = props.categories.map((category) => ({
+    id: category.id,
+    name: category.name
+}));
+
+function onMultipleSelectIput(...args) {
+    console.log(args)
+}
+
+const submit = () => {
+    form.post(route('conference_create'));
+};
+
 </script> 
 <template>
     <div class="relative inline-block top-0 left-0 border-b border-gray-200">
         <div class="single-sidebar-box">
-            <form>
+            <form @submit.prevent="submit">
                 <h6>Time Start</h6>
                 <div class="mt-2 mb-2">
                     <Datepicker 
@@ -51,15 +69,24 @@ const form = useForm({
                 </div>
                 <h6>Select Category</h6>
                 <div class="mt-2 mb-2">
-                    <div class="form-group">
-                        <input type="checkbox">
-                    It
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" >
-                    Transport
-                    </div>
+                 <Multiselect
+                    v-model="form.selectedCategories"
+                    label="name"
+                    name="name" 
+                    track-by="id"
+                    @input="onMultipleSelectIput"
+                    :options="categoriesNames"
+                    >
+                 </Multiselect>
+                 <pre>{{ form.selectedCategories }}</pre>
                 </div>
+                <div class="flex items-center justify-end mt-4">
+                        <PrimaryButton class="ml-4"
+                                       :class="{ 'opacity-25': form.processing }"
+                                       :disabled="form.processing">
+                            Apply
+                        </PrimaryButton>
+                    </div>
             </form>
         </div>
     </div>

@@ -35,7 +35,7 @@ class ReportController extends Controller
         ->orWhere('id', $categoryId)
         ->get();
        return Inertia::render('Reports/ReportForm', [
-           'categories' => $categories,
+            'categories' => $categories,
             'conference' => $conference
        ]);
     }
@@ -49,7 +49,6 @@ class ReportController extends Controller
         if (!Gate::allows('isAnnouncer')) {
             abort(403, 'Create report can Announcer only' );
         }
-    // Validation for date
         $time_start = $request->input('time_start');
         $time_finish = $request->input('time_finish');
 
@@ -76,7 +75,6 @@ class ReportController extends Controller
                     'Try this time '.$isTimeBooked[0]->time_finish.'. Conference start at '.$isTimeBooked[0]->date
             ]);
         }
-    // end Validation for date
         $uploadedFile = $request->file('file');
         $filename = $uploadedFile->getClientOriginalName();
 
@@ -118,9 +116,10 @@ class ReportController extends Controller
         $reports = new Report;
 
         $paginatedReports = $reports->getPaginateReports($userId, $confId);
-
+        $categories = Category::all();
         return Inertia::render('Reports/ReportsList', [
-            'reports' => $paginatedReports
+            'reports' => $paginatedReports,
+            'categories' => $categories
         ]);
     }
 

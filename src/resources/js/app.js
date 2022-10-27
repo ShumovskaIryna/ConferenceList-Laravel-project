@@ -13,6 +13,8 @@ import Slider from '@vueform/slider';
 import '@vueform/slider/themes/default.css';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import Multiselect from '@vueform/multiselect'
+import '@vueform/multiselect/themes/default.css'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -25,9 +27,10 @@ createInertiaApp({
             .use(ZiggyVue, Ziggy)
             .use(PeterAlbusVue)
             .use( CKEditor )
-            .use( Slider, Datepicker )
+            .use( Slider, Datepicker, Multiselect)
             .component('Slider', Slider)
             .component('Datepicker', Datepicker)
+            .component('Multiselect', Multiselect)
             .use(VueGoogleMaps, {
                 load: {
                     key: 'AIzaSyA69OWMQ-Hpg2G4Cwx5rvnDfAnJRxTKpTQ',

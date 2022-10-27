@@ -23,6 +23,10 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    categories: {
+        type: Array,
+        default: [],
+    },
 });
 
 function likeReport(confId, reportId)
@@ -46,7 +50,8 @@ function unlikeReport(confId, reportId)
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-5">
                 <div class="w-full inline-block sm:px-6 lg:px-8">
                     <div class="sm:flex relative w-full sm:w-48 max-h-max p-2 mb-2 bg-white shadow-sm sm:rounded-lg float-left">
-                        <Filters/>
+                        <Filters 
+                        :categories = "props.categories"/>
                     </div>
                     <div v-if="props.reports.data.length == 0"
                         class="relative w-full sm:w-auto min-h-screen flex flex-col items-center bg-gray-100">
