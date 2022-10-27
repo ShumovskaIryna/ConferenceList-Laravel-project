@@ -108,7 +108,12 @@ function editComment(confId, reportId, commentId)
                         </a>
                     </div>
                     <div v-if="props.report.isOwn" class="mt-4">
-                        <Link :href="route('report_edit', [confId, props.report.id, props.conference.category])">
+                        <Link v-if="props.conference.category" :href="route('report_edit', [confId, props.report.id, props.conference.category])">
+                            <button class="mb-4 mr-2 btn btn-outline-warning">
+                                Edit
+                            </button>
+                        </Link>
+                        <Link v-else :href="route('report_edit', [confId, props.report.id, 0])">
                             <button class="mb-4 mr-2 btn btn-outline-warning">
                                 Edit
                             </button>

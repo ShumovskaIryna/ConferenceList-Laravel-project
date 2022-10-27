@@ -41,7 +41,14 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('edit_save_report',[confId, props.report.id, props.conference.category]));
+    if (props.conference.category)
+    {
+        form.post(route('edit_save_report',[confId, props.report.id, props.conference.category]));
+    }
+    else
+    {
+        form.post(route('edit_save_report',[confId, props.report.id, 0]));
+    }
 };
 
 function unjoin(confId)
