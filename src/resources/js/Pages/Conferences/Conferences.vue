@@ -42,7 +42,10 @@ function unjoin(id)
 
 function submitFilter(values)
 {
-console.log(values)
+    Inertia.get(
+        route('conferences_list'),
+        values,
+    );
 }
 </script>
 

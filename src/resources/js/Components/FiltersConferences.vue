@@ -4,7 +4,7 @@ export default {
   props: {
     countReport: {
         type: Array,
-        default: [5, 35],
+        default: [0, 40],
     },
     dateConf: {
         type: Array,
@@ -12,7 +12,7 @@ export default {
     },
     selectedCategories: {
         type: Array,
-        default: [7],
+        default: [],
     },
     categories:{
         type: Array,

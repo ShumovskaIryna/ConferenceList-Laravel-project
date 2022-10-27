@@ -26,9 +26,44 @@ class Conference extends Model
             ConferencesUsers::class, 'conference_id', 'id');
     }
 
-    public function getPaginateConf($userId)
+    public function reports()
     {
-        $conferences = $this->with('conferencesUsers')->paginate(15);
+        return $this->hasMany(
+            Report::class, 'conference_id', 'id');
+    }
+
+    public function getPaginateConf(
+        $userId,             
+        $countReport,
+        $dateConf,
+        $selectedCategories,
+    )
+    {
+        $query = $this->with('conferencesUsers');
+
+        if (!empty($countReport)) {
+            $query
+                ->withCount(['reports'])
+                ->havingBetween('reports_count', $countReport);
+        }
+
+        if (!empty($dateConf)) {
+            $query
+                ->where('date', '>=', $dateConf[0]);
+            
+            if ($dateConf[1]) {
+                $query
+                    ->where('date', '<=', $dateConf[1]);
+            }
+        }
+
+        if (!empty($selectedCategories)) {
+            $query
+                ->whereIn('category', $selectedCategories);
+        }
+
+        $conferences = $query->paginate(15);
+
         foreach($conferences as $conf) {
             $isOwn = $conf->created_by === $userId;
             $conf->isOwn = $isOwn;

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Country;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\StoreConferenceRequest;
+use App\Http\Requests\FilterConferenceRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -73,13 +74,24 @@ class ConferenceController extends Controller
         ]);
     }
 
-    public function getConferences()
+    public function getConferences(FilterConferenceRequest $request)
     {
+        $countReport = $request->countReport;
+        $dateConf = $request->dateConf;
+        $selectedCategories = $request->selectedCategories;
+
         $userId = Auth::id();
 
         $conferences = new Conference;
         $categories = Category::all();
-        $paginatedConferences = $conferences->getPaginateConf($userId);
+
+        $paginatedConferences = $conferences->getPaginateConf(
+            $userId,
+            $countReport,
+            $dateConf,
+            $selectedCategories,
+        );
+
         return Inertia::render('Conferences/Conferences', [
             'conferences' => $paginatedConferences,
             'categories' => $categories
