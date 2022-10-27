@@ -1,8 +1,7 @@
-<script setup>
-import {useForm} from '@inertiajs/inertia-vue3';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+<script>
 
-const props = defineProps({
+export default {
+  props: {
     countReport: {
         type: Array,
         default: [5, 35],
@@ -11,73 +10,73 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    selectedCategories: {
+        type: Array,
+        default: [7],
+    },
     categories:{
         type: Array,
         default: [],
-    }
-});
-
-const form = useForm({
-    maxCountReport: props.countReport[0],
-    minCountReport: props.countReport[1],
-    selectedCategories: [7],
-    maxDate: props.dateConf[0],
-    minDate: props.dateConf[1],
-    terms: false,
-});
-
-const categoriesNames = props.categories.map((category) => ({
-    id: category.id,
-    name: category.name
-}));
-
-function onMultipleSelectIput(...args) {
-    console.log(args)
+    },
+  },
+  data: function () {
+    return {
+      options: [],
+    };
+  },
+  created() {
+    this.options = this.categories.map((category) => ({
+      value: category.id,
+      name: category.name
+    }));
+  },
+  methods: {
+    submit() {
+      this.$emit('submit', {
+        countReport: this.countReport,
+        dateConf: this.dateConf,
+        selectedCategories: this.selectedCategories,
+      });
+    },
+  }
 }
-
-const submit = () => {
-    form.post(route('conference_create'));
-};
-
 </script> 
 <template>
-    <div class="relative inline-block top-0 left-0 border-b border-gray-200">
+    <div class="relative inline-block top-0 left-0">
         <div class="single-sidebar-box">
-            <form @submit.prevent="submit">
+            <form>
                 <h6>Count of report in conference</h6>
                 <div class="mt-5 mb-2">
                     <Slider
                         :min="0"
-                        :max="50"
+                        :max="40"
                         :step="1"
-                        v-model="props.countReport">
+                        v-model="countReport">
                     </Slider>
                 </div>
                 <h6>Select date conference</h6>
                 <div class="justify-center mt-2 mb-2">
                     <Datepicker 
                         :range="true"
-                        v-model="props.dateConf">
+                        @input="testtest"
+                        v-model="dateConf">
                     </Datepicker>
                 </div>
                 <h6>Select Category</h6>
                 <div class="mt-2 mb-2">
                     <Multiselect
-                        v-model="form.selectedCategories"
+                        v-model="selectedCategories"
                         label="name"
-                        name="name" 
-                        track-by="id"
-                        @input="onMultipleSelectIput"
-                        :options="categoriesNames">
+                        name="name"
+                        mode="multiple"
+                        track-by="value"
+                        :options="options">
                     </Multiselect>
-                 <pre>{{ form.selectedCategories }}</pre>
                 </div>
                 <div class="flex items-center justify-end mt-4">
-                    <PrimaryButton class="ml-4"
-                                    :class="{ 'opacity-25': form.processing }"
-                                    :disabled="form.processing">
+                    <button class="ml-4 btn btn-success" @click.prevent="submit">
                         Apply
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </div>

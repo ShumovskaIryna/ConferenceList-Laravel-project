@@ -38,6 +38,11 @@ function unlikeReport(confId, reportId)
 {
     Inertia.delete(route("report_unlike", [confId, reportId]));
 }
+
+function submitFilter(values)
+{
+console.log(values)
+}
 </script>
 <template>
     <AuthenticatedLayout>
@@ -51,6 +56,7 @@ function unlikeReport(confId, reportId)
                 <div class="w-full inline-block sm:px-6 lg:px-8">
                     <div class="sm:flex relative w-full sm:w-48 max-h-max p-2 mb-2 bg-white shadow-sm sm:rounded-lg float-left">
                         <Filters 
+                        @submit="submitFilter"
                         :categories = "props.categories"/>
                     </div>
                     <div v-if="props.reports.data.length == 0"

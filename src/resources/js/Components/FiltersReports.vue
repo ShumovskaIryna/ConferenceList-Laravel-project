@@ -1,90 +1,82 @@
-<script setup>
-import {useForm} from '@inertiajs/inertia-vue3';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+<script>
 
-const props = defineProps({
+export default {
+  props: {
     durationReport: {
         type: Array,
         default: [5, 35],
     },
-    timeConf: {
+    timeReport: {
         type: Array,
         default: [],
+    },
+    selectedCategories: {
+        type: Array,
+        default: [7],
     },
     categories:{
         type: Array,
         default: [],
     }
-});
-
-const form = useForm({
-    maxDurationReport: props.durationReport[0],
-    minDurationReport: props.durationReport[1],
-    selectedCategories: [7],
-    TimeStart: props.timeConf[0],
-    TimeFinish: props.timeConf[1],
-    terms: false,
-});
-
-const categoriesNames = props.categories.map((category) => ({
-    id: category.id,
-    name: category.name
-}));
-
-function onMultipleSelectIput(...args) {
-    console.log(args)
+  },
+  data: function () {
+    return {
+      options: [],
+    };
+  },
+  created() {
+    this.options = this.categories.map((category) => ({
+      value: category.id,
+      name: category.name
+    }));
+  },
+  methods: {
+    submit() {
+      this.$emit('submit', {
+        durationReport: this.durationReport,
+        timeReport: this.timeReport,
+        selectedCategories: this.selectedCategories,
+      });
+    },
+  }
 }
-
-const submit = () => {
-    form.post(route('conference_create'));
-};
-
 </script> 
 <template>
-    <div class="relative inline-block top-0 left-0 border-b border-gray-200">
+    <div class="relative inline-block top-0 left-0">
         <div class="single-sidebar-box">
-            <form @submit.prevent="submit">
-                <h6>Time Start</h6>
-                <div class="mt-2 mb-2">
-                    <Datepicker 
-                        :range="true"
-                        v-model="props.timeConf">
-                    </Datepicker>
-                </div>
-                <h6>Time Finish</h6>
-                <div class="mt-2 mb-2">
-                    <Datepicker 
-                        :range="true"
-                        v-model="props.timeConf">
-                    </Datepicker>
-                </div>
+            <form>
                 <h6>Duration of the report</h6>
                 <div class="mt-5 mb-2">
                     <Slider
                         :min="1"
                         :max="60"
                         :step="1"
-                        v-model="props.durationReport">
+                        v-model="durationReport">
                     </Slider>
+                </div>
+                <h6>Time of Report</h6>
+                <div class="mt-2 mb-2">
+                    <Datepicker 
+                        :range="true"
+                        @input="testtest"
+                        v-model="timeReport">
+                    </Datepicker>
                 </div>
                 <h6>Select Category</h6>
                 <div class="mt-2 mb-2">
                     <Multiselect
-                        v-model="form.selectedCategories"
+                        v-model="selectedCategories"
                         label="name"
                         name="name"
-                        track-by="id"
-                        @input="onMultipleSelectIput"
-                        :options="categoriesNames">
+                        mode="multiple"
+                        track-by="value"
+                        :options="options">
                     </Multiselect>
-                 <pre>{{ form.selectedCategories }}</pre>
                 </div>
                 <div class="flex items-center justify-end mt-4">
-                    <PrimaryButton class="ml-4"
-                                    :class="{ 'opacity-25': form.processing }"
-                                    :disabled="form.processing">
+                    <button class="ml-4 btn btn-success" @click.prevent="submit">
                         Apply
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </div>

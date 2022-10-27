@@ -39,6 +39,11 @@ function unjoin(id)
 {
     Inertia.post(route("unjoin", id));
 }
+
+function submitFilter(values)
+{
+console.log(values)
+}
 </script>
 
 <template>
@@ -47,6 +52,7 @@ function unjoin(id)
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="sm:flex relative w-full sm:w-48 max-h-max p-2 mb-2 mr-1 bg-white shadow-sm sm:rounded-lg float-left">
                     <Filters
+                    @submit = "submitFilter"
                     :categories = "props.categories"/>
                 </div>
                 <div class="relative bg-white w-full sm:w-auto ml-2 overflow-x-scroll shadow-sm sm:rounded-lg">
