@@ -9,6 +9,7 @@ use App\Models\ReportsUsers;
 use App\Models\Report;
 use App\Models\Category;
 use App\Http\Requests\StoreReportRequest;
+use App\Http\Requests\FilterReportRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -104,18 +105,29 @@ class ReportController extends Controller
         return Redirect::route('conference_details', $confId);
     }
 
-    public function getReports($confId)
+    public function getReports($confId, FilterReportRequest $request)
     {
         if (!Gate::allows('isAnnouncer') &&
             !Gate::allows('isListener') &&
             !Gate::allows('isAdmin')) {
             return Redirect::route('register');
         }
+
+        $selectedCategories = $request->query('selectedCategories');
+        $timeReport = $request->query('timeReport');
+        $durationReport = $request->query('durationReport');
+
         $userId = Auth::id();
 
         $reports = new Report;
 
-        $paginatedReports = $reports->getPaginateReports($userId, $confId);
+        $paginatedReports = $reports->getPaginateReports(
+            $userId, 
+            $confId,
+            $durationReport,
+            $selectedCategories,
+            $timeReport
+        );
         $categories = Category::all();
         return Inertia::render('Reports/ReportsList', [
             'reports' => $paginatedReports,

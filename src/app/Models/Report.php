@@ -45,12 +45,47 @@ class Report extends Model
             Conference::class, 'conference_id', 'id'
         );
     }
-    public function getPaginateReports($userId, $confId)
+    public function getPaginateReports(
+        $userId, 
+        $confId,
+        $durationReport,
+        $selectedCategories,
+        $timeReport
+    )
     {
-        $reports = $this
-        ->where('conference_id', $confId)
-        ->withCount(['comments'])
-        ->paginate(10);
+        $query = $this
+            ->where('conference_id', $confId)
+            ->withCount(['comments']);
+        
+        if(!empty($selectedCategories)) {
+            $query
+                ->whereIn('category', $selectedCategories);
+        }
+
+
+        if (!empty($durationReport)) {
+            $query
+                ->whereRaw('(TIME_TO_SEC(time_finish) - TIME_TO_SEC(time_start))/60 >= ?', $durationReport[0]);
+
+            if ($durationReport[1]) {
+                $query
+                     ->whereRaw('(TIME_TO_SEC(time_finish) - TIME_TO_SEC(time_start))/60 <= ?', $durationReport[1]);
+            }
+        }
+
+        if (!empty($timeReport)) {
+            
+            $query
+                ->where('time_start', '>=', $timeReport[0]);
+            
+            if ($timeReport[1]) {
+                $query
+                    ->where('time_finish', '<=', $timeReport[1]);
+            }
+        }
+
+        $reports = $query->paginate(10);
+
         foreach($reports as $report)
         {
             $isOwn = $report->created_by === $userId;

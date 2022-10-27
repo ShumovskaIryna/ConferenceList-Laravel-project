@@ -1,10 +1,11 @@
 <script>
+import throttle from 'lodash.throttle';
 
 export default {
   props: {
     durationReport: {
         type: Array,
-        default: [5, 35],
+        default: [0, 60],
     },
     timeReport: {
         type: Array,
@@ -12,7 +13,7 @@ export default {
     },
     selectedCategories: {
         type: Array,
-        default: [7],
+        default: [],
     },
     categories:{
         type: Array,
@@ -22,8 +23,27 @@ export default {
   data: function () {
     return {
       options: [],
+      // params: {
+      //   durationReport: this.filters.durationReport,
+      //   timeReport: this.filters.timeReport,
+      //   selectedCategories: this.filters.selectedCategories,
+      // },
     };
   },
+
+  // watch: {
+  //   params: {
+  //     handler: throttle(function () {
+  //       console.log(987, this.params);
+  //       this.$inertia.get(this.route('conferences'), {
+  //         leftBoard: 4,
+  //         rightBoard: 33
+  //       }, { replace: true, preserveState: true });
+  //     }, 500),
+  //     deep: true,
+  //   },
+  // },
+
   created() {
     this.options = this.categories.map((category) => ({
       value: category.id,
@@ -48,7 +68,7 @@ export default {
                 <h6>Duration of the report</h6>
                 <div class="mt-5 mb-2">
                     <Slider
-                        :min="1"
+                        :min="0"
                         :max="60"
                         :step="1"
                         v-model="durationReport">

@@ -41,7 +41,10 @@ function unlikeReport(confId, reportId)
 
 function submitFilter(values)
 {
-console.log(values)
+    Inertia.get(
+        route('reports_list', confId),
+        values,
+    );
 }
 </script>
 <template>
