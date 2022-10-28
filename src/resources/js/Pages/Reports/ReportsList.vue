@@ -6,11 +6,12 @@ import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Pagination from '@/Components/Pagination.vue'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHeart, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faHeartCirclePlus, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Filters from '../../Components/FiltersReports.vue'
-library.add(faHeart, faHeartCirclePlus)
+library.add(faHeart, faHeartCirclePlus, faFilter)
 
 const CONFERENCE_ID_INDEX = 4;
 
@@ -57,11 +58,19 @@ function submitFilter(values)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-5">
                 <div class="w-full inline-block sm:px-6 lg:px-8">
-                    <div class="sm:flex relative w-full sm:w-48 max-h-max p-2 mb-2 bg-white shadow-sm sm:rounded-lg float-left">
-                        <Filters 
-                        @submit="submitFilter"
-                        :categories = "props.categories"/>
-                    </div>
+                    <Disclosure>
+                        <DisclosureButton className="top-11 left-20 absolute">
+                            <button class="btn btn-outline-secondary mt-4">
+                                <font-awesome-icon icon="fa-solid fa-filter" />
+                            </button>
+                        </DisclosureButton>
+                        <DisclosurePanel className="sm:flex relative w-full sm:w-48 max-h-max p-3 mb-2 mr-1 bg-white shadow-sm sm:rounded-lg float-left">
+                                <Filters
+                                    @submit = "submitFilter"
+                                    :categories = "props.categories"
+                                />
+                        </DisclosurePanel>
+                    </Disclosure>
                     <div v-if="props.reports.data.length == 0"
                         class="relative w-full sm:w-auto min-h-screen flex flex-col items-center bg-gray-100">
                         <div class="ml-2 mr-2 p-4 bg-white shadow-md overflow-hidden sm:rounded-lg">

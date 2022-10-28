@@ -3,12 +3,17 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
-import {Share} from 'vue3-social-share';
+import { Share } from 'vue3-social-share';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Pagination from '@/Components/Pagination.vue'
 import Filters from '../../Components/FiltersConferences.vue'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFilter} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faFilter)
 
 const props = defineProps({
     conferences: {
@@ -53,11 +58,19 @@ function submitFilter(values)
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="sm:flex relative w-full sm:w-48 max-h-max p-2 mb-2 mr-1 bg-white shadow-sm sm:rounded-lg float-left">
-                    <Filters
-                    @submit = "submitFilter"
-                    :categories = "props.categories"/>
-                </div>
+                <Disclosure>
+                    <DisclosureButton className="py-2 top-10 ml-4 absolute">
+                        <button class="btn btn-outline-secondary mt-4">
+                            <font-awesome-icon icon="fa-solid fa-filter" />
+                        </button>
+                    </DisclosureButton>
+                    <DisclosurePanel className="sm:flex relative w-full sm:w-48 max-h-max p-3 mb-2 mr-1 bg-white shadow-sm sm:rounded-lg float-left">
+                            <Filters
+                                @submit = "submitFilter"
+                                :categories = "props.categories"
+                            />
+                    </DisclosurePanel>
+                </Disclosure>
                 <div class="relative bg-white w-full sm:w-auto ml-2 overflow-x-scroll shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
 
