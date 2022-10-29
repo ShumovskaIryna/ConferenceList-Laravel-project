@@ -58,7 +58,9 @@ function submitFilter(values)
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Disclosure>
+                <Disclosure v-if="props.auth.user?.role === 'ANNOUNCER' ||
+                        props.auth.user?.role === 'ADMIN' ||
+                        props.auth.user?.role === 'LISTENER'">
                     <DisclosureButton className="py-2 top-10 ml-4 absolute">
                         <button class="btn btn-outline-secondary mt-4">
                             <font-awesome-icon icon="fa-solid fa-filter" />
