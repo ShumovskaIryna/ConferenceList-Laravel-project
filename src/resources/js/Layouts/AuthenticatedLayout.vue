@@ -5,14 +5,24 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/inertia-vue3';
+import TextInput from '@/Components/TextInput.vue';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faHeart)
+library.add(faHeart, faMagnifyingGlass)
 
 const showingNavigationDropdown = ref(false);
 const MAX_FAV_COUNT = 99;
+
+const form = useForm({
+    requestSearch: '',
+});
+
+const submit = () => {
+    form.get(route('search_list'));
+};
 </script>
 
 <template>
@@ -57,6 +67,28 @@ const MAX_FAV_COUNT = 99;
                                     </button>
                                 </NavLink>
                             </div>
+                        </div>
+                        <div class="flex justify-between h-16">
+                            <Disclosure>
+                                <DisclosureButton class="relative  mr-1 float-left">
+                                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                                </DisclosureButton>
+                                <DisclosurePanel>  
+                                    <form @submit.prevent="submit">
+                                        <TextInput 
+                                            id="search" 
+                                            type="text" 
+                                            v-model="form.requestSearch" class="mt-2 w-36" 
+                                            placeholder="Search"
+                                        />
+                                        <button class="ml-1 btn btn-outline-success"
+                                            :class="{ 'opacity-25': form.processing }"
+                                            :disabled="form.processing">
+                                            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                                        </button>
+                                    </form>
+                                </DisclosurePanel>
+                            </Disclosure>
                         </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
