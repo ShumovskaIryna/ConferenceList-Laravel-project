@@ -131,7 +131,10 @@ class ReportController extends Controller
         $categories = Category::all();
         return Inertia::render('Reports/ReportsList', [
             'reports' => $paginatedReports,
-            'categories' => $categories
+            'categories' => $categories,
+            'durationReport' => $durationReport,
+            'timeReport' => $timeReport,
+            'selectedCategories' => $selectedCategories
         ]);
     }
 

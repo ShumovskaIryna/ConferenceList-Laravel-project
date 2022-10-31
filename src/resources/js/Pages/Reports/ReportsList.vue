@@ -28,7 +28,25 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    durationReport: {
+        type: Array,
+        default: [0, 60]
+    },
+    timeReport: {
+        type: Array,
+        default: []
+    },
+    selectedCategories: {
+        type: Array,
+        default: []
+    },
 });
+
+const filterValue = {
+    durationReport: props.durationReport ?? [0, 60],
+    timeReport: props.timeReport,
+    selectedCategories: props.selectedCategories
+}
 
 function likeReport(confId, reportId)
 {
@@ -67,6 +85,7 @@ function submitFilter(values)
                         <DisclosurePanel className="sm:flex relative w-full sm:w-48 max-h-max p-3 mb-2 mr-1 bg-white shadow-sm sm:rounded-lg float-left">
                                 <Filters
                                     @submit = "submitFilter"
+                                    :defaultFilterValues = "filterValue"
                                     :categories = "props.categories"
                                 />
                         </DisclosurePanel>
