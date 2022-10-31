@@ -2,6 +2,10 @@
 
 export default {
   props: {
+    defaultFilterValues: {
+      type: Object,
+      default: {}
+    },
     countReport: {
         type: Array,
         default: [0, 40],
@@ -33,11 +37,18 @@ export default {
   methods: {
     submit() {
       this.$emit('submit', {
-        countReport: this.countReport,
-        dateConf: this.dateConf,
-        selectedCategories: this.selectedCategories,
+        countReport: this.defaultFilterValues.countReport,
+        dateConf: this.defaultFilterValues.dateConf,
+        selectedCategories: this.defaultFilterValues.selectedCategories,
       });
     },
+    reset() {
+      this.$emit('submit', {
+        countReport: [0, 40],
+        dateConf: '',
+        selectedCategories: '',
+      })
+    }
   }
 }
 </script> 
@@ -51,7 +62,7 @@ export default {
                         :min="0"
                         :max="40"
                         :step="1"
-                        v-model="countReport">
+                        v-model="defaultFilterValues.countReport">
                     </Slider>
                 </div>
                 <h6>Select date conference</h6>
@@ -59,21 +70,24 @@ export default {
                     <Datepicker 
                         :range="true"
                         @input="testtest"
-                        v-model="dateConf">
+                        v-model="defaultFilterValues.dateConf">
                     </Datepicker>
                 </div>
                 <h6>Select Category</h6>
                 <div class="mt-2 mb-2">
                     <Multiselect
-                        v-model="selectedCategories"
                         label="name"
                         name="name"
                         mode="multiple"
                         track-by="value"
-                        :options="options">
+                        :options="options"
+                        v-model="defaultFilterValues.selectedCategories">
                     </Multiselect>
                 </div>
                 <div class="flex items-center justify-end mt-4">
+                  <button class="ml-4 btn" @click.prevent="reset">
+                        Reset
+                    </button>
                     <button class="ml-4 btn btn-success" @click.prevent="submit">
                         Apply
                     </button>

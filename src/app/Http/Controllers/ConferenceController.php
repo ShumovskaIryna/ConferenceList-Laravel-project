@@ -94,7 +94,10 @@ class ConferenceController extends Controller
 
         return Inertia::render('Conferences/Conferences', [
             'conferences' => $paginatedConferences,
-            'categories' => $categories
+            'categories' => $categories,
+            'countReport' => $countReport,
+            'dateConf' => $dateConf,
+            'selectedCategories' => $selectedCategories
         ]);
     }
 
