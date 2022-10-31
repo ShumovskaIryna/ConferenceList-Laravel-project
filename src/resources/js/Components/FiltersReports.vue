@@ -3,6 +3,10 @@ import throttle from 'lodash.throttle';
 
 export default {
   props: {
+    defaultFilterValues: {
+      type: Object,
+      default: {}
+    },
     durationReport: {
         type: Array,
         default: [0, 60],
@@ -23,27 +27,8 @@ export default {
   data: function () {
     return {
       options: [],
-      // params: {
-      //   durationReport: this.filters.durationReport,
-      //   timeReport: this.filters.timeReport,
-      //   selectedCategories: this.filters.selectedCategories,
-      // },
     };
   },
-
-  // watch: {
-  //   params: {
-  //     handler: throttle(function () {
-  //       console.log(987, this.params);
-  //       this.$inertia.get(this.route('conferences'), {
-  //         leftBoard: 4,
-  //         rightBoard: 33
-  //       }, { replace: true, preserveState: true });
-  //     }, 500),
-  //     deep: true,
-  //   },
-  // },
-
   created() {
     this.options = this.categories.map((category) => ({
       value: category.id,
@@ -53,11 +38,18 @@ export default {
   methods: {
     submit() {
       this.$emit('submit', {
-        durationReport: this.durationReport,
-        timeReport: this.timeReport,
-        selectedCategories: this.selectedCategories,
+        durationReport: this.defaultFilterValues.durationReport,
+        timeReport: this.defaultFilterValues.timeReport,
+        selectedCategories: this.defaultFilterValues.selectedCategories,
       });
     },
+    reset() {
+      this.$emit('submit', {
+        durationReport: [0, 60],
+        timeReport: '',
+        selectedCategories: '',
+      })
+    }
   }
 }
 </script> 
@@ -71,7 +63,7 @@ export default {
                         :min="0"
                         :max="60"
                         :step="1"
-                        v-model="durationReport">
+                        v-model="defaultFilterValues.durationReport">
                     </Slider>
                 </div>
                 <h6>Time of Report</h6>
@@ -79,13 +71,13 @@ export default {
                     <Datepicker 
                         :range="true"
                         @input="testtest"
-                        v-model="timeReport">
+                        v-model="defaultFilterValues.timeReport">
                     </Datepicker>
                 </div>
                 <h6>Select Category</h6>
                 <div class="mt-2 mb-2">
                     <Multiselect
-                        v-model="selectedCategories"
+                        v-model="defaultFilterValues.selectedCategories"
                         label="name"
                         name="name"
                         mode="multiple"
@@ -94,6 +86,9 @@ export default {
                     </Multiselect>
                 </div>
                 <div class="flex items-center justify-end mt-4">
+                    <button class="ml-4 btn" @click.prevent="reset">
+                        Reset
+                    </button>
                     <button class="ml-4 btn btn-success" @click.prevent="submit">
                         Apply
                     </button>
