@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import GoBack from '@/Components/GoBack.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
 import 'vue3-social-share/lib/index.css'
@@ -29,11 +30,7 @@ function unlikeReport(confId, reportId)
 </script>
 <template>
     <AuthenticatedLayout>
-        <Link :href="route('conferences_list')">
-            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
-                Back
-            </button>
-        </Link>
+        <GoBack/>
         <div class="py-12">
             <div v-if="props.reports.data.length == 0"
                   class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">

@@ -38,6 +38,7 @@
         "@vuepic/vue-datepicker": "^3.5.2",
         "lodash.throttle": "^4.1.1",
         "vue-loader": "^17.0.0",
+        "vue-router": "^4.1.6",
         "vue3-social-share": "^0.1.7"
     }
 }

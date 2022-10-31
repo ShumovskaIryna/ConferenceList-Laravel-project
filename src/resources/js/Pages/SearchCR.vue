@@ -1,10 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import GoBack from '@/Components/GoBack.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import 'vue3-social-share/lib/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-// import Pagination from '@/Components/Pagination.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHeart, faHeartCirclePlus, faFilter } from '@fortawesome/free-solid-svg-icons'
@@ -24,11 +24,7 @@ const props = defineProps({
 
 <template>
     <AuthenticatedLayout>
-        <Link>
-            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
-                Back
-            </button>
-        </Link>
+        <GoBack/>
         <div class="py-12">
             <Disclosure>
                 <DisclosureButton class="ml-6">
@@ -130,9 +126,6 @@ const props = defineProps({
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="relative flex justify-center">
-                        <Pagination :links="reports.links" />
-                    </div> -->
                 </DisclosurePanel>
             </Disclosure>
         </div>

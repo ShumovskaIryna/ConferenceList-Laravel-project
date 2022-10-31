@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import GoBack from '@/Components/GoBack.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
 import 'vue3-social-share/lib/index.css'
@@ -68,11 +69,7 @@ function submitFilter(values)
 </script>
 <template>
     <AuthenticatedLayout>
-        <Link :href="route('conference_details', confId)">
-            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
-                Back
-            </button>
-        </Link>
+       <GoBack/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-5">
                 <div class="w-full inline-block sm:px-6 lg:px-8">

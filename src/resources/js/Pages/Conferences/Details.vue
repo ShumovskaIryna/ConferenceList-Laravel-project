@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import GoBack from '@/Components/GoBack.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import Map from './Map.vue'
 import {Inertia} from "@inertiajs/inertia";
@@ -48,11 +49,7 @@ function unjoin(id)
     <Head title="Details" />
 
     <AuthenticatedLayout>
-        <Link :href="route('conferences_list')">
-            <button class="absolute ml-4 mt-1 btn btn-outline-primary">
-                Back
-            </button>
-        </Link>
+        <GoBack/>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-2 sm:pt-0 bg-gray-100">
             <div class="w-full mt-5 sm:max-w-md mt-2 px-9 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <div class="row">
