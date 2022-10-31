@@ -74,7 +74,7 @@ function submitFilter(values)
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-5">
                 <div class="w-full inline-block sm:px-6 lg:px-8">
                     <Disclosure>
-                        <DisclosureButton className="top-11 left-20 absolute">
+                        <DisclosureButton className="top-11 left-36 absolute">
                             <button class="btn btn-outline-secondary mt-4">
                                 <font-awesome-icon icon="fa-solid fa-filter" />
                             </button>
