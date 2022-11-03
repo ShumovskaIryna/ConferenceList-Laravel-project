@@ -11,6 +11,7 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Requests\StoreConferenceRequest;
 use App\Http\Requests\FilterConferenceRequest;
 use App\Models\Category;
+use App\Events\DeleteConferenceEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -165,6 +166,16 @@ class ConferenceController extends Controller
         $userId = Auth::id();
         $conference = Conference::find($id);
         $isOwner = $conference->created_by === $userId;
+
+        $participants = User::leftJoin('conferences_users', function($leftJoin) {
+            $leftJoin
+                ->on('conferences_users.user_id', '=', 'users.id');
+        })
+        ->where('conferences_users.conference_id', '=', $id)
+        ->get();
+
+        event(new DeleteConferenceEvent( $conference, $participants));
+        
         if (!Gate::allows('isAdmin') && !$isOwner) {
             abort(403, 'You can not delete this conference');
         }
