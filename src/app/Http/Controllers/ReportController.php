@@ -8,8 +8,10 @@ use App\Models\Conference;
 use App\Models\ReportsUsers;
 use App\Models\Report;
 use App\Models\Category;
+use App\Models\User;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\FilterReportRequest;
+use App\Events\EditReportTimeEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -205,6 +207,18 @@ class ReportController extends Controller
         $comments = new Comment;
         $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
         $reportById = $report->getReportId($userId, $confId, $reportId);
+
+        $listeners = User::where('users.role', '=', 'LISTENER')
+        ->leftJoin('conferences_users', function($leftJoin) {
+            $leftJoin
+                ->on('conferences_users.user_id', '=', 'users.id');
+        })
+        ->where('conferences_users.conference_id', '=', $confId)
+        ->select('users.*')
+        ->get();
+        
+        event(new EditReportTimeEvent( $report, $conference, $listeners));
+
         return Inertia::render('Reports/ReportDetails', [
             'report' => $reportById,
             'comments' => $paginatedComments,
