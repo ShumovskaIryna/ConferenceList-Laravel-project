@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Mail\Subscribe;
+use App\Mail\NewCommentAdded;
 use Illuminate\Support\Facades\Mail;
 use App\Events\AddCommentEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,6 +17,7 @@ class AddCommentEventHandler implements ShouldQueue
      */
     public function handle(AddCommentEvent $event)
     {
-        Mail::to($event->reportOwner->email)->send(new Subscribe('PANDA'));
+        Mail::to($event->reportOwner->email)
+        ->send(new NewCommentAdded($event->reportOwner->first_name, '-Conference title-', $event->comment->user->first_name, $event->comment->report->topic));
     }
 }

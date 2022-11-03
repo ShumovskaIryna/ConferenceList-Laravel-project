@@ -14,10 +14,16 @@ class Comment extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
+    public function report()
+    {
+        return $this->belongsTo(Report::class, 'report_id', 'id');
+    }
+
     public function getPaginateComments($userId, $confId, $reportId)
     {
         $comments = $this->where('report_id', $reportId)
             ->with('user')
+            ->with('report')
             ->paginate(10);
         foreach($comments as $comment)
         {
