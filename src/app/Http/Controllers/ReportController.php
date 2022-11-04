@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\FilterReportRequest;
 use App\Events\EditReportTimeEvent;
+use App\Events\AddAnnouncerEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -89,20 +90,32 @@ class ReportController extends Controller
             $filename
         );
 
-        $reports = new Report();
-        $reports->topic = $request->input('topic');
-        $reports->time_start = $request->input('time_start');
-        $reports->time_finish = $request->input('time_finish');
-        $reports->description = $request->input('description');
-        $reports->file_path = $this->FILE_PATH.$userId.'/'.$filename;
-        $reports->category = $request->input('category');
-        $reports->created_by = $userId;
-        $reports->conference_id = $confId;
+        $report = new Report();
+        $report->topic = $request->input('topic');
+        $report->time_start = $request->input('time_start');
+        $report->time_finish = $request->input('time_finish');
+        $report->description = $request->input('description');
+        $report->file_path = $this->FILE_PATH.$userId.'/'.$filename;
+        $report->category = $request->input('category');
+        $report->created_by = $userId;
+        $report->conference_id = $confId;
 
-        $reports->save();
+        $report->save();
 
         $conferences = new ConferencesUsers();
         $conferences->join($confId, $userId);
+
+        $conference = Conference::find($confId);
+        $listeners = User::where('users.role', '=', 'LISTENER')
+        ->leftJoin('conferences_users', function($leftJoin) {
+            $leftJoin
+                ->on('conferences_users.user_id', '=', 'users.id');
+        })
+        ->where('conferences_users.conference_id', '=', $confId)
+        ->select('users.*')
+        ->get();
+        
+        event(new AddAnnouncerEvent( $report, $conference, $listeners));
 
         return Redirect::route('conference_details', $confId);
     }

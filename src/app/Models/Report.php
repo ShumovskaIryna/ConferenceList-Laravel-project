@@ -19,6 +19,11 @@ class Report extends Model
         return $this->belongsToMany(User::class, 'favorites_reports');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
     /**
      * The conferences that belong to the reports.
      */
@@ -83,8 +88,9 @@ class Report extends Model
                     ->where('time_finish', '<=', $timeReport[1]);
             }
         }
-
-        $reports = $query->paginate(10);
+        $reports = $query
+            ->with('user')
+            ->paginate(10);
 
         foreach($reports as $report)
         {
