@@ -12,6 +12,7 @@ use App\Http\Requests\StoreConferenceRequest;
 use App\Http\Requests\FilterConferenceRequest;
 use App\Models\Category;
 use App\Events\DeleteConferenceEvent;
+use App\Events\AddListenerEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -191,7 +192,18 @@ class ConferenceController extends Controller
         }
         $userId = Auth::id();
         $conferences = new ConferencesUsers();
+        $conference = Conference::find($id);
+        $announcers = User::where('users.role', '=', 'ANNOUNCER')
+        ->leftJoin('conferences_users', function($leftJoin) {
+            $leftJoin
+                ->on('conferences_users.user_id', '=', 'users.id');
+        })
+        ->where('conferences_users.conference_id', '=', $id)
+        ->select('users.*')
+        ->get();
+        $listener = User::find($userId);
         $conferences->join($id,$userId);
+        event(new AddListenerEvent( $conference, $listener, $announcers));
     }
 
     public function unjoinConference($id)
