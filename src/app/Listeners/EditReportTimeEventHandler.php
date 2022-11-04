@@ -22,9 +22,10 @@ class EditReportTimeEventHandler implements ShouldQueue
             ->send(new ReportTimeEdited(
                 $listener->first_name, 
                 $event->conference->title, 
-                $event->report->created_by, 
+                $event->report->user->first_name, 
                 $event->report->topic, 
                 $event->report->time_start,
+                $event->report->time_finish,
             ));
         }
     }

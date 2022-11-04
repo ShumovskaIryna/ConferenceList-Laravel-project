@@ -3,10 +3,9 @@
 
 Dear {{$name}},
 
-At the conference {{$conf_title}} participant <b>{{$report_author}}</b> 
-with a report on the topic <b>{{$report_topic}}</b>
-rescheduled the report
-New report time: {{$new_time_start}}
+At the conference <b>{{$conf_title}}</b> participant <b>{{$report_author}}</b> 
+rescheduled the report <b>{{$report_topic}}</b>.
+New report time: {{$new_time_start}} - {{$new_time_finish}}
 
 Thanks,<br>
 {{ config('app.name') }}

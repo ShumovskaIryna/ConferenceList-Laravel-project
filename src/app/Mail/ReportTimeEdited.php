@@ -15,19 +15,21 @@ class ReportTimeEdited extends Mailable
     public $report_author;
     public $report_topic;
     public $new_time_start;
+    public $new_time_finish;
     /**
      * Create a new message instance.
      *
      * @return void
      */
 
-    public function __construct($name, $conf_title, $report_author, $report_topic, $new_time_start)
+    public function __construct($name, $conf_title, $report_author, $report_topic, $new_time_start, $new_time_finish)
     {
         $this->name = $name;
         $this->conf_title = $conf_title;
-        $this->comment_author = $report_author;
+        $this->report_author = $report_author;
         $this->report_topic = $report_topic;
         $this->new_time_start = $new_time_start;
+        $this->new_time_finish = $new_time_finish;
     }
 
     /**
