@@ -134,3 +134,5 @@ Route::post('/category-list/{categoryId}/edit', [CategoryController::class, 'edi
 Route::get('/search-list', [Controller::class, 'getSearchList'])
     ->name('search_list');
     
+Route::get('conferences-export', [ConferenceController::class,'export'])
+    ->name('conferences_export');

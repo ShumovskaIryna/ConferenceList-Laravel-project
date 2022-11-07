@@ -13,6 +13,8 @@ use App\Http\Requests\FilterConferenceRequest;
 use App\Models\Category;
 use App\Events\DeleteConferenceEvent;
 use App\Events\AddListenerEvent;
+use App\Exports\ConferencesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -20,6 +22,14 @@ use Illuminate\Support\Facades\Gate;
 
 class ConferenceController extends Controller
 {
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    
+    public function export() 
+    {
+        return Excel::download(new ConferencesExport, 'conferences.xlsx');
+    }
 
     /**
      * Store a new conference.

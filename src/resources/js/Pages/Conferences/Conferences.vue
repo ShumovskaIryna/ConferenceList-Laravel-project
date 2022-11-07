@@ -105,6 +105,9 @@ function submitFilter(values)
                             <h4>+ New Conference</h4>
                         </ResponsiveNavLink>
                     </div>
+                    <div v-if="props.auth.user?.role === 'ADMIN'" class="relative text-right">
+                        <a class="btn btn-danger mt-1" :href="route('conferences_export')">Export conferences</a>
+                    </div>
                     <b-table class="table">
                         <thead>
                         <tr>
