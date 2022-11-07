@@ -13,6 +13,8 @@ use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\FilterReportRequest;
 use App\Events\EditReportTimeEvent;
 use App\Events\AddAnnouncerEvent;
+use App\Exports\ReportsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -23,6 +25,15 @@ use Illuminate\Validation\ValidationException;
 class ReportController extends Controller
 {
     public $FILE_PATH = 'files/presentation/';
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+
+    public function export($confId) 
+    {
+        return Excel::download(new ReportsExport($confId), 'reports.xlsx');
+    }
 
     /**
      * Store a new report.

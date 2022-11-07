@@ -41,6 +41,10 @@ const props = defineProps({
         type: Array,
         default: []
     },
+    auth: {
+        type: Object,
+        default: {},
+    },
 });
 
 const filterValue = {
@@ -87,6 +91,11 @@ function submitFilter(values)
                                 />
                         </DisclosurePanel>
                     </Disclosure>
+                    <div v-if="props.auth.user?.role === 'ADMIN'">
+                        <a class="btn btn-danger mt-1 mb-1 ml-4" :href="route('reports_export', confId)">
+                             Export reports
+                        </a>
+                    </div>
                     <div v-if="props.reports.data.length == 0"
                         class="relative w-full sm:w-auto min-h-screen flex flex-col items-center bg-gray-100">
                         <div class="ml-2 mr-2 p-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
