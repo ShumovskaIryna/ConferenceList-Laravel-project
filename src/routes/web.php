@@ -40,6 +40,9 @@ require __DIR__.'/auth.php';
 Route::get('/conferences/{id}/reports-list/reports-export', [ReportController::class, 'export'])
     ->name('reports_export');
 
+Route::get('/conferences/{id}/members-export', [UserController::class, 'export'])
+    ->name('rmembers_export');
+
 Route::get('/create-conference', [ConferenceController::class, 'create'])
     ->name('conference_new');
 
