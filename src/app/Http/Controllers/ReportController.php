@@ -218,6 +218,20 @@ class ReportController extends Controller
         );
 
         $report = Report::find($reportId);
+        $conference = Conference::find($confId);
+        $listeners = User::where('users.role', '=', 'LISTENER')
+        ->leftJoin('conferences_users', function($leftJoin) {
+            $leftJoin
+                ->on('conferences_users.user_id', '=', 'users.id');
+        })
+        ->where('conferences_users.conference_id', '=', $confId)
+        ->select('users.*')
+        ->get();
+
+        if(strtotime($report->time_start) !== strtotime($request->input('time_start')) ||
+        strtotime($report->time_finish) !== strtotime($request->input('time_finish'))) {
+            event(new EditReportTimeEvent( $report, $conference, $listeners));
+        }
 
         $report->topic = $request->input('topic');
         $report->time_start = $request->input('time_start');
@@ -227,21 +241,9 @@ class ReportController extends Controller
         $report->category = $request->input('category');
         $report->save();
 
-        $conference = Conference::find($confId);
         $comments = new Comment;
         $paginatedComments = $comments->getPaginateComments($userId, $confId, $reportId);
         $reportById = $report->getReportId($userId, $confId, $reportId);
-
-        $listeners = User::where('users.role', '=', 'LISTENER')
-        ->leftJoin('conferences_users', function($leftJoin) {
-            $leftJoin
-                ->on('conferences_users.user_id', '=', 'users.id');
-        })
-        ->where('conferences_users.conference_id', '=', $confId)
-        ->select('users.*')
-        ->get();
-        
-        event(new EditReportTimeEvent( $report, $conference, $listeners));
 
         return Inertia::render('Reports/ReportDetails', [
             'report' => $reportById,
