@@ -74,6 +74,11 @@ function submitFilter(values)
 <template>
     <AuthenticatedLayout>
        <GoBack/>
+       <div v-if="props.auth.user?.role === 'ADMIN'" class="top-16 right-4 absolute">
+            <a class="btn btn-danger mt-1 mb-1 ml-4" :href="route('reports_export', confId)">
+                Export reports
+            </a>
+        </div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-5">
                 <div class="w-full inline-block sm:px-6 lg:px-8">
@@ -91,11 +96,6 @@ function submitFilter(values)
                                 />
                         </DisclosurePanel>
                     </Disclosure>
-                    <div v-if="props.auth.user?.role === 'ADMIN'">
-                        <a class="btn btn-danger mt-1 mb-1 ml-4" :href="route('reports_export', confId)">
-                             Export reports
-                        </a>
-                    </div>
                     <div v-if="props.reports.data.length == 0"
                         class="relative w-full sm:w-auto min-h-screen flex flex-col items-center bg-gray-100">
                         <div class="ml-2 mr-2 p-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
