@@ -7,6 +7,8 @@ use App\Models\Comment;
 use App\Models\Report;
 use App\Models\Conference;
 use App\Models\User;
+use App\Exports\CommentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreCommentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -15,6 +17,14 @@ use Inertia\Inertia;
 
 class CommentController extends Controller
 {
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+
+    public function export($confId, $reportId)
+    {
+        return Excel::download(new CommentsExport($confId, $reportId), 'comments.xlsx');
+    }
     
     /**
     * Store a new conference.

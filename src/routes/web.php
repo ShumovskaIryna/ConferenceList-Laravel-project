@@ -41,7 +41,10 @@ Route::get('/conferences/{id}/reports-list/reports-export', [ReportController::c
     ->name('reports_export');
 
 Route::get('/conferences/{id}/members-export', [UserController::class, 'export'])
-    ->name('rmembers_export');
+    ->name('members_export');
+
+Route::get('/conferences/{confId}/reports-list/{reportId}/comments-export', [CommentController::class, 'export'])
+    ->name('comments_export');
 
 Route::get('/create-conference', [ConferenceController::class, 'create'])
     ->name('conference_new');

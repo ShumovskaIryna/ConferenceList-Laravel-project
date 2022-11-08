@@ -33,7 +33,11 @@ const props = defineProps({
     conference: {
         type: Array,
         default: [],
-    }
+    },
+    auth: {
+        type: Object,
+        default: {},
+    },
 });
 
 const form = useForm({
@@ -74,6 +78,11 @@ function editComment(confId, reportId, commentId)
 
     <AuthenticatedLayout>
         <GoBack/>
+        <div v-if="props.auth.user?.role === 'ADMIN'" class="top-16 right-4 absolute">
+            <a class="btn btn-danger mt-1 mb-1 ml-4" :href="route('comments_export', [confId, props.report.id])">
+                Export comments
+            </a>
+        </div>
         <div class="py-12">
             <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">
                 <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">

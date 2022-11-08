@@ -51,7 +51,7 @@ function unjoin(id)
     <AuthenticatedLayout>
         <GoBack/>
         <div v-if="props.auth.user?.role === 'ADMIN'" class="relative text-right">
-            <a class="btn btn-danger mt-1 mr-4" :href="route('rmembers_export', conference.id)">Export members</a>
+            <a class="btn btn-danger mt-1 mr-4" :href="route('members_export', conference.id)">Export members</a>
         </div>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-2 sm:pt-0 bg-gray-100">
             <div class="w-full mt-5 sm:max-w-md mt-2 px-9 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
