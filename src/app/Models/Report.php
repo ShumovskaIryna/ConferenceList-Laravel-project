@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class Report extends Model
 {
@@ -67,7 +68,6 @@ class Report extends Model
                 ->whereIn('category', $selectedCategories);
         }
 
-
         if (!empty($durationReport)) {
             $query
                 ->whereRaw('(TIME_TO_SEC(time_finish) - TIME_TO_SEC(time_start))/60 >= ?', $durationReport[0]);
@@ -79,7 +79,6 @@ class Report extends Model
         }
 
         if (!empty($timeReport)) {
-            
             $query
                 ->where('time_start', '>=', $timeReport[0]);
             
@@ -100,7 +99,6 @@ class Report extends Model
             if (empty($reportsUsers)) {
                 continue;
             }
-
             foreach($reportsUsers as $additionalData) {
                 $isAlreadyLiked = $additionalData->user_id === $userId
                     && $additionalData->liked_at
@@ -118,6 +116,17 @@ class Report extends Model
         $report = $this->where('conference_id', $confId)->findOrFail($reportId);
             $isOwn = $report->created_by === $userId;
             $report->isOwn = $isOwn;
+
+        $now = Carbon::now();
+        $isWaiting = $report->time_start > $now;
+        $isStarted = $report->time_start <= $now;
+        $isNotEnded = $report->time_finish >= $now;
+        $isEnded = $report->time_finish < $now;
+
+        $report->isWaiting = $isWaiting;
+        $report->isStarted = $isStarted;
+        $report->isNotEnded = $isNotEnded;
+        $report->isEnded = $isEnded;
 
         $report->file_path = Storage::url($report->file_path);
         return $report;

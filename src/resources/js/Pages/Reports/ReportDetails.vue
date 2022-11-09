@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import GoBack from '@/Components/GoBack.vue';
+import ZoomButton from '@/Components/ZoomButton.vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import 'vue3-social-share/lib/index.css'
@@ -88,6 +89,9 @@ function editComment(confId, reportId, commentId)
                 <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <div class="mb-2 text-sky-900 text-lg text-center">
                         Report #{{props.report.id}}
+                        <ZoomButton
+                            :conference = "props.conference"
+                            :report = "props.report"/>
                     </div>
                     <div class="mb-2 bg-white text-sky-900 border-b border-gray-200">
                         Topic: {{props.report.topic}}
