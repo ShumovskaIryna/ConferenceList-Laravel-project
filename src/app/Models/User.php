@@ -26,6 +26,7 @@ class User extends Authenticatable
         'countries',
         'phone',
         'role',
+        'favCount',
     ];
 
     /**
@@ -51,5 +52,18 @@ class User extends Authenticatable
     public function conferences()
     {
         return $this->belongsToMany(Conference::class, 'conferences_users');
+    }
+
+    public function reports()
+    {
+        return $this->belongsToMany(Report::class, 'favorites_reports');
+    }
+
+    public function getFavCount() 
+    {
+        return ReportsUsers::where('user_id', $this->id)
+            ->whereNotNull('liked_at')
+            ->get()
+            ->count();
     }
 }

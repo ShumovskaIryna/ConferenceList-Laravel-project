@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -43,23 +44,28 @@ Route::middleware('auth')->group(function () {
                 ->middleware(['signed', 'throttle:6,1'])
                 ->name('verification.verify');
 
-    Route::post('conferences', [ConferenceController::class, 'create'])
-        ->name('conferences');
+    Route::post('/conferences', [ConferenceController::class, 'create'])
+        ->name('conference_create');
 
     Route::get('/conferences/{id}', [ConferenceController::class, 'detailConference'])
-        ->name('Details');
+        ->name('conference_details');
 
     Route::get('/conferences/{id}/edit', [ConferenceController::class, 'editConference'])
-        ->name('Edit');
+        ->name('conference_edit');
 
     Route::post('/conferences/{id}/edit', [ConferenceController::class, 'editSaveConference'])
         ->name('edit_save');
 
     Route::get('/conferences/{id}/delete', [ConferenceController::class, 'deleteConference'])
-        ->name('Delete');
+        ->name('conference_delete');
 
     Route::post('/conferences/{id}/join', [ConferenceController::class, 'joinConference'])
         ->name('join');
+
+    Route::post('/conferences/{id}/report-create', [ReportController::class, 'create'])
+        ->name('report-create');
+
+    Route::get('/conferences/{id}/reports-list', [ReportController::class, 'getReports']);
 
     Route::post('/conferences/{id}/unjoin', [ConferenceController::class, 'unjoinConference'])
         ->name('unjoin');
@@ -75,4 +81,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::get('/user-profile', [RegisteredUserController::class, 'editUser'])
+                ->name('user_profile');
+    
+    Route::post('/user-profile', [RegisteredUserController::class, 'editSaveUser'])
+                ->name('user_profile_update');
 });

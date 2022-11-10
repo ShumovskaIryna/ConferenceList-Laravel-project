@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\User;
+use App\Models\ReportsUsers;
 use App\Providers\RouteServiceProvider;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
@@ -22,7 +23,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        $countries = Country::all();
+        return Inertia::render('Auth/Register', [
+            'countries' => $countries,
+        ]);
     }
 
     /**
@@ -33,18 +37,10 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'birthdate' => 'required|date|before:today',
-            'countries'=>'required',
-            'phone' => 'required|string|max:15',
-            'role' => 'required',
-        ]);
+        $validated = $request->validated();
+        
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -60,9 +56,42 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function getCountries()
+    public function editUser()
     {
+        $userId = Auth::id();
+        $user = User::find($userId);
         $countries = Country::all();
-        return response()->json($countries);
+
+        return Inertia::render('Auth/UserProfile', [
+            'user' => $user,
+            'countries' => $countries,
+        ]);
+    }
+    
+    public function editSaveUser(UpdateUserRequest $request)
+    {
+        $validated = $request->validated();
+
+        $userId = Auth::id();
+        $user = User::find($userId);
+        
+        $favCount = ReportsUsers::where('user_id', $userId)
+        ->whereNotNull('liked_at')
+        ->get()->count();
+    
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->birthdate = $request->input('birthdate');
+        $user->countries = $request->input('countries');
+        $user->phone = $request->input('phone');
+        $user->role = $request->input('role');
+        $user->save();
+
+        $user->favCount = $favCount;
+
+        Auth::login($user);
+        return redirect(RouteServiceProvider::HOME);
     }
 }

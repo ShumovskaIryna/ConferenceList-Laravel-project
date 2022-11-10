@@ -5,9 +5,24 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/inertia-vue3';
+import TextInput from '@/Components/TextInput.vue';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faHeart, faMagnifyingGlass)
 
 const showingNavigationDropdown = ref(false);
+const MAX_FAV_COUNT = 99;
+
+const form = useForm({
+    requestSearch: '',
+});
+
+const submit = () => {
+    form.get(route('search_list'));
+};
 </script>
 
 <template>
@@ -20,44 +35,71 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('Conferences')">
+                                <Link :href="route('conferences_list')">
                                     <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('Conferences')" :active="route().current('Conferences')"
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                                <NavLink :href="route('conferences_list')" :active="route().current('conferences_list')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
-                                                    rounded-md text-sky-600 hover:text-sky-800
-                                                    focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-800">
-                                                    Conferences
-                                                </span>
+                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
+                                            rounded-md text-sky-600 hover:text-sky-800
+                                            focus:outline-none transition ease-in-out duration-150">
+                                        <span class="font-bold text-lg text-sky-800">
+                                            Conferences
+                                        </span>
                                     </button>
                                 </NavLink>
                             </div>
-                            <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
-                                       $page.props.auth.user?.role === 'ADMIN'"
-                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('Create')" :active="route().current('Create')"
+                            <div v-if="$page.props.auth.user?.role === 'ADMIN'"
+                                 class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                                 <NavLink :href="route('category_list')" :active="route().current('category_list')"
                                          class="font-bold text-lg text-sky-700 no-underline">
                                     <button type="button"
-                                            class="inline-flex items-center px-3 py-2 text-sm leading-4 font-bold
-                                                    rounded-md text-sky-600 hover:text-sky-800
-                                                    focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-800">
-                                                    +New
-                                                </span>
+                                            class="inline-flex items-center px-1 py-1 text-sm leading-4 font-bold
+                                            rounded-md text-sky-600 hover:text-sky-800
+                                            focus:outline-none transition ease-in-out duration-150">
+                                        <span class="font-bold text-lg text-sky-800">
+                                            Categories
+                                        </span>
                                     </button>
                                 </NavLink>
                             </div>
                         </div>
+                        <div class="flex justify-between h-16">
+                            <Disclosure>
+                                <DisclosureButton class="relative  mr-1 float-left">
+                                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                                </DisclosureButton>
+                                <DisclosurePanel>  
+                                    <form @submit.prevent="submit">
+                                        <TextInput 
+                                            id="search" 
+                                            type="text" 
+                                            v-model="form.requestSearch" class="mt-2 w-36" 
+                                            placeholder="Search"
+                                        />
+                                        <button class="ml-1 btn btn-outline-success"
+                                            :class="{ 'opacity-25': form.processing }"
+                                            :disabled="form.processing">
+                                            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                                        </button>
+                                    </form>
+                                </DisclosurePanel>
+                            </Disclosure>
+                        </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
+                            <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
+                                <button v-if="MAX_FAV_COUNT >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
+                                </button>
+                                <button v-if="$page.props.auth.user?.favCount > MAX_FAV_COUNT" class="mt-1 btn btn-outline-danger">
+                                        <font-awesome-icon icon="fa-solid fa-heart" /> {{MAX_FAV_COUNT}}+
+                                </button>
+                            </Link>
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
@@ -67,8 +109,7 @@ const showingNavigationDropdown = ref(false);
                                                     border-transparent text-sm leading-4 font-bold
                                                     rounded-md text-sky-600 bg-slate-200 hover:text-sky-800
                                                     focus:outline-none transition ease-in-out duration-150">
-                                                <span
-                                                    class="font-bold text-lg text-sky-600">
+                                                <span class="font-bold text-lg text-sky-600">
                                                     {{ $page.props.auth.user?.first_name || 'Guest'}}
                                                 </span>
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -76,12 +117,15 @@ const showingNavigationDropdown = ref(false);
                                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10
                                                     10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414
                                                     0l-4-4a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd" />
+                                                    clip-rule="evenodd" />
                                                 </svg>
                                             </button>
                                         </span>
                                     </template>
                                     <template #content v-if="$page.props.auth?.user">
+                                        <DropdownLink :href="route('user_profile')">
+                                            Profile
+                                        </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
@@ -101,6 +145,14 @@ const showingNavigationDropdown = ref(false);
                         </div>
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
+                            <Link v-if="$page.props.auth.user?.favCount > 0" :href="route('reports_fav_list')">
+                                <button v-if="MAX_FAV_COUNT >= $page.props.auth.user?.favCount > 0" class="mt-1 btn btn-outline-danger">
+                                    <font-awesome-icon icon="fa-solid fa-heart" /> {{$page.props.auth.user?.favCount}}
+                                </button>
+                                <button v-if="$page.props.auth.user?.favCount > MAX_FAV_COUNT" class="mt-1 btn btn-outline-danger">
+                                    <font-awesome-icon icon="fa-solid fa-heart" /> {{MAX_FAV_COUNT}}+
+                                </button>
+                            </Link>
                             <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
                                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400
                                     hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100
@@ -121,15 +173,14 @@ const showingNavigationDropdown = ref(false);
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
                      class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('Conferences')" :active="route().current('Conferences')">
+                        <ResponsiveNavLink :href="route('conferences_list')" :active="route().current('conferences_list')">
                             Conferences
                         </ResponsiveNavLink>
                     </div>
-                    <div v-if="$page.props.auth.user?.role === 'ANNOUNCER' ||
-                                       $page.props.auth.user?.role === 'ADMIN'"
-                         class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('Create')" :active="route().current('Create')">
-                            +New
+                    <div v-if="$page.props.auth.user?.role === 'ADMIN'"
+                        class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('category_list')" :active="route().current('category_list')">
+                            Categories
                         </ResponsiveNavLink>
                     </div>
                     <template v-if="$page.props.auth?.user">

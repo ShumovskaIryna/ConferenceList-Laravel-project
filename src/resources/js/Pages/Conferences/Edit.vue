@@ -1,11 +1,14 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import GoBack from '@/Components/GoBack.vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Map from './Map.vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 const props = defineProps({
     conference: {
@@ -25,11 +28,10 @@ const props = defineProps({
     position: {
         type: Object,
     },
-});
-axios.get('/get-countries').then(response => {
-    props.countries = response.data;
-}).catch(error => {
-    console.error(error);
+    categories: {
+        type: Array,
+        default: [],
+    },
 });
 
 const form = useForm({
@@ -39,6 +41,7 @@ const form = useForm({
         lat: props.conference.lat,
         lng: props.conference.lng,},
     countries: props.conference.countries,
+    category: props.conference.category,
     terms: false,
 });
 
@@ -51,6 +54,7 @@ form.post(route('edit_save', props.conference.id));
     <Head title="Edit" />
 
     <AuthenticatedLayout>
+        <GoBack/>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <Head title="Edit" />
@@ -94,15 +98,20 @@ form.post(route('edit_save', props.conference.id));
                     <div class="mt-4">
                         <InputLabel for="countries" value="Country" />
                         <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
-                            <option class="form-control" selected>
-                                {{props.conference.countries}}
-                            </option>
                             <option v-for="country in props.countries"
                                     :value="country.nicename" class="form-control">
                                 {{ country.nicename }}
                             </option>
                         </select>
                         <InputError class="mt-2" :message="form.errors.countries" />
+                    </div>
+
+                    <div class="mt-4">
+                        <InputLabel for="category" value="Category" />
+                        <select id="category" class="mt-1 block w-full" v-model="form.category">
+                            <option v-for="category in props.categories" :value="category.id">{{ category.name }}</option>
+                        </select>
+                        <InputError class="mt-2" :message="form.errors.category" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
@@ -113,9 +122,7 @@ form.post(route('edit_save', props.conference.id));
                         </PrimaryButton>
                     </div>
                 </form>
-                <Link :href="route('Details', conference.id)">
-                    <button class="btn btn-outline-dark mr-4">Back</button></Link>
-                <Link :href="route('Delete', conference.id )">
+                <Link :href="route('conference_delete', conference.id )">
                     <button class="btn btn-outline-danger">Delete</button></Link>
             </div>
         </div>

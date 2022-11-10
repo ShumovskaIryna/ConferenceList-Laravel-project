@@ -13,12 +13,6 @@ const props = defineProps({
     },
 });
 
-axios.get('/get-countries').then(response => {
-    props.countries = response.data;
-}).catch(error => {
-    console.error(error);
-});
-
 const form = useForm({
     first_name: '',
     last_name: '',
@@ -82,9 +76,6 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="countries" value="Country" />
                 <select id="countries" class="mt-1 block w-full" v-model="form.countries" required>
-                    <option class="form-control" selected>
-                        Ukraine +380
-                    </option>
                     <option v-for="country in props.countries" :value="country.nicename"
                             class="form-control">{{ country.nicename }} + {{ country.phonecode }}
                     </option>
